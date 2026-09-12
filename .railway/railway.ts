@@ -1,0 +1,31 @@
+import { defineRailway, preserve, project, service } from "railway/iac";
+
+// Last resort for a per-service CaC repo. Prefer one .railway file for the
+// project and drop this if you later combine services into that file.
+export const partial = "web-k";
+
+export default defineRailway(() => {
+  const web_k = service("web-k", {
+    healthcheck: "/login",
+    healthcheckTimeout: 300,
+    env: {
+      APP_DEBUG: preserve(),
+      APP_ENV: preserve(),
+      APP_KEY: preserve(),
+      APP_NAME: preserve(),
+      APP_URL: preserve(),
+      CACHE_STORE: preserve(),
+      DB_CONNECTION: preserve(),
+      DB_URL: preserve(),
+      LOG_CHANNEL: preserve(),
+      LOG_LEVEL: preserve(),
+      QUEUE_CONNECTION: preserve(),
+      SESSION_DRIVER: preserve(),
+    },
+    // dockerfilePath from CaC: "Dockerfile"
+    // builder from CaC: "DOCKERFILE"
+  });
+  return project("web-k", {
+    resources: [web_k],
+  });
+});
