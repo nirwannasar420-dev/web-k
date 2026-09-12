@@ -5,11 +5,13 @@ FROM node:24-bookworm-slim AS frontend
 WORKDIR /app
 
 COPY package.json package-lock.json ./
+
 RUN npm ci --ignore-scripts
 
 COPY resources ./resources
 COPY public ./public
 COPY vite.config.js ./
+
 RUN npm run build
 
 
@@ -18,6 +20,7 @@ FROM composer:2 AS dependencies
 WORKDIR /app
 
 COPY composer.json composer.lock ./
+
 RUN composer install \
     --no-dev \
     --no-interaction \
@@ -29,24 +32,22 @@ RUN composer install \
 
 FROM php:8.5-cli-bookworm AS application
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends --yes \
-        libpq-dev \
-    && docker-php-ext-install -j"$(nproc)" pdo_pgsql \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install -j"$(nproc)" pdo_mysql
 
 WORKDIR /var/www/html
 
 COPY . .
+
 COPY --from=dependencies /app/vendor ./vendor
+
 COPY --from=frontend /app/public/build ./public/build
 
 RUN mkdir -p \
-        storage/framework/cache/data \
-        storage/framework/sessions \
-        storage/framework/views \
-        storage/logs \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && php artisan package:discover --ansi
 
