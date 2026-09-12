@@ -1,4 +1,4 @@
-import { defineRailway, preserve, project, service } from "railway/iac";
+import { defineRailway, github, preserve, project, service } from "railway/iac";
 
 // Last resort for a per-service CaC repo. Prefer one .railway file for the
 // project and drop this if you later combine services into that file.
@@ -6,6 +6,9 @@ export const partial = "web-k";
 
 export default defineRailway(() => {
   const web_k = service("web-k", {
+    source: github("nirwannasar420-dev/web-k", {
+      branch: "main",
+    }),
     build: {
       builder: "DOCKERFILE",
       dockerfilePath: "Dockerfile",
