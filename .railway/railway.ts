@@ -6,6 +6,10 @@ export const partial = "web-k";
 
 export default defineRailway(() => {
   const web_k = service("web-k", {
+    build: {
+      builder: "DOCKERFILE",
+      dockerfilePath: "Dockerfile",
+    },
     healthcheck: "/login",
     healthcheckTimeout: 300,
     env: {
@@ -22,8 +26,6 @@ export default defineRailway(() => {
       QUEUE_CONNECTION: preserve(),
       SESSION_DRIVER: preserve(),
     },
-    // dockerfilePath from CaC: "Dockerfile"
-    // builder from CaC: "DOCKERFILE"
   });
   return project("web-k", {
     resources: [web_k],
