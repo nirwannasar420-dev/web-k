@@ -3,1353 +3,1291 @@
 @section('title', 'Opportunity Details')
 @section('page-title', 'Opportunity Details')
 
+
 @section('styles')
 
 <style>
 
-    /* =========================================================
-       PAGE
-    ========================================================= */
+/* =========================================================
+   PAGE
+========================================================= */
+
+.opportunity-page {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-bottom: 35px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.opportunity-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+
+.opportunity-title-wrap {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.opportunity-main-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #EEF4FF;
+    color: #0B2A6F;
+}
+
+
+.opportunity-main-icon svg {
+    width: 23px !important;
+    height: 23px !important;
+}
+
+
+.opportunity-title h1 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 27px;
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+
+.opportunity-title p {
+    margin: 5px 0 0;
+
+    color: #64748B;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   HEADER BUTTONS
+========================================================= */
+
+.opportunity-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.btn-opportunity {
+    min-height: 38px;
+
+    padding: 0 13px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+
+.btn-opportunity svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+
+.btn-edit {
+    background: #0B2A6F;
+    color: #FFFFFF;
+
+    box-shadow:
+        0 4px 12px rgba(11,42,111,.12);
+}
+
+
+.btn-edit:hover {
+    background: #071D4D;
+    color: #FFFFFF;
+}
+
+
+.btn-back {
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    color: #64748B;
+}
+
+
+.btn-back:hover {
+    background: #F8FAFC;
+    color: #475569;
+}
+
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.opportunity-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(285px, .75fr);
+
+    gap: 18px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.opportunity-card {
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(15,23,42,.04);
+
+    margin-bottom: 18px;
+
+    overflow: hidden;
+}
+
+
+.opportunity-card-inner {
+    padding: 20px;
+}
+
+
+/* =========================================================
+   OPPORTUNITY INFORMATION
+========================================================= */
+
+.card-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+.card-header-left {
+    min-width: 0;
+}
+
+
+.small-label {
+    margin-bottom: 5px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+}
+
+
+.opportunity-name {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.stage-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.stage-prospect {
+    background: #EEF4FF;
+    color: #0B2A6F;
+}
+
+
+.stage-qualified {
+    background: #E8F2FF;
+    color: #1769AA;
+}
+
+
+.stage-proposition {
+    background: #FFF3E6;
+    color: #B85A00;
+}
+
+
+.stage-won {
+    background: #EAF8F0;
+    color: #18784D;
+}
+
+
+.stage-lost {
+    background: #FDECEF;
+    color: #C52E3D;
+}
+
+
+.stage-default {
+    background: #F1F5F9;
+    color: #64748B;
+}
+
+
+/* =========================================================
+   DETAIL GRID
+========================================================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+
+.detail-box {
+    min-height: 74px;
+
+    padding: 13px;
+
+    border: 1px solid #E8EDF3;
+
+    border-radius: 9px;
+
+    background: #F8FAFC;
+}
+
+
+.detail-label {
+    margin-bottom: 6px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .45px;
+}
+
+
+.detail-value {
+    color: #243047;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+
+.revenue-value {
+    color: #0B2A6F;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.stars {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1px;
+}
+
+
+.star-filled {
+    color: #F9AB00;
+
+    font-size: 17px;
+}
+
+
+.star-empty {
+    color: #D5DAE2;
+
+    font-size: 17px;
+}
+
+
+.rating-number {
+    margin-left: 6px;
+
+    color: #64748B;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.notes-section {
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #E2E8F0;
+}
+
+
+.section-title {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.section-subtitle {
+    margin: 4px 0 0;
+
+    color: #94A3B8;
+
+    font-size: 10px;
+}
+
+
+.notes-box {
+    min-height: 70px;
+
+    margin-top: 11px;
+
+    padding: 13px;
+
+    border: 1px solid #E8EDF3;
+
+    border-radius: 9px;
+
+    background: #F8FAFC;
+
+    color: #475569;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+    white-space: pre-line;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.products-card {
+    margin-bottom: 18px;
+}
+
+
+.products-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.products-card-title {
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.products-card-description {
+    margin-top: 4px;
+
+    color: #94A3B8;
+
+    font-size: 10px;
+}
+
+
+.products-count {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 6px 9px;
+
+    border-radius: 7px;
+
+    background: #EEF4FF;
+
+    color: #0B2A6F;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.products-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.products-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.products-table thead {
+    background: #F8FAFC;
+}
+
+
+.products-table th {
+    padding: 11px 14px;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    color: #64748B;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .45px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+.products-table td {
+    padding: 13px 14px;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    color: #475569;
+
+    font-size: 11px;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+
+.products-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+.products-table tbody tr:hover {
+    background: #FAFCFF;
+}
+
+
+/* =========================================================
+   PRODUCT IDENTITY
+========================================================= */
+
+.product-identity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.product-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #EEF4FF;
+
+    color: #0B2A6F;
+}
+
+
+.product-icon svg {
+    width: 17px !important;
+    height: 17px !important;
+}
+
+
+.product-name {
+    color: #172033;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.product-code {
+    margin-top: 3px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+}
+
+
+.product-quantity {
+    color: #334155;
+
+    font-weight: 700;
+}
+
+
+.product-price {
+    color: #475569;
+
+    font-weight: 700;
+}
+
+
+.product-subtotal {
+    color: #172033;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   PRODUCT TOTAL
+========================================================= */
+
+.products-total {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 14px 18px;
+
+    border-top: 1px solid #E2E8F0;
+
+    background: #FAFCFF;
+}
+
+
+.products-total-label {
+    color: #64748B;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.products-total-value {
+    color: #0B2A6F;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   EMPTY PRODUCTS
+========================================================= */
+
+.products-empty {
+    padding: 42px 20px;
+
+    text-align: center;
+
+    color: #94A3B8;
+
+    font-size: 10px;
+}
+
+
+.products-empty-icon {
+    width: 48px;
+    height: 48px;
+
+    margin: 0 auto 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #F1F5F9;
+
+    color: #94A3B8;
+}
+
+
+.products-empty-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+
+.products-empty-title {
+    color: #475569;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.products-empty-text {
+    margin-top: 4px;
+
+    color: #94A3B8;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   RIGHT SIDE CARDS
+========================================================= */
+
+.side-card {
+    padding: 18px;
+}
+
+
+.side-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+.side-icon {
+    width: 39px;
+    height: 39px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #EEF4FF;
+
+    color: #0B2A6F;
+}
+
+
+.side-icon svg {
+    width: 19px !important;
+    height: 19px !important;
+}
+
+
+.side-heading h2 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.side-heading p {
+    margin: 3px 0 0;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.customer-item {
+    margin-bottom: 14px;
+}
+
+
+.customer-label {
+    margin-bottom: 4px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .45px;
+}
+
+
+.customer-value {
+    color: #243047;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+
+.customer-link {
+    width: 100%;
+
+    min-height: 36px;
+
+    margin-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #0B2A6F;
+
+    color: #FFFFFF;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.customer-link:hover {
+    background: #071D4D;
+
+    color: #FFFFFF;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    font-size: 10px;
+}
+
+
+.summary-row:last-child {
+    border-bottom: none;
+
+    padding-bottom: 0;
+}
+
+
+.summary-label {
+    color: #94A3B8;
+}
+
+
+.summary-value {
+    color: #243047;
+
+    font-weight: 800;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   ACTIVITIES
+========================================================= */
+
+.activity-card {
+    margin-top: 18px;
+
+    margin-bottom: 0;
+}
+
+
+.activity-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 2px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.activity-count {
+    display: inline-flex;
+
+    padding: 6px 9px;
+
+    border-radius: 20px;
+
+    background: #EEF4FF;
+
+    color: #0B2A6F;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.activity-item {
+    display: block;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+
+.activity-item:hover {
+    background: #FAFCFF;
+}
+
+
+.activity-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.activity-subject {
+    color: #243047;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.activity-type {
+    margin-top: 4px;
+
+    color: #0B2A6F;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+.activity-status {
+    padding: 5px 8px;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.activity-date {
+    margin-top: 8px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+}
+
+
+.activity-detail-link {
+    float: right;
+
+    color: #0B2A6F;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   EMPTY ACTIVITY
+========================================================= */
+
+.empty-state {
+    padding: 35px 15px;
+
+    text-align: center;
+
+    color: #94A3B8;
+}
+
+
+.empty-icon {
+    margin-bottom: 7px;
+
+    color: #B5BCC7;
+
+    font-size: 27px;
+}
+
+
+.empty-title {
+    margin-bottom: 4px;
+
+    color: #475569;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.empty-text {
+    color: #94A3B8;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
 
     .opportunity-page {
-        width: 100%;
-        max-width: 1180px;
-        margin: 0 auto;
-        padding-bottom: 35px;
+        max-width: 100%;
     }
 
+    .opportunity-grid {
+        grid-template-columns: 1fr;
+    }
 
-    /* =========================================================
-       HEADER
-    ========================================================= */
+}
+
+
+@media (max-width: 700px) {
 
     .opportunity-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
+        flex-direction: column;
 
-        margin-bottom: 22px;
-    }
-
-
-    .opportunity-title-wrap {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-    }
-
-
-    .opportunity-main-icon {
-
-        width: 48px;
-        height: 48px;
-
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 11px;
-
-        background: #EEF4FF;
-        color: #0B2A6F;
-    }
-
-
-    .opportunity-main-icon svg {
-        width: 23px;
-        height: 23px;
-    }
-
-
-    .opportunity-title h1 {
-
-        margin: 0;
-
-        color: #172033;
-
-        font-size: 27px;
-        font-weight: 800;
-
-        line-height: 1.2;
-    }
-
-
-    .opportunity-title p {
-
-        margin: 5px 0 0;
-
-        color: #64748B;
-
-        font-size: 12px;
+        align-items: flex-start;
     }
 
 
     .opportunity-actions {
-
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        width: 100%;
     }
 
 
     .btn-opportunity {
-
-        display: inline-flex;
-
-        align-items: center;
-        justify-content: center;
-
-        gap: 6px;
-
-        min-height: 38px;
-
-        padding: 0 13px;
-
-        border-radius: 8px;
-
-        font-size: 10px;
-        font-weight: 800;
-
-        text-decoration: none;
-
-        transition: .2s ease;
+        flex: 1;
     }
 
-
-    .btn-opportunity svg {
-        width: 14px;
-        height: 14px;
-    }
-
-
-    .btn-edit {
-
-        background: #0B2A6F;
-        color: #FFFFFF;
-
-        box-shadow:
-            0 4px 12px rgba(11,42,111,.12);
-    }
-
-
-    .btn-edit:hover {
-
-        background: #071D4D;
-
-        color: #FFFFFF;
-    }
-
-
-    .btn-back {
-
-        background: #FFFFFF;
-
-        border:
-            1px solid #E2E8F0;
-
-        color: #64748B;
-    }
-
-
-    .btn-back:hover {
-
-        background: #F8FAFC;
-
-        color: #475569;
-    }
-
-
-    /* =========================================================
-       MAIN GRID
-    ========================================================= */
-
-    .opportunity-grid {
-
-        display: grid;
-
-        grid-template-columns:
-            minmax(0, 1.7fr)
-            minmax(285px, .75fr);
-
-        gap: 18px;
-
-        align-items: start;
-    }
-
-
-    /* =========================================================
-       CARD
-    ========================================================= */
-
-    .opportunity-card {
-
-        background: #FFFFFF;
-
-        border:
-            1px solid #E2E8F0;
-
-        border-radius: 12px;
-
-        box-shadow:
-            0 3px 12px
-            rgba(15,23,42,.04);
-
-        margin-bottom: 18px;
-
-        overflow: hidden;
-    }
-
-
-    .opportunity-card-inner {
-        padding: 20px;
-    }
-
-
-    /* =========================================================
-       OPPORTUNITY HEADER CARD
-    ========================================================= */
-
-    .card-header {
-
-        display: flex;
-
-        align-items: flex-start;
-
-        justify-content: space-between;
-
-        gap: 15px;
-
-        margin-bottom: 18px;
-    }
-
-
-    .card-header-left {
-        min-width: 0;
-    }
-
-
-    .small-label {
-
-        margin-bottom: 5px;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        letter-spacing: .7px;
-
-        text-transform: uppercase;
-    }
-
-
-    .opportunity-name {
-
-        margin: 0;
-
-        color: #172033;
-
-        font-size: 20px;
-
-        font-weight: 800;
-
-        line-height: 1.35;
-
-        word-break: break-word;
-    }
-
-
-    /* =========================================================
-       STAGE BADGE
-    ========================================================= */
-
-    .stage-badge {
-
-        display: inline-flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        padding: 7px 11px;
-
-        border-radius: 20px;
-
-        font-size: 10px;
-
-        font-weight: 800;
-
-        white-space: nowrap;
-    }
-
-
-    .stage-prospect {
-        background: #EEF4FF;
-        color: #0B2A6F;
-    }
-
-
-    .stage-qualified {
-        background: #E8F2FF;
-        color: #1769AA;
-    }
-
-
-    .stage-proposition {
-        background: #FFF3E6;
-        color: #B85A00;
-    }
-
-
-    .stage-won {
-        background: #EAF8F0;
-        color: #18784D;
-    }
-
-
-    .stage-lost {
-        background: #FDECEF;
-        color: #C52E3D;
-    }
-
-
-    .stage-default {
-        background: #F1F5F9;
-        color: #64748B;
-    }
-
-
-    /* =========================================================
-       DETAIL GRID
-    ========================================================= */
 
     .detail-grid {
-
-        display: grid;
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
 
-    .detail-box {
-
-        min-height: 74px;
-
-        padding: 13px;
-
-        border:
-            1px solid #E8EDF3;
-
-        border-radius: 9px;
-
-        background: #F8FAFC;
-    }
-
-
-    .detail-label {
-
-        margin-bottom: 6px;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        text-transform: uppercase;
-
-        letter-spacing: .45px;
-    }
-
-
-    .detail-value {
-
-        color: #243047;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
-        line-height: 1.45;
-
-        word-break: break-word;
-    }
-
-
-    .revenue-value {
-
-        color: #0B2A6F;
-
-        font-size: 17px;
-
-        font-weight: 800;
-    }
-
-
-    /* =========================================================
-       RATING
-    ========================================================= */
-
-    .stars {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 1px;
-    }
-
-
-    .star-filled {
-
-        color: #F9AB00;
-
-        font-size: 17px;
-    }
-
-
-    .star-empty {
-
-        color: #D5DAE2;
-
-        font-size: 17px;
-    }
-
-
-    .rating-number {
-
-        margin-left: 6px;
-
-        color: #64748B;
-
-        font-size: 10px;
-
-        font-weight: 700;
-    }
-
-
-    /* =========================================================
-       NOTES
-    ========================================================= */
-
-    .notes-section {
-
-        margin-top: 20px;
-
-        padding-top: 18px;
-
-        border-top:
-            1px solid #E2E8F0;
-    }
-
-
-    .section-title {
-
-        margin: 0;
-
-        color: #172033;
-
-        font-size: 14px;
-
-        font-weight: 800;
-    }
-
-
-    .section-subtitle {
-
-        margin: 4px 0 0;
-
-        color: #94A3B8;
-
-        font-size: 10px;
-    }
-
-
-    .notes-box {
-
-        min-height: 70px;
-
-        margin-top: 11px;
-
-        padding: 13px;
-
-        border:
-            1px solid #E8EDF3;
-
-        border-radius: 9px;
-
-        background: #F8FAFC;
-
-        color: #475569;
-
-        font-size: 11px;
-
-        line-height: 1.7;
-
-        white-space: pre-line;
-
-        box-sizing: border-box;
-    }
-
-
-    /* =========================================================
-       PRODUCT CARD
-    ========================================================= */
-
-    .products-card {
-
-        margin-bottom: 18px;
+    .card-header {
+        flex-direction: column;
     }
 
 
     .products-card-header {
+        align-items: flex-start;
 
-        display: flex;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        gap: 15px;
-
-        padding: 16px 18px;
-
-        border-bottom:
-            1px solid #E2E8F0;
-    }
-
-
-    .products-card-title {
-
-        color: #172033;
-
-        font-size: 14px;
-
-        font-weight: 800;
-    }
-
-
-    .products-card-description {
-
-        margin-top: 4px;
-
-        color: #94A3B8;
-
-        font-size: 10px;
-    }
-
-
-    .products-count {
-
-        display: inline-flex;
-
-        align-items: center;
-
-        padding: 6px 9px;
-
-        border-radius: 7px;
-
-        background: #EEF4FF;
-
-        color: #0B2A6F;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        white-space: nowrap;
-    }
-
-
-    .products-table-wrapper {
-
-        width: 100%;
-
-        overflow-x: auto;
-    }
-
-
-    .products-table {
-
-        width: 100%;
-
-        border-collapse: collapse;
-    }
-
-
-    .products-table thead {
-
-        background: #F8FAFC;
-    }
-
-
-    .products-table th {
-
-        padding: 11px 14px;
-
-        border-bottom:
-            1px solid #E2E8F0;
-
-        color: #64748B;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        text-transform: uppercase;
-
-        letter-spacing: .45px;
-
-        text-align: left;
-
-        white-space: nowrap;
-    }
-
-
-    .products-table td {
-
-        padding: 13px 14px;
-
-        border-bottom:
-            1px solid #F1F5F9;
-
-        color: #475569;
-
-        font-size: 11px;
-
-        vertical-align: middle;
-
-        white-space: nowrap;
-    }
-
-
-    .products-table tbody tr:last-child td {
-
-        border-bottom: none;
-    }
-
-
-    .products-table tbody tr {
-
-        transition: .2s ease;
-    }
-
-
-    .products-table tbody tr:hover {
-
-        background: #FAFCFF;
-    }
-
-
-    .product-identity {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 9px;
-    }
-
-
-    .product-icon {
-
-        width: 34px;
-        height: 34px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        flex-shrink: 0;
-
-        border-radius: 8px;
-
-        background: #EEF4FF;
-
-        color: #0B2A6F;
-    }
-
-
-    .product-icon svg {
-
-        width: 17px;
-        height: 17px;
-    }
-
-
-    .product-name {
-
-        color: #172033;
-
-        font-size: 11px;
-
-        font-weight: 800;
-    }
-
-
-    .product-code {
-
-        margin-top: 3px;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-    }
-
-
-    .product-quantity {
-
-        color: #334155;
-
-        font-weight: 700;
-    }
-
-
-    .product-price {
-
-        color: #475569;
-
-        font-weight: 700;
-    }
-
-
-    .product-subtotal {
-
-        color: #172033;
-
-        font-weight: 800;
-    }
-
-
-    .products-total {
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        gap: 15px;
-
-        padding: 14px 18px;
-
-        border-top:
-            1px solid #E2E8F0;
-
-        background: #FAFCFF;
-    }
-
-
-    .products-total-label {
-
-        color: #64748B;
-
-        font-size: 10px;
-
-        font-weight: 700;
-    }
-
-
-    .products-total-value {
-
-        color: #0B2A6F;
-
-        font-size: 17px;
-
-        font-weight: 800;
-    }
-
-
-    .products-empty {
-
-        padding: 42px 20px;
-
-        text-align: center;
-
-        color: #94A3B8;
-
-        font-size: 10px;
-    }
-
-
-    .products-empty-icon {
-
-        width: 48px;
-        height: 48px;
-
-        margin: 0 auto 11px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        border-radius: 11px;
-
-        background: #F1F5F9;
-
-        color: #94A3B8;
-    }
-
-
-    .products-empty-icon svg {
-
-        width: 22px;
-        height: 22px;
-    }
-
-
-    .products-empty-title {
-
-        color: #475569;
-
-        font-size: 12px;
-
-        font-weight: 700;
-    }
-
-
-    .products-empty-text {
-
-        margin-top: 4px;
-
-        color: #94A3B8;
-
-        font-size: 10px;
-    }
-
-
-    /* =========================================================
-       CUSTOMER CARD
-    ========================================================= */
-
-    .side-card {
-
-        padding: 18px;
-    }
-
-
-    .side-heading {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 10px;
-
-        margin-bottom: 18px;
-    }
-
-
-    .side-icon {
-
-        width: 39px;
-        height: 39px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        flex-shrink: 0;
-
-        border-radius: 9px;
-
-        background: #EEF4FF;
-
-        color: #0B2A6F;
-    }
-
-
-    .side-icon svg {
-
-        width: 19px;
-        height: 19px;
-    }
-
-
-    .side-heading h2 {
-
-        margin: 0;
-
-        color: #172033;
-
-        font-size: 14px;
-
-        font-weight: 800;
-    }
-
-
-    .side-heading p {
-
-        margin: 3px 0 0;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-    }
-
-
-    .customer-item {
-
-        margin-bottom: 14px;
-    }
-
-
-    .customer-label {
-
-        margin-bottom: 4px;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        text-transform: uppercase;
-
-        letter-spacing: .45px;
-    }
-
-
-    .customer-value {
-
-        color: #243047;
-
-        font-size: 11px;
-
-        font-weight: 700;
-
-        line-height: 1.45;
-
-        word-break: break-word;
-    }
-
-
-    .customer-link {
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        width: 100%;
-
-        min-height: 36px;
-
-        margin-top: 18px;
-
-        border-radius: 8px;
-
-        background: #0B2A6F;
-
-        color: #FFFFFF;
-
-        font-size: 10px;
-
-        font-weight: 800;
-
-        text-decoration: none;
-    }
-
-
-    .customer-link:hover {
-
-        background: #071D4D;
-
-        color: #FFFFFF;
-    }
-
-
-    /* =========================================================
-       SUMMARY CARD
-    ========================================================= */
-
-    .summary-row {
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        gap: 12px;
-
-        padding: 10px 0;
-
-        border-bottom:
-            1px solid #F1F5F9;
-
-        font-size: 10px;
-    }
-
-
-    .summary-row:last-child {
-
-        border-bottom: none;
-
-        padding-bottom: 0;
-    }
-
-
-    .summary-label {
-
-        color: #94A3B8;
-    }
-
-
-    .summary-value {
-
-        color: #243047;
-
-        font-weight: 800;
-
-        text-align: right;
-    }
-
-
-    /* =========================================================
-       ACTIVITY CARD
-    ========================================================= */
-
-    .activity-card {
-
-        margin-top: 18px;
-
-        margin-bottom: 0;
+        flex-direction: column;
     }
 
 
     .activity-header {
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        gap: 15px;
-
-        padding-bottom: 15px;
-
-        margin-bottom: 2px;
-
-        border-bottom:
-            1px solid #E2E8F0;
-    }
-
-
-    .activity-count {
-
-        display: inline-flex;
-
-        padding: 6px 9px;
-
-        border-radius: 20px;
-
-        background: #EEF4FF;
-
-        color: #0B2A6F;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        white-space: nowrap;
-    }
-
-
-    .activity-item {
-
-        display: block;
-
-        padding: 13px 0;
-
-        border-bottom:
-            1px solid #F1F5F9;
-
-        color: inherit;
-
-        text-decoration: none;
-    }
-
-
-    .activity-item:last-child {
-
-        border-bottom: none;
-    }
-
-
-    .activity-item:hover {
-
-        background: #FAFCFF;
-    }
-
-
-    .activity-top {
-
-        display: flex;
-
         align-items: flex-start;
 
-        justify-content: space-between;
-
-        gap: 12px;
+        flex-direction: column;
     }
 
-
-    .activity-subject {
-
-        color: #243047;
-
-        font-size: 11px;
-
-        font-weight: 800;
-    }
-
-
-    .activity-type {
-
-        margin-top: 4px;
-
-        color: #0B2A6F;
-
-        font-size: 9px;
-
-        font-weight: 700;
-    }
-
-
-    .activity-status {
-
-        padding: 5px 8px;
-
-        border-radius: 15px;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        white-space: nowrap;
-    }
-
-
-    .activity-date {
-
-        margin-top: 8px;
-
-        color: #94A3B8;
-
-        font-size: 9px;
-    }
-
-
-    .activity-detail-link {
-
-        float: right;
-
-        color: #0B2A6F;
-
-        font-size: 9px;
-
-        font-weight: 700;
-    }
-
-
-    .empty-state {
-
-        padding: 35px 15px;
-
-        text-align: center;
-
-        color: #94A3B8;
-    }
-
-
-    .empty-icon {
-
-        margin-bottom: 7px;
-
-        color: #B5BCC7;
-
-        font-size: 27px;
-    }
-
-
-    .empty-title {
-
-        margin-bottom: 4px;
-
-        color: #475569;
-
-        font-size: 11px;
-
-        font-weight: 700;
-    }
-
-
-    .empty-text {
-
-        color: #94A3B8;
-
-        font-size: 9px;
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 1000px) {
-
-        .opportunity-page {
-            max-width: 100%;
-        }
-
-
-        .opportunity-grid {
-
-            grid-template-columns: 1fr;
-
-        }
-
-    }
-
-
-    @media (max-width: 700px) {
-
-        .opportunity-header {
-
-            flex-direction: column;
-
-            align-items: flex-start;
-
-        }
-
-
-        .opportunity-actions {
-
-            width: 100%;
-
-        }
-
-
-        .btn-opportunity {
-
-            flex: 1;
-
-        }
-
-
-        .detail-grid {
-
-            grid-template-columns: 1fr;
-
-        }
-
-
-        .card-header {
-
-            flex-direction: column;
-
-        }
-
-
-        .products-card-header {
-
-            align-items: flex-start;
-
-            flex-direction: column;
-
-        }
-
-
-        .activity-header {
-
-            align-items: flex-start;
-
-            flex-direction: column;
-
-        }
-
-    }
+}
 
 </style>
-
-
-@php
-
-    $stageName =
-        strtolower(
-            $opportunity->stage->name ?? ''
-        );
-
-
-    if ($stageName === 'prospect') {
-
-        $stageClass =
-            'stage-prospect';
-
-    } elseif ($stageName === 'qualified') {
-
-        $stageClass =
-            'stage-qualified';
-
-    } elseif ($stageName === 'proposition') {
-
-        $stageClass =
-            'stage-proposition';
-
-    } elseif ($stageName === 'won') {
-
-        $stageClass =
-            'stage-won';
-
-    } elseif ($stageName === 'lost') {
-
-        $stageClass =
-            'stage-lost';
-
-    } else {
-
-        $stageClass =
-            'stage-default';
-
-    }
-
-
-    $productItems =
-        $opportunity->items ?? collect();
-
-
-    $productTotal =
-        $productItems->sum(
-            'subtotal'
-        );
-
-@endphp
 
 @endsection
 
 
 @section('content')
 
+@php
+
+    /* =========================================================
+       STAGE CLASS
+    ========================================================= */
+
+    $stageName = strtolower(
+        trim(
+            $opportunity->stage->name ?? ''
+        )
+    );
+
+
+    $stageClass = match ($stageName) {
+
+        'prospect'
+            => 'stage-prospect',
+
+        'qualified'
+            => 'stage-qualified',
+
+        'proposition'
+            => 'stage-proposition',
+
+        'won'
+            => 'stage-won',
+
+        'lost'
+            => 'stage-lost',
+
+        default
+            => 'stage-default',
+
+    };
+
+
+    /* =========================================================
+       PRODUCT ITEMS
+    ========================================================= */
+
+    $productItems =
+        $opportunity->items ?? collect();
+
+
+    $productTotal =
+        $productItems->sum('subtotal');
+
+
+    /* =========================================================
+       QUANTITY FORMATTER
+    ========================================================= */
+
+    $formatQuantity =
+        function ($value) {
+
+            $number = (float) $value;
+
+
+            if ($number == floor($number)) {
+
+                return number_format(
+                    $number,
+                    0,
+                    ',',
+                    '.'
+                );
+
+            }
+
+
+            return rtrim(
+                rtrim(
+                    number_format(
+                        $number,
+                        2,
+                        ',',
+                        '.'
+                    ),
+                    '0'
+                ),
+                ','
+            );
+
+        };
+
+@endphp
+
+
 <div class="opportunity-page">
 
 
-    {{-- =====================================================
+    <!-- =====================================================
          HEADER
-    ====================================================== --}}
+    ====================================================== -->
 
     <div class="opportunity-header">
 
@@ -1382,6 +1320,7 @@
                 <h1>
                     Opportunity Details
                 </h1>
+
 
                 <p>
                     Complete information about this sales opportunity.
@@ -1421,7 +1360,9 @@
 
                 </svg>
 
+
                 Edit
+
 
             </a>
 
@@ -1432,7 +1373,9 @@
                 ) }}"
                 class="btn-opportunity btn-back"
             >
+
                 ← Back
+
             </a>
 
 
@@ -1442,21 +1385,23 @@
     </div>
 
 
-    {{-- =====================================================
+    <!-- =====================================================
          MAIN GRID
-    ====================================================== --}}
+    ====================================================== -->
 
     <div class="opportunity-grid">
 
 
-        {{-- =================================================
+        <!-- =================================================
              LEFT COLUMN
-        ================================================== --}}
+        ================================================== -->
 
         <div>
 
 
-            {{-- OPPORTUNITY INFORMATION --}}
+            <!-- =================================================
+                 OPPORTUNITY INFORMATION
+            ================================================== -->
 
             <div class="opportunity-card">
 
@@ -1471,19 +1416,23 @@
 
 
                             <div class="small-label">
-                                OPPORTUNITY
+                                Opportunity
                             </div>
 
 
                             <h2 class="opportunity-name">
+
                                 {{ $opportunity->name }}
+
                             </h2>
 
 
                         </div>
 
 
-                        <span class="stage-badge {{ $stageClass }}">
+                        <span
+                            class="stage-badge {{ $stageClass }}"
+                        >
 
                             {{ $opportunity->stage->name ?? '-' }}
 
@@ -1496,7 +1445,7 @@
                     <div class="detail-grid">
 
 
-                        {{-- NAME --}}
+                        <!-- OPPORTUNITY NAME -->
 
                         <div class="detail-box">
 
@@ -1507,14 +1456,16 @@
 
 
                             <div class="detail-value">
+
                                 {{ $opportunity->name }}
+
                             </div>
 
 
                         </div>
 
 
-                        {{-- STAGE --}}
+                        <!-- STAGE -->
 
                         <div class="detail-box">
 
@@ -1525,14 +1476,16 @@
 
 
                             <div class="detail-value">
+
                                 {{ $opportunity->stage->name ?? '-' }}
+
                             </div>
 
 
                         </div>
 
 
-                        {{-- REVENUE --}}
+                        <!-- EXPECTED REVENUE -->
 
                         <div class="detail-box">
 
@@ -1545,20 +1498,12 @@
                             <div class="revenue-value">
 
                                 Rp
-                                {{
-    rtrim(
-        rtrim(
-            number_format(
-                (float) $item->quantity,
-                2,
-                ',',
-                '.'
-            ),
-            '0'
-        ),
-        ','
-    )
-}}
+                                {{ number_format(
+                                    (float) $opportunity->expected_revenue,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) }}
 
                             </div>
 
@@ -1566,7 +1511,7 @@
                         </div>
 
 
-                        {{-- RATING --}}
+                        <!-- RATING -->
 
                         <div class="detail-box">
 
@@ -1587,20 +1532,16 @@
 
                                     @if(
                                         $i <=
-                                        $opportunity->rating
+                                        (int) $opportunity->rating
                                     )
 
-                                        <span
-                                            class="star-filled"
-                                        >
+                                        <span class="star-filled">
                                             ★
                                         </span>
 
                                     @else
 
-                                        <span
-                                            class="star-empty"
-                                        >
+                                        <span class="star-empty">
                                             ★
                                         </span>
 
@@ -1611,7 +1552,7 @@
 
                                 <span class="rating-number">
 
-                                    {{ $opportunity->rating }}/5
+                                    {{ (int) $opportunity->rating }}/5
 
                                 </span>
 
@@ -1622,7 +1563,7 @@
                         </div>
 
 
-                        {{-- DATE --}}
+                        <!-- OPPORTUNITY DATE -->
 
                         <div class="detail-box">
 
@@ -1650,14 +1591,13 @@
 
                                 @endif
 
-
                             </div>
 
 
                         </div>
 
 
-                        {{-- CUSTOMER --}}
+                        <!-- CUSTOMER -->
 
                         <div class="detail-box">
 
@@ -1668,14 +1608,19 @@
 
 
                             <div class="detail-value">
-                                {{ $opportunity->customer->name ?? '-' }}
+
+                                {{
+                                    $opportunity->customer->name
+                                    ?? '-'
+                                }}
+
                             </div>
 
 
                         </div>
 
 
-                        {{-- SALESPERSON --}}
+                        <!-- SALESPERSON -->
 
                         <div class="detail-box">
 
@@ -1686,7 +1631,12 @@
 
 
                             <div class="detail-value">
-                                {{ $opportunity->salesperson->name ?? '-' }}
+
+                                {{
+                                    $opportunity->salesperson->name
+                                    ?? '-'
+                                }}
+
                             </div>
 
 
@@ -1696,7 +1646,7 @@
                     </div>
 
 
-                    {{-- NOTES --}}
+                    <!-- NOTES -->
 
                     <div class="notes-section">
 
@@ -1722,10 +1672,10 @@
 
                             @else
 
-                                <span
-                                    style="color:#94A3B8;"
-                                >
+                                <span style="color:#94A3B8;">
+
                                     No notes have been added.
+
                                 </span>
 
                             @endif
@@ -1743,9 +1693,9 @@
             </div>
 
 
-            {{-- =================================================
+            <!-- =================================================
                  PRODUCTS
-            ================================================== --}}
+            ================================================== -->
 
             <div class="opportunity-card products-card">
 
@@ -1754,6 +1704,7 @@
 
 
                     <div>
+
 
                         <div class="products-card-title">
                             Products
@@ -1764,6 +1715,7 @@
                             Products included in this sales opportunity.
                         </div>
 
+
                     </div>
 
 
@@ -1772,7 +1724,7 @@
                         {{ $productItems->count() }}
 
                         {{
-                            $productItems->count() == 1
+                            $productItems->count() === 1
                                 ? 'Product'
                                 : 'Products'
                         }}
@@ -1831,7 +1783,7 @@
                                     <tr>
 
 
-                                        {{-- PRODUCT --}}
+                                        <!-- PRODUCT -->
 
                                         <td>
 
@@ -1840,6 +1792,7 @@
 
 
                                                 <div class="product-icon">
+
 
                                                     <svg
                                                         viewBox="0 0 24 24"
@@ -1864,6 +1817,7 @@
 
                                                     </svg>
 
+
                                                 </div>
 
 
@@ -1873,9 +1827,8 @@
                                                     <div class="product-name">
 
                                                         {{
-                                                            $item
-                                                                ->product
-                                                                ->product_name
+                                                            $item->product
+                                                                ?->product_name
                                                             ?? '-'
                                                         }}
 
@@ -1885,10 +1838,10 @@
                                                     <div class="product-code">
 
                                                         Code:
+
                                                         {{
-                                                            $item
-                                                                ->product
-                                                                ->product_code
+                                                            $item->product
+                                                                ?->product_code
                                                             ?? '-'
                                                         }}
 
@@ -1904,67 +1857,20 @@
                                         </td>
 
 
-                                       {{-- QUANTITY --}}
-
-<td>
-
-    @php
-
-        $quantity = (float) $item->quantity;
-
-        if ($quantity == floor($quantity)) {
-
-            $quantityDisplay = number_format(
-                $quantity,
-                0,
-                ',',
-                '.'
-            );
-
-        } else {
-
-            $quantityDisplay = rtrim(
-                rtrim(
-                    number_format(
-                        $quantity,
-                        2,
-                        ',',
-                        '.'
-                    ),
-                    '0'
-                ),
-                ','
-            );
-
-        }
-
-    @endphp
-
-
-    <span class="product-quantity">
-
-        {{ $quantityDisplay }}
-
-        {{ $item->product->unit ?? '' }}
-
-    </span>
-
-</td>
-                                        {{-- UNIT PRICE --}}
+                                        <!-- QUANTITY -->
 
                                         <td>
 
-                                            <span class="product-price">
 
-                                                Rp
+                                            <span class="product-quantity">
+
+                                                {{ $formatQuantity(
+                                                    $item->quantity
+                                                ) }}
+
                                                 {{
-                                                    number_format(
-                                                        (float)
-                                                        $item->unit_price,
-                                                        0,
-                                                        ',',
-                                                        '.'
-                                                    )
+                                                    $item->product?->unit
+                                                    ?? ''
                                                 }}
 
                                             </span>
@@ -1973,22 +1879,41 @@
                                         </td>
 
 
-                                        {{-- SUBTOTAL --}}
+                                        <!-- UNIT PRICE -->
 
                                         <td>
+
+
+                                            <span class="product-price">
+
+                                                Rp
+                                                {{ number_format(
+                                                    (float) $item->unit_price,
+                                                    0,
+                                                    ',',
+                                                    '.'
+                                                ) }}
+
+                                            </span>
+
+
+                                        </td>
+
+
+                                        <!-- SUBTOTAL -->
+
+                                        <td>
+
 
                                             <span class="product-subtotal">
 
                                                 Rp
-                                                {{
-                                                    number_format(
-                                                        (float)
-                                                        $item->subtotal,
-                                                        0,
-                                                        ',',
-                                                        '.'
-                                                    )
-                                                }}
+                                                {{ number_format(
+                                                    (float) $item->subtotal,
+                                                    0,
+                                                    ',',
+                                                    '.'
+                                                ) }}
 
                                             </span>
 
@@ -2011,25 +1936,27 @@
                     </div>
 
 
+                    <!-- PRODUCT TOTAL -->
+
                     <div class="products-total">
 
 
                         <span class="products-total-label">
+
                             Product Total
+
                         </span>
 
 
                         <span class="products-total-value">
 
                             Rp
-                            {{
-                                number_format(
-                                    (float) $productTotal,
-                                    0,
-                                    ',',
-                                    '.'
-                                )
-                            }}
+                            {{ number_format(
+                                (float) $productTotal,
+                                0,
+                                ',',
+                                '.'
+                            ) }}
 
                         </span>
 
@@ -2044,6 +1971,7 @@
 
 
                         <div class="products-empty-icon">
+
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -2068,16 +1996,22 @@
 
                             </svg>
 
+
                         </div>
 
 
                         <div class="products-empty-title">
+
                             No products added
+
                         </div>
 
 
                         <div class="products-empty-text">
-                            No products are currently assigned to this opportunity.
+
+                            No products are currently assigned
+                            to this opportunity.
+
                         </div>
 
 
@@ -2090,9 +2024,9 @@
             </div>
 
 
-            {{-- =================================================
+            <!-- =================================================
                  ACTIVITIES
-            ================================================== --}}
+            ================================================== -->
 
             <div class="opportunity-card activity-card">
 
@@ -2105,6 +2039,7 @@
 
                         <div>
 
+
                             <h3 class="section-title">
                                 Activities
                             </h3>
@@ -2114,6 +2049,7 @@
                                 Activity history for this opportunity.
                             </p>
 
+
                         </div>
 
 
@@ -2122,8 +2058,7 @@
                             {{ $opportunity->activities->count() }}
 
                             {{
-                                $opportunity->activities->count()
-                                == 1
+                                $opportunity->activities->count() === 1
                                     ? 'Activity'
                                     : 'Activities'
                             }}
@@ -2144,14 +2079,15 @@
 
                             $activityStatus =
                                 strtolower(
-                                    $activity->status
-                                    ?? ''
+                                    trim(
+                                        $activity->status
+                                        ?? ''
+                                    )
                                 );
 
 
                             if (
-                                $activityStatus
-                                === 'planned'
+                                $activityStatus === 'planned'
                             ) {
 
                                 $activityStatusBg =
@@ -2161,8 +2097,7 @@
                                     '#B85A00';
 
                             } elseif (
-                                $activityStatus
-                                === 'done'
+                                $activityStatus === 'done'
                             ) {
 
                                 $activityStatusBg =
@@ -2172,8 +2107,7 @@
                                     '#18784D';
 
                             } elseif (
-                                $activityStatus
-                                === 'cancelled'
+                                $activityStatus === 'cancelled'
                             ) {
 
                                 $activityStatusBg =
@@ -2212,7 +2146,10 @@
 
                                     <div class="activity-subject">
 
-                                        {{ $activity->subject }}
+                                        {{
+                                            $activity->subject
+                                            ?? 'Untitled Activity'
+                                        }}
 
                                     </div>
 
@@ -2242,9 +2179,9 @@
                                 >
 
                                     {{
-                                        ucfirst(
-                                            $activityStatus
-                                        )
+                                        $activityStatus
+                                            ? ucfirst($activityStatus)
+                                            : 'Activity'
                                     }}
 
                                 </span>
@@ -2255,9 +2192,7 @@
 
                             <div class="activity-date">
 
-
                                 📅
-
 
                                 @if(
                                     $activity->activity_date
@@ -2266,9 +2201,7 @@
                                     {{
                                         \Illuminate\Support\Carbon::parse(
                                             $activity->activity_date
-                                        )->format(
-                                            'd/m/Y H:i'
-                                        )
+                                        )->format('d/m/Y H:i')
                                     }}
 
                                 @else
@@ -2281,7 +2214,9 @@
                                 <span
                                     class="activity-detail-link"
                                 >
+
                                     View details →
+
                                 </span>
 
 
@@ -2308,7 +2243,8 @@
 
 
                             <div class="empty-text">
-                                No activities have been recorded for this opportunity.
+                                No activities have been recorded
+                                for this opportunity.
                             </div>
 
 
@@ -2327,14 +2263,16 @@
         </div>
 
 
-        {{-- =================================================
+        <!-- =================================================
              RIGHT COLUMN
-        ================================================== --}}
+        ================================================== -->
 
         <div>
 
 
-            {{-- CUSTOMER --}}
+            <!-- =================================================
+                 CUSTOMER
+            ================================================== -->
 
             <div class="opportunity-card customer-card">
 
@@ -2346,6 +2284,7 @@
 
 
                         <div class="side-icon">
+
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -2368,10 +2307,12 @@
 
                             </svg>
 
+
                         </div>
 
 
                         <div>
+
 
                             <h2>
                                 Customer
@@ -2381,6 +2322,7 @@
                             <p>
                                 Customer information
                             </p>
+
 
                         </div>
 
@@ -2393,6 +2335,8 @@
                     )
 
 
+                        <!-- NAME -->
+
                         <div class="customer-item">
 
 
@@ -2402,12 +2346,18 @@
 
 
                             <div class="customer-value">
-                                {{ $opportunity->customer->name }}
+
+                                {{
+                                    $opportunity->customer->name
+                                }}
+
                             </div>
 
 
                         </div>
 
+
+                        <!-- COMPANY -->
 
                         <div class="customer-item">
 
@@ -2430,6 +2380,8 @@
                         </div>
 
 
+                        <!-- EMAIL -->
+
                         @if(
                             !empty(
                                 $opportunity
@@ -2437,7 +2389,6 @@
                                     ->email
                             )
                         )
-
 
                             <div class="customer-item">
 
@@ -2460,9 +2411,10 @@
 
                             </div>
 
-
                         @endif
 
+
+                        <!-- PHONE -->
 
                         @if(
                             !empty(
@@ -2471,7 +2423,6 @@
                                     ->phone
                             )
                         )
-
 
                             <div class="customer-item">
 
@@ -2493,7 +2444,6 @@
 
 
                             </div>
-
 
                         @endif
 
@@ -2535,7 +2485,9 @@
             </div>
 
 
-            {{-- SUMMARY --}}
+            <!-- =================================================
+                 SUMMARY
+            ================================================== -->
 
             <div class="opportunity-card summary-card">
 
@@ -2548,6 +2500,7 @@
 
                         <div class="side-icon">
 
+
                             <svg
                                 viewBox="0 0 24 24"
                                 fill="none"
@@ -2557,9 +2510,7 @@
                                 stroke-linejoin="round"
                             >
 
-                                <path
-                                    d="M12 3v18"
-                                />
+                                <path d="M12 3v18"/>
 
                                 <path
                                     d="M17 7h-5.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H7"
@@ -2567,10 +2518,12 @@
 
                             </svg>
 
+
                         </div>
 
 
                         <div>
+
 
                             <h2>
                                 Summary
@@ -2581,11 +2534,14 @@
                                 Opportunity overview
                             </p>
 
+
                         </div>
 
 
                     </div>
 
+
+                    <!-- STAGE -->
 
                     <div class="summary-row">
 
@@ -2596,12 +2552,16 @@
 
 
                         <span class="summary-value">
+
                             {{ $opportunity->stage->name ?? '-' }}
+
                         </span>
 
 
                     </div>
 
+
+                    <!-- SALESPERSON -->
 
                     <div class="summary-row">
 
@@ -2612,12 +2572,19 @@
 
 
                         <span class="summary-value">
-                            {{ $opportunity->salesperson->name ?? '-' }}
+
+                            {{
+                                $opportunity->salesperson->name
+                                ?? '-'
+                            }}
+
                         </span>
 
 
                     </div>
 
+
+                    <!-- EXPECTED REVENUE -->
 
                     <div class="summary-row">
 
@@ -2630,21 +2597,21 @@
                         <span class="summary-value">
 
                             Rp
-                            {{
-                                number_format(
-                                    (float)
-                                    $opportunity->expected_revenue,
-                                    0,
-                                    ',',
-                                    '.'
-                                )
-                            }}
+                            {{ number_format(
+                                (float)
+                                $opportunity->expected_revenue,
+                                0,
+                                ',',
+                                '.'
+                            ) }}
 
                         </span>
 
 
                     </div>
 
+
+                    <!-- RATING -->
 
                     <div class="summary-row">
 
@@ -2656,13 +2623,15 @@
 
                         <span class="summary-value">
 
-                            {{ $opportunity->rating }}/5
+                            {{ (int) $opportunity->rating }}/5
 
                         </span>
 
 
                     </div>
 
+
+                    <!-- PRODUCTS -->
 
                     <div class="summary-row">
 
@@ -2682,6 +2651,8 @@
                     </div>
 
 
+                    <!-- ACTIVITIES -->
+
                     <div class="summary-row">
 
 
@@ -2692,7 +2663,11 @@
 
                         <span class="summary-value">
 
-                            {{ $opportunity->activities->count() }}
+                            {{
+                                $opportunity
+                                    ->activities
+                                    ->count()
+                            }}
 
                         </span>
 
