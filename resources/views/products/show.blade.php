@@ -1,24 +1,39 @@
 @extends('layouts.app')
 
 @section('title', 'Product Details')
-
 @section('page-title', 'Product Details')
 
 @section('styles')
 
 <style>
 
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
     .product-detail-page {
         width: 100%;
     }
 
+
+    /* =========================================================
+       BACK
+    ========================================================= */
+
     .product-back {
         display: inline-flex;
+
         align-items: center;
+
         gap: 7px;
+
         color: #0B2A6F;
+
         font-size: 12px;
+
         font-weight: 700;
+
+        text-decoration: none;
     }
 
     .product-back:hover {
@@ -26,59 +41,98 @@
     }
 
     .product-back svg {
-        width: 16px;
-        height: 16px;
+        width: 16px !important;
+
+        height: 16px !important;
+
+        flex-shrink: 0;
     }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
 
     .product-detail-header {
         display: flex;
+
         align-items: center;
+
         justify-content: space-between;
+
         gap: 20px;
+
         margin-top: 18px;
+
         margin-bottom: 22px;
     }
 
     .product-detail-title-wrap {
         display: flex;
+
         align-items: center;
+
         gap: 13px;
     }
 
     .product-detail-main-icon {
         width: 48px;
+
         height: 48px;
 
         display: flex;
+
         align-items: center;
+
         justify-content: center;
+
+        flex-shrink: 0;
 
         border-radius: 11px;
 
         background: #EEF4FF;
+
         color: #0B2A6F;
     }
 
     .product-detail-main-icon svg {
-        width: 23px;
-        height: 23px;
+        width: 23px !important;
+
+        height: 23px !important;
     }
 
     .product-detail-header h1 {
+        margin: 0;
+
         color: #172033;
+
         font-size: 25px;
+
         font-weight: 800;
+
+        line-height: 1.2;
     }
 
     .product-detail-header p {
-        margin-top: 5px;
+        margin: 5px 0 0;
+
         color: #64748B;
+
         font-size: 11px;
     }
 
+
+    /* =========================================================
+       EDIT BUTTON
+    ========================================================= */
+
     .product-detail-edit {
         display: inline-flex;
+
         align-items: center;
+
+        justify-content: center;
+
         gap: 6px;
 
         padding: 10px 14px;
@@ -86,25 +140,36 @@
         border-radius: 9px;
 
         background: #0B2A6F;
+
         color: #FFFFFF;
 
         font-size: 11px;
+
         font-weight: 700;
+
+        text-decoration: none;
+
+        white-space: nowrap;
+
+        transition: .2s ease;
     }
 
     .product-detail-edit:hover {
         background: #071D4D;
+
+        color: #FFFFFF;
     }
 
     .product-detail-edit svg {
-        width: 14px;
-        height: 14px;
+        width: 14px !important;
+
+        height: 14px !important;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        SUMMARY CARDS
-    ===================================================== */
+    ========================================================= */
 
     .product-detail-summary {
         display: grid;
@@ -125,6 +190,7 @@
         background: #FFFFFF;
 
         border: 1px solid #E2E8F0;
+
         border-radius: 11px;
 
         box-shadow:
@@ -135,9 +201,11 @@
         color: #94A3B8;
 
         font-size: 9px;
+
         font-weight: 800;
 
         text-transform: uppercase;
+
         letter-spacing: .6px;
     }
 
@@ -147,7 +215,10 @@
         color: #172033;
 
         font-size: 21px;
+
         font-weight: 800;
+
+        line-height: 1.2;
     }
 
     .product-summary-description {
@@ -161,63 +232,68 @@
     .product-summary-icon {
         position: absolute;
 
-        right: 15px;
         top: 15px;
 
+        right: 15px;
+
         width: 35px;
+
         height: 35px;
 
         display: flex;
+
         align-items: center;
+
         justify-content: center;
 
         border-radius: 8px;
 
         background: #F1F5F9;
+
         color: #64748B;
     }
 
     .product-summary-icon svg {
-        width: 17px;
-        height: 17px;
+        width: 17px !important;
+
+        height: 17px !important;
     }
 
 
-    /* =====================================================
-       INFO CARD
-    ===================================================== */
+    /* =========================================================
+       DETAIL CARD
+    ========================================================= */
 
     .product-detail-card {
+        margin-bottom: 18px;
 
         background: #FFFFFF;
 
         border: 1px solid #E2E8F0;
+
         border-radius: 12px;
 
         box-shadow:
             0 3px 12px rgba(15,23,42,.04);
 
-        margin-bottom: 18px;
+        overflow: hidden;
     }
 
     .product-detail-card-header {
-
         padding: 16px 18px;
 
-        border-bottom:
-            1px solid #E2E8F0;
+        border-bottom: 1px solid #E2E8F0;
     }
 
     .product-detail-card-title {
-
         color: #172033;
 
         font-size: 13px;
+
         font-weight: 800;
     }
 
     .product-detail-card-description {
-
         margin-top: 3px;
 
         color: #94A3B8;
@@ -225,21 +301,22 @@
         font-size: 9px;
     }
 
-    .product-information {
 
+    /* =========================================================
+       PRODUCT INFORMATION
+    ========================================================= */
+
+    .product-information {
         display: grid;
 
         grid-template-columns:
             repeat(4, minmax(0, 1fr));
-
     }
 
     .product-information-item {
-
         padding: 16px 18px;
 
-        border-right:
-            1px solid #F1F5F9;
+        border-right: 1px solid #F1F5F9;
     }
 
     .product-information-item:last-child {
@@ -247,7 +324,6 @@
     }
 
     .product-information-label {
-
         margin-bottom: 6px;
 
         color: #94A3B8;
@@ -262,7 +338,6 @@
     }
 
     .product-information-value {
-
         color: #172033;
 
         font-size: 12px;
@@ -271,7 +346,6 @@
     }
 
     .product-code-badge {
-
         display: inline-flex;
 
         padding: 5px 8px;
@@ -288,30 +362,28 @@
     }
 
 
-    /* =====================================================
-       OPPORTUNITY USAGE TABLE
-    ===================================================== */
+    /* =========================================================
+       OPPORTUNITY USAGE
+    ========================================================= */
 
     .product-opportunity-wrapper {
+        width: 100%;
 
         overflow-x: auto;
     }
 
     .product-opportunity-table {
-
         width: 100%;
 
         border-collapse: collapse;
     }
 
     .product-opportunity-table th {
-
         padding: 11px 15px;
 
         background: #F8FAFC;
 
-        border-bottom:
-            1px solid #E2E8F0;
+        border-bottom: 1px solid #E2E8F0;
 
         color: #64748B;
 
@@ -329,17 +401,17 @@
     }
 
     .product-opportunity-table td {
-
         padding: 13px 15px;
 
-        border-bottom:
-            1px solid #F1F5F9;
+        border-bottom: 1px solid #F1F5F9;
 
         color: #475569;
 
         font-size: 10px;
 
         white-space: nowrap;
+
+        vertical-align: middle;
     }
 
     .product-opportunity-table tbody tr:hover {
@@ -350,11 +422,17 @@
         border-bottom: none;
     }
 
-    .opportunity-link {
 
+    /* =========================================================
+       LINKS / BADGES
+    ========================================================= */
+
+    .opportunity-link {
         color: #0B2A6F;
 
         font-weight: 800;
+
+        text-decoration: none;
     }
 
     .opportunity-link:hover {
@@ -362,7 +440,6 @@
     }
 
     .stage-badge {
-
         display: inline-flex;
 
         padding: 5px 8px;
@@ -378,8 +455,12 @@
         font-weight: 800;
     }
 
-    .empty-opportunities {
 
+    /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
+    .empty-opportunities {
         padding: 45px 20px;
 
         text-align: center;
@@ -390,8 +471,8 @@
     }
 
     .empty-opportunities-icon {
-
         width: 48px;
+
         height: 48px;
 
         margin: 0 auto 11px;
@@ -410,17 +491,17 @@
     }
 
     .empty-opportunities-icon svg {
-        width: 22px;
-        height: 22px;
+        width: 22px !important;
+
+        height: 22px !important;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        BOTTOM ACTION
-    ===================================================== */
+    ========================================================= */
 
     .product-detail-bottom {
-
         display: flex;
 
         justify-content: flex-end;
@@ -431,7 +512,6 @@
     }
 
     .product-bottom-back {
-
         display: inline-flex;
 
         align-items: center;
@@ -440,8 +520,7 @@
 
         padding: 10px 15px;
 
-        border:
-            1px solid #E2E8F0;
+        border: 1px solid #E2E8F0;
 
         border-radius: 9px;
 
@@ -452,16 +531,20 @@
         font-size: 10px;
 
         font-weight: 700;
+
+        text-decoration: none;
     }
 
     .product-bottom-back:hover {
         background: #F8FAFC;
+
+        color: #475569;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        RESPONSIVE
-    ===================================================== */
+    ========================================================= */
 
     @media (max-width: 800px) {
 
@@ -476,7 +559,9 @@
 
         .product-information-item {
             border-right: none;
-            border-bottom: 1px solid #F1F5F9;
+
+            border-bottom:
+                1px solid #F1F5F9;
         }
 
     }
@@ -486,11 +571,13 @@
 
         .product-detail-header {
             align-items: flex-start;
+
             flex-direction: column;
         }
 
         .product-detail-edit {
             width: 100%;
+
             justify-content: center;
         }
 
@@ -514,6 +601,62 @@
 
 
 @section('content')
+
+@php
+
+    /* =========================================================
+       TOTAL QUANTITY
+    ========================================================= */
+
+    $totalQuantity =
+        (float) $product
+            ->opportunityItems
+            ->sum('quantity');
+
+
+    /* =========================================================
+       QUANTITY FORMATTER
+       27.00  -> 27
+       2.00   -> 2
+       2.50   -> 2,5
+       2.25   -> 2,25
+    ========================================================= */
+
+    $formatQuantity =
+        function ($value) {
+
+            $number = (float) $value;
+
+
+            if ($number == floor($number)) {
+
+                return number_format(
+                    $number,
+                    0,
+                    ',',
+                    '.'
+                );
+
+            }
+
+
+            return rtrim(
+                rtrim(
+                    number_format(
+                        $number,
+                        2,
+                        ',',
+                        '.'
+                    ),
+                    '0'
+                ),
+                ','
+            );
+
+        };
+
+@endphp
+
 
 <div class="product-detail-page">
 
@@ -566,11 +709,17 @@
                     stroke-linejoin="round"
                 >
 
-                    <path d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"/>
+                    <path
+                        d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"
+                    />
 
-                    <path d="M4 7.5 12 12l8-4.5"/>
+                    <path
+                        d="M4 7.5 12 12l8-4.5"
+                    />
 
-                    <path d="M12 12v9"/>
+                    <path
+                        d="M12 12v9"
+                    />
 
                 </svg>
 
@@ -582,6 +731,7 @@
                 <h1>
                     {{ $product->product_name }}
                 </h1>
+
 
                 <p>
                     Product information, sales activity, and opportunity usage.
@@ -634,13 +784,22 @@
 
         <div class="product-summary-card">
 
+
             <div class="product-summary-label">
                 Opportunities
             </div>
 
+
             <div class="product-summary-value">
-                {{ $product->opportunityItems->count() }}
+
+                {{
+                    $product
+                        ->opportunityItems
+                        ->count()
+                }}
+
             </div>
+
 
             <div class="product-summary-description">
                 Opportunities using this product
@@ -666,30 +825,32 @@
 
             </div>
 
+
         </div>
 
 
-        {{-- QUANTITY --}}
+        {{-- TOTAL QUANTITY --}}
 
         <div class="product-summary-card">
+
 
             <div class="product-summary-label">
                 Total Quantity
             </div>
 
+
             <div class="product-summary-value">
 
-                {{ number_format(
-                    (float) $product->opportunityItems->sum('quantity'),
-                    2,
-                    ',',
-                    '.'
-                ) }}
+                {{ $formatQuantity($totalQuantity) }}
 
             </div>
 
+
             <div class="product-summary-description">
-                {{ $product->unit ?: 'Units' }} across opportunities
+
+                {{ $product->unit ?: 'Units' }}
+                across opportunities
+
             </div>
 
 
@@ -704,37 +865,56 @@
                     stroke-linejoin="round"
                 >
 
-                    <path d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"/>
+                    <path
+                        d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"
+                    />
 
-                    <path d="M4 7.5 12 12l8-4.5"/>
+                    <path
+                        d="M4 7.5 12 12l8-4.5"
+                    />
 
-                    <path d="M12 12v9"/>
+                    <path
+                        d="M12 12v9"
+                    />
 
                 </svg>
 
             </div>
 
+
         </div>
 
 
-        {{-- SALES VALUE --}}
+        {{-- TOTAL SALES VALUE --}}
 
         <div class="product-summary-card">
+
 
             <div class="product-summary-label">
                 Total Sales Value
             </div>
 
-            <div class="product-summary-value" style="font-size:17px;">
 
-                Rp {{ number_format(
-                    (float) $product->opportunityItems->sum('subtotal'),
-                    0,
-                    ',',
-                    '.'
-                ) }}
+            <div
+                class="product-summary-value"
+                style="font-size:17px;"
+            >
+
+                Rp
+                {{
+                    number_format(
+                        (float)
+                        $product
+                            ->opportunityItems
+                            ->sum('subtotal'),
+                        0,
+                        ',',
+                        '.'
+                    )
+                }}
 
             </div>
+
 
             <div class="product-summary-description">
                 Combined value across opportunities
@@ -762,6 +942,7 @@
 
             </div>
 
+
         </div>
 
 
@@ -781,6 +962,7 @@
                 Product Information
             </div>
 
+
             <div class="product-detail-card-description">
                 Master data information for this product.
             </div>
@@ -791,70 +973,102 @@
         <div class="product-information">
 
 
+            {{-- PRODUCT CODE --}}
+
             <div class="product-information-item">
+
 
                 <div class="product-information-label">
                     Product Code
                 </div>
 
+
                 <div class="product-information-value">
 
+
                     <span class="product-code-badge">
+
                         {{ $product->product_code }}
+
                     </span>
 
+
                 </div>
+
 
             </div>
 
 
+            {{-- PRODUCT NAME --}}
+
             <div class="product-information-item">
+
 
                 <div class="product-information-label">
                     Product Name
                 </div>
 
+
                 <div class="product-information-value">
+
                     {{ $product->product_name }}
+
                 </div>
+
 
             </div>
 
 
+            {{-- UNIT --}}
+
             <div class="product-information-item">
+
 
                 <div class="product-information-label">
                     Unit
                 </div>
 
+
                 <div class="product-information-value">
+
                     {{ $product->unit ?: 'Not specified' }}
+
                 </div>
+
 
             </div>
 
 
+            {{-- DEFAULT PRICE --}}
+
             <div class="product-information-item">
+
 
                 <div class="product-information-label">
                     Default Price
                 </div>
 
+
                 <div class="product-information-value">
 
-                    Rp {{ number_format(
-                        (float) $product->price,
-                        0,
-                        ',',
-                        '.'
-                    ) }}
+                    Rp
+                    {{
+                        number_format(
+                            (float) $product->price,
+                            0,
+                            ',',
+                            '.'
+                        )
+                    }}
 
                 </div>
+
 
             </div>
 
 
         </div>
+
 
     </div>
 
@@ -868,51 +1082,65 @@
 
         <div class="product-detail-card-header">
 
+
             <div class="product-detail-card-title">
                 Opportunity Usage
             </div>
+
 
             <div class="product-detail-card-description">
                 Opportunities that currently contain this product.
             </div>
 
+
         </div>
 
 
-        @if($product->opportunityItems->count())
+        @if(
+            $product->opportunityItems->count()
+        )
 
 
             <div class="product-opportunity-wrapper">
 
+
                 <table class="product-opportunity-table">
+
 
                     <thead>
 
                         <tr>
 
+
                             <th>
                                 Opportunity
                             </th>
+
 
                             <th>
                                 Customer
                             </th>
 
+
                             <th>
                                 Quantity
                             </th>
+
 
                             <th>
                                 Unit Price
                             </th>
 
+
                             <th>
                                 Subtotal
                             </th>
 
+
                             <th>
                                 Stage
                             </th>
+
 
                         </tr>
 
@@ -921,15 +1149,20 @@
 
                     <tbody>
 
+
                         @foreach(
                             $product->opportunityItems
                             as $item
                         )
 
+
                             <tr>
 
 
+                                {{-- OPPORTUNITY --}}
+
                                 <td>
+
 
                                     <a
                                         href="{{ route(
@@ -939,46 +1172,59 @@
                                         class="opportunity-link"
                                     >
 
-                                        {{ $item->opportunity->name }}
+                                        {{
+                                            $item
+                                                ->opportunity
+                                                ->name
+                                        }}
 
                                     </a>
+
 
                                 </td>
 
 
+                                {{-- CUSTOMER --}}
+
                                 <td>
 
                                     {{
-                                        $item->opportunity->customer->company_name
-                                        ?? $item->opportunity->customer->name
+                                        $item
+                                            ->opportunity
+                                            ->customer
+                                            ->company
+                                        ?? $item
+                                            ->opportunity
+                                            ->customer
+                                            ->name
                                         ?? '-'
                                     }}
 
                                 </td>
 
 
+                                {{-- QUANTITY --}}
+
                                 <td>
 
-                                    {{
-                                        number_format(
-                                            (float) $item->quantity,
-                                            2,
-                                            ',',
-                                            '.'
-                                        )
-                                    }}
+                                    {{ $formatQuantity(
+                                        $item->quantity
+                                    ) }}
 
                                     {{ $product->unit }}
 
                                 </td>
 
 
+                                {{-- UNIT PRICE --}}
+
                                 <td>
 
                                     Rp
                                     {{
                                         number_format(
-                                            (float) $item->unit_price,
+                                            (float)
+                                            $item->unit_price,
                                             0,
                                             ',',
                                             '.'
@@ -988,12 +1234,20 @@
                                 </td>
 
 
-                                <td style="font-weight:800;color:#172033;">
+                                {{-- SUBTOTAL --}}
+
+                                <td
+                                    style="
+                                        font-weight:800;
+                                        color:#172033;
+                                    "
+                                >
 
                                     Rp
                                     {{
                                         number_format(
-                                            (float) $item->subtotal,
+                                            (float)
+                                            $item->subtotal,
                                             0,
                                             ',',
                                             '.'
@@ -1003,27 +1257,38 @@
                                 </td>
 
 
+                                {{-- STAGE --}}
+
                                 <td>
+
 
                                     <span class="stage-badge">
 
                                         {{
-                                            $item->opportunity->stage->name
+                                            $item
+                                                ->opportunity
+                                                ->stage
+                                                ->name
                                             ?? '-'
                                         }}
 
                                     </span>
+
 
                                 </td>
 
 
                             </tr>
 
+
                         @endforeach
+
 
                     </tbody>
 
+
                 </table>
+
 
             </div>
 
@@ -1033,7 +1298,9 @@
 
             <div class="empty-opportunities">
 
+
                 <div class="empty-opportunities-icon">
+
 
                     <svg
                         viewBox="0 0 24 24"
@@ -1044,17 +1311,27 @@
                         stroke-linejoin="round"
                     >
 
-                        <path d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"/>
+                        <path
+                            d="M20 7.5 12 3 4 7.5v9L12 21l8-4.5v-9Z"
+                        />
 
-                        <path d="M4 7.5 12 12l8-4.5"/>
+                        <path
+                            d="M4 7.5 12 12l8-4.5"
+                        />
 
-                        <path d="M12 12v9"/>
+                        <path
+                            d="M12 12v9"
+                        />
 
                     </svg>
 
+
                 </div>
 
-                This product has not been used in any opportunity yet.
+
+                This product has not been used
+                in any opportunity yet.
+
 
             </div>
 
@@ -1071,14 +1348,19 @@
 
     <div class="product-detail-bottom">
 
+
         <a
             href="{{ route('products.index') }}"
             class="product-bottom-back"
         >
+
             Back to Products
+
         </a>
 
+
     </div>
+
 
 </div>
 
