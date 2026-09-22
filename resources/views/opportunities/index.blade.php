@@ -673,17 +673,77 @@
     }
 
 
-    /* =========================================================
-       PAGINATION
-    ========================================================= */
+   /* =========================================================
+   PAGINATION
+========================================================= */
 
-    .pagination-area {
-        padding: 15px 20px;
+.pagination-area {
+    padding: 15px 20px;
 
-        border-top: 1px solid #E8EAED;
-    }
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
 
 
+.pagination-info {
+    color: #8992A3;
+
+    font-size: 12px;
+}
+
+
+.pagination-links {
+    display: flex;
+
+    gap: 6px;
+}
+
+
+.pagination-links a,
+.pagination-links span {
+    min-width: 32px;
+
+    height: 32px;
+
+    padding: 0 8px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #E1E5EB;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    color: #4B5565;
+
+    font-size: 12px;
+
+    box-sizing: border-box;
+}
+
+
+.pagination-links .active {
+    background: #0B2A6F;
+
+    color: #FFFFFF;
+
+    border-color: #0B2A6F;
+}
+
+
+.pagination-links a:hover {
+    background: #F1F3F4;
+}
     /* =========================================================
        DELETE MODAL
     ========================================================= */
@@ -1424,16 +1484,91 @@
              PAGINATION
         ================================================== -->
 
-        @if($opportunities->hasPages())
+       @if($opportunities->hasPages())
 
-            <div class="pagination-area">
+    <div class="pagination-area">
 
-                {{ $opportunities->links() }}
+        <div class="pagination-info">
 
-            </div>
+            Showing
+            {{ $opportunities->firstItem() ?? 0 }}
+            -
+            {{ $opportunities->lastItem() ?? 0 }}
+            of
+            {{ $opportunities->total() }}
+            opportunities
 
-        @endif
+        </div>
 
+
+        <div class="pagination-links">
+
+            @if($opportunities->onFirstPage())
+
+                <span>
+                    ‹
+                </span>
+
+            @else
+
+                <a
+                    href="{{ $opportunities->previousPageUrl() }}"
+                >
+                    ‹
+                </a>
+
+            @endif
+
+
+            @foreach(
+                $opportunities->getUrlRange(
+                    1,
+                    $opportunities->lastPage()
+                )
+                as $page => $url
+            )
+
+                @if(
+                    $page ==
+                    $opportunities->currentPage()
+                )
+
+                    <span class="active">
+                        {{ $page }}
+                    </span>
+
+                @else
+
+                    <a href="{{ $url }}">
+                        {{ $page }}
+                    </a>
+
+                @endif
+
+            @endforeach
+
+
+            @if($opportunities->hasMorePages())
+
+                <a
+                    href="{{ $opportunities->nextPageUrl() }}"
+                >
+                    ›
+                </a>
+
+            @else
+
+                <span>
+                    ›
+                </span>
+
+            @endif
+
+        </div>
+
+    </div>
+
+@endif
 
     </div>
 
