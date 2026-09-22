@@ -22,7 +22,7 @@
 <link
     rel="icon"
     type="image/png"
-    href="{{ asset('images/logo-petra.png') }}"
+    href="{{ asset('images/favicon-petra-textima.png') }}"
 >
 
 
