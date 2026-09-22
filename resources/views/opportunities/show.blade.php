@@ -1546,14 +1546,19 @@
 
                                 Rp
                                 {{
-                                    number_format(
-                                        (float)
-                                        $opportunity->expected_revenue,
-                                        0,
-                                        ',',
-                                        '.'
-                                    )
-                                }}
+    rtrim(
+        rtrim(
+            number_format(
+                (float) $item->quantity,
+                2,
+                ',',
+                '.'
+            ),
+            '0'
+        ),
+        ','
+    )
+}}
 
                             </div>
 
