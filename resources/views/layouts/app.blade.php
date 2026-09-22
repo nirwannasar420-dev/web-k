@@ -15,8 +15,15 @@
     >
 
     <title>
-        @yield('title', 'CRM Petra Textima')
-    </title>
+    @yield('title', 'CRM Petra Textima')
+</title>
+
+
+<link
+    rel="icon"
+    type="image/png"
+    href="{{ asset('images/logo-petra.png') }}"
+>
 
 
     <style>
