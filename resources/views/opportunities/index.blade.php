@@ -3,682 +3,715 @@
 @section('title', 'Opportunities')
 @section('page-title', 'Opportunities')
 
+
 @section('styles')
 
 <style>
 
-    /* =========================================================
-       PAGE
-    ========================================================= */
+/* =========================================================
+   PAGE
+========================================================= */
 
-    .opportunities-page {
-        width: 100%;
-    }
+.opportunities-page {
+    width: 100%;
+}
 
 
-    /* =========================================================
-       HEADER
-    ========================================================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
-    .opportunities-header {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
+.opportunities-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 
+    gap: 20px;
 
-    .opportunities-header-left h1 {
-        margin: 0 0 6px;
-        color: #202124;
-        font-size: 28px;
-        font-weight: 700;
-        line-height: 1.2;
-    }
+    margin-bottom: 25px;
+}
 
 
-    .opportunities-header-left p {
-        margin: 0;
-        color: #5F6368;
-        font-size: 13px;
-    }
+.opportunities-header-left h1 {
+    margin: 0 0 6px;
 
+    color: #202124;
 
-    /* =========================================================
-       ADD BUTTON
-    ========================================================= */
+    font-size: 28px;
+    font-weight: 700;
 
-    .btn-add-opportunity {
-        height: 40px;
-        padding: 0 16px;
+    line-height: 1.2;
+}
 
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
 
-        background: #0B2A6F;
-        color: #FFFFFF;
+.opportunities-header-left p {
+    margin: 0;
 
-        border: none;
-        border-radius: 9px;
+    color: #5F6368;
 
-        font-size: 12px;
-        font-weight: 600;
+    font-size: 13px;
+}
 
-        text-decoration: none;
-        white-space: nowrap;
 
-        transition: .2s ease;
-    }
+/* =========================================================
+   ADD BUTTON
+========================================================= */
 
+.btn-add-opportunity {
+    height: 40px;
 
-    .btn-add-opportunity:hover {
-        background: #071D4D;
-        color: #FFFFFF;
-        transform: translateY(-1px);
-    }
+    padding: 0 16px;
 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    /* =========================================================
-       MAIN CARD
-    ========================================================= */
+    gap: 8px;
 
-    .opportunities-card {
-        background: #FFFFFF;
+    background: #0B2A6F;
 
-        border: 1px solid #E8EAED;
+    color: #FFFFFF;
 
-        border-radius: 16px;
+    border: none;
 
-        overflow: hidden;
+    border-radius: 9px;
 
-        box-shadow:
-            0 2px 7px rgba(60,64,67,.06);
-    }
+    font-size: 12px;
+    font-weight: 600;
 
+    text-decoration: none;
 
-    /* =========================================================
-       TOOLBAR
-    ========================================================= */
+    white-space: nowrap;
 
-    .opportunities-toolbar {
-        display: flex;
+    transition: .2s ease;
+}
 
-        align-items: center;
 
-        gap: 10px;
+.btn-add-opportunity:hover {
+    background: #071D4D;
 
-        padding: 18px 20px;
+    color: #FFFFFF;
 
-        border-bottom: 1px solid #E8EAED;
-    }
+    transform: translateY(-1px);
+}
 
 
-    .search-wrapper {
-        position: relative;
+.btn-add-opportunity svg {
+    width: 15px !important;
+    height: 15px !important;
 
-        flex: 1;
-    }
+    flex-shrink: 0;
+}
 
 
-    .search-icon {
-        position: absolute;
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
-        left: 12px;
+.opportunities-card {
+    background: #FFFFFF;
 
-        top: 50%;
+    border: 1px solid #E8EAED;
 
-        width: 16px;
+    border-radius: 16px;
 
-        height: 16px;
+    overflow: hidden;
 
-        transform: translateY(-50%);
+    box-shadow:
+        0 2px 7px rgba(60,64,67,.06);
+}
 
-        color: #9AA0A6;
 
-        pointer-events: none;
-    }
+/* =========================================================
+   TOOLBAR
+========================================================= */
 
+.opportunities-toolbar {
+    display: flex;
 
-    .search-input {
-        width: 100%;
+    align-items: center;
 
-        height: 40px;
+    gap: 10px;
 
-        padding: 0 13px 0 38px;
+    padding: 18px 20px;
 
-        border: 1px solid #DADCE0;
+    border-bottom: 1px solid #E8EAED;
+}
 
-        border-radius: 9px;
 
-        background: #FFFFFF;
+/* =========================================================
+   SEARCH
+========================================================= */
 
-        color: #202124;
+.search-wrapper {
+    position: relative;
 
-        font-size: 12px;
+    flex: 1;
 
-        outline: none;
+    min-width: 0;
+}
 
-        transition: .2s ease;
-    }
 
+.search-icon {
+    position: absolute;
 
-    .search-input::placeholder {
-        color: #9AA0A6;
-    }
+    left: 12px;
 
+    top: 50%;
 
-    .search-input:focus {
-        border-color: #0B2A6F;
+    width: 16px !important;
+    height: 16px !important;
 
-        box-shadow:
-            0 0 0 2px rgba(11,42,111,.08);
-    }
+    transform: translateY(-50%);
 
+    color: #9AA0A6;
 
-    /* =========================================================
-       STAGE FILTER
-    ========================================================= */
+    pointer-events: none;
+}
 
-    .stage-filter {
-        width: 175px;
 
-        height: 40px;
+.search-input {
+    width: 100%;
 
-        padding: 0 12px;
+    height: 40px;
 
-        border: 1px solid #DADCE0;
+    padding: 0 13px 0 38px;
 
-        border-radius: 9px;
+    border: 1px solid #DADCE0;
 
-        background: #FFFFFF;
+    border-radius: 9px;
 
-        color: #3C4043;
+    background: #FFFFFF;
 
-        font-size: 12px;
+    color: #202124;
 
-        outline: none;
+    font-size: 12px;
 
-        cursor: pointer;
-    }
+    outline: none;
 
+    transition: .2s ease;
+}
 
-    .stage-filter:focus {
-        border-color: #0B2A6F;
 
-        box-shadow:
-            0 0 0 2px rgba(11,42,111,.08);
-    }
+.search-input::placeholder {
+    color: #9AA0A6;
+}
 
 
-    /* =========================================================
-       SEARCH BUTTON
-    ========================================================= */
+.search-input:focus {
+    border-color: #0B2A6F;
 
-    .btn-search {
-        height: 40px;
+    box-shadow:
+        0 0 0 2px rgba(11,42,111,.08);
+}
 
-        padding: 0 17px;
 
-        border: none;
+/* =========================================================
+   STAGE FILTER
+========================================================= */
 
-        border-radius: 9px;
+.stage-filter {
+    width: 175px;
 
-        background: #0B2A6F;
+    height: 40px;
 
-        color: #FFFFFF;
+    padding: 0 12px;
 
-        font-size: 12px;
+    border: 1px solid #DADCE0;
 
-        font-weight: 600;
+    border-radius: 9px;
 
-        cursor: pointer;
+    background: #FFFFFF;
 
-        transition: .2s ease;
-    }
+    color: #3C4043;
 
+    font-size: 12px;
 
-    .btn-search:hover {
-        background: #071D4D;
-    }
+    outline: none;
 
+    cursor: pointer;
+}
 
-    /* =========================================================
-       TABLE
-    ========================================================= */
 
-    .table-wrapper {
-        width: 100%;
+.stage-filter:focus {
+    border-color: #0B2A6F;
 
-        overflow-x: auto;
-    }
+    box-shadow:
+        0 0 0 2px rgba(11,42,111,.08);
+}
 
 
-    .opportunities-table {
-        width: 100%;
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
 
-        min-width: 1050px;
+.btn-search {
+    height: 40px;
 
-        border-collapse: collapse;
-    }
+    padding: 0 17px;
 
+    border: none;
 
-    .opportunities-table th {
-        padding: 13px 18px;
+    border-radius: 9px;
 
-        text-align: left;
+    background: #0B2A6F;
 
-        background: #FAFAFA;
+    color: #FFFFFF;
 
-        border-bottom: 1px solid #E8EAED;
+    font-size: 12px;
 
-        color: #80868B;
+    font-weight: 600;
 
-        font-size: 10px;
+    cursor: pointer;
 
-        font-weight: 600;
+    transition: .2s ease;
+}
 
-        text-transform: uppercase;
 
-        white-space: nowrap;
-    }
+.btn-search:hover {
+    background: #071D4D;
+}
 
 
-    .opportunities-table td {
-        padding: 15px 18px;
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
 
-        border-bottom: 1px solid #F1F3F4;
+.table-wrapper {
+    width: 100%;
 
-        color: #3C4043;
+    overflow-x: auto;
+}
 
-        font-size: 12px;
 
-        vertical-align: middle;
-    }
+/* =========================================================
+   TABLE
+========================================================= */
 
+.opportunities-table {
+    width: 100%;
 
-    .opportunities-table tbody tr {
-        transition: background .15s ease;
-    }
+    min-width: 1050px;
 
+    border-collapse: collapse;
+}
 
-    .opportunities-table tbody tr:hover {
-        background: #FAFAFA;
-    }
 
+.opportunities-table th {
+    padding: 13px 18px;
 
-    .opportunities-table tbody tr:last-child td {
-        border-bottom: none;
-    }
+    text-align: left;
 
+    background: #FAFAFA;
 
-    /* =========================================================
-       OPPORTUNITY
-    ========================================================= */
+    border-bottom: 1px solid #E8EAED;
 
-    .opportunity-info {
-        min-width: 230px;
-    }
+    color: #80868B;
 
+    font-size: 10px;
 
-    .opportunity-name {
-        margin-bottom: 5px;
+    font-weight: 600;
 
-        color: #202124;
+    text-transform: uppercase;
 
-        font-size: 12px;
+    white-space: nowrap;
+}
 
-        font-weight: 700;
 
-        line-height: 1.4;
-    }
+.opportunities-table td {
+    padding: 15px 18px;
 
+    border-bottom: 1px solid #F1F3F4;
 
-    .opportunity-id {
-        color: #9AA0A6;
+    color: #3C4043;
 
-        font-size: 10px;
-    }
+    font-size: 12px;
 
+    vertical-align: middle;
+}
 
-    /* =========================================================
-       CUSTOMER
-    ========================================================= */
 
-    .customer-info {
-        display: flex;
+.opportunities-table tbody tr {
+    transition: background .15s ease;
+}
 
-        align-items: center;
 
-        gap: 9px;
+.opportunities-table tbody tr:hover {
+    background: #FAFAFA;
+}
 
-        min-width: 180px;
-    }
 
+.opportunities-table tbody tr:last-child td {
+    border-bottom: none;
+}
 
-    .customer-avatar {
-        width: 34px;
 
-        height: 34px;
+/* =========================================================
+   OPPORTUNITY
+========================================================= */
 
-        flex-shrink: 0;
+.opportunity-info {
+    min-width: 230px;
+}
 
-        border-radius: 9px;
 
-        background: #E8EEF9;
+.opportunity-name {
+    margin-bottom: 5px;
 
-        color: #0B2A6F;
+    color: #202124;
 
-        display: flex;
+    font-size: 12px;
 
-        align-items: center;
+    font-weight: 700;
 
-        justify-content: center;
+    line-height: 1.4;
+}
 
-        font-size: 11px;
 
-        font-weight: 700;
-    }
+.opportunity-id {
+    color: #9AA0A6;
 
+    font-size: 10px;
+}
 
-    .customer-name {
-        color: #202124;
 
-        font-size: 11px;
+/* =========================================================
+   CUSTOMER
+========================================================= */
 
-        font-weight: 600;
-    }
+.customer-info {
+    display: flex;
 
+    align-items: center;
 
-    .customer-company {
-        margin-top: 3px;
+    gap: 9px;
 
-        color: #80868B;
+    min-width: 180px;
+}
 
-        font-size: 10px;
-    }
 
+.customer-avatar {
+    width: 34px;
 
-    /* =========================================================
-       REVENUE
-    ========================================================= */
+    height: 34px;
 
-    .revenue {
-        color: #0B2A6F;
+    flex-shrink: 0;
 
-        font-size: 12px;
+    border-radius: 9px;
 
-        font-weight: 700;
+    background: #E8EEF9;
 
-        white-space: nowrap;
-    }
+    color: #0B2A6F;
 
+    display: flex;
 
-    /* =========================================================
-       RATING
-    ========================================================= */
+    align-items: center;
 
-    .rating {
-        color: #F9AB00;
+    justify-content: center;
 
-        font-size: 12px;
+    font-size: 11px;
 
-        letter-spacing: 1px;
+    font-weight: 700;
+}
 
-        white-space: nowrap;
-    }
 
+.customer-name {
+    color: #202124;
 
-    .rating-number {
-        margin-left: 5px;
+    font-size: 11px;
 
-        color: #80868B;
+    font-weight: 600;
+}
 
-        font-size: 10px;
 
-        letter-spacing: 0;
-    }
+.customer-company {
+    margin-top: 3px;
 
+    color: #80868B;
 
-    /* =========================================================
-       STAGE BADGE
-    ========================================================= */
+    font-size: 10px;
+}
 
-    .stage-badge {
-        display: inline-flex;
 
-        align-items: center;
+/* =========================================================
+   REVENUE
+========================================================= */
 
-        gap: 6px;
+.revenue {
+    color: #0B2A6F;
 
-        padding: 5px 9px;
+    font-size: 12px;
 
-        border-radius: 20px;
+    font-weight: 700;
 
-        font-size: 10px;
+    white-space: nowrap;
+}
 
-        font-weight: 600;
 
-        white-space: nowrap;
-    }
+/* =========================================================
+   RATING
+========================================================= */
 
+.rating {
+    color: #F9AB00;
 
-    .stage-badge::before {
-        content: '';
+    font-size: 12px;
 
-        width: 5px;
+    letter-spacing: 1px;
 
-        height: 5px;
+    white-space: nowrap;
+}
 
-        border-radius: 50%;
 
-        background: currentColor;
-    }
+.rating-number {
+    margin-left: 5px;
 
+    color: #80868B;
 
-    .stage-prospect {
-        background: #E8EEF9;
+    font-size: 10px;
 
-        color: #0B2A6F;
-    }
+    letter-spacing: 0;
+}
 
 
-    .stage-qualified {
-        background: #EEE7FF;
+/* =========================================================
+   STAGE BADGE
+========================================================= */
 
-        color: #6A1B9A;
-    }
+.stage-badge {
+    display: inline-flex;
 
+    align-items: center;
 
-    .stage-proposition {
-        background: #FEF7E0;
+    gap: 6px;
 
-        color: #B06000;
-    }
+    padding: 5px 9px;
 
+    border-radius: 20px;
 
-    .stage-won {
-        background: #E6F4EA;
+    font-size: 10px;
 
-        color: #137333;
-    }
+    font-weight: 600;
 
+    white-space: nowrap;
+}
 
-    .stage-lost {
-        background: #FCE8E6;
 
-        color: #D93025;
-    }
+.stage-badge::before {
+    content: '';
 
+    width: 5px;
 
-    .stage-default {
-        background: #F1F3F4;
+    height: 5px;
 
-        color: #5F6368;
-    }
+    border-radius: 50%;
 
+    background: currentColor;
+}
 
-    /* =========================================================
-       DATE
-    ========================================================= */
 
-    .date-text {
-        color: #5F6368;
+.stage-prospect {
+    background: #E8EEF9;
 
-        white-space: nowrap;
+    color: #0B2A6F;
+}
 
-        font-size: 11px;
-    }
 
+.stage-qualified {
+    background: #EEE7FF;
 
-    /* =========================================================
-       ACTIONS
-    ========================================================= */
+    color: #6A1B9A;
+}
 
-    .actions {
-        display: flex;
 
-        align-items: center;
+.stage-proposition {
+    background: #FEF7E0;
 
-        gap: 6px;
+    color: #B06000;
+}
 
-        white-space: nowrap;
-    }
 
+.stage-won {
+    background: #E6F4EA;
 
-    .actions form {
-        margin: 0;
-    }
+    color: #137333;
+}
 
 
-    .action-btn {
-        height: 31px;
+.stage-lost {
+    background: #FCE8E6;
 
-        padding: 0 10px;
+    color: #D93025;
+}
 
-        display: inline-flex;
 
-        align-items: center;
+.stage-default {
+    background: #F1F3F4;
 
-        justify-content: center;
+    color: #5F6368;
+}
 
-        border: none;
 
-        border-radius: 7px;
+/* =========================================================
+   DATE
+========================================================= */
 
-        font-size: 10px;
+.date-text {
+    color: #5F6368;
 
-        font-weight: 600;
+    white-space: nowrap;
 
-        text-decoration: none;
+    font-size: 11px;
+}
 
-        cursor: pointer;
 
-        transition: .2s ease;
-    }
+/* =========================================================
+   ACTIONS
+========================================================= */
 
+.actions {
+    display: flex;
 
-    .action-detail {
-        background: #F1F3F4;
+    align-items: center;
 
-        color: #3C4043;
-    }
+    gap: 6px;
 
+    white-space: nowrap;
+}
 
-    .action-detail:hover {
-        background: #E8EAED;
-    }
 
+.actions form {
+    margin: 0;
+}
 
-    .action-edit {
-        background: #E8EEF9;
 
-        color: #0B2A6F;
-    }
+.action-btn {
+    height: 31px;
 
+    padding: 0 10px;
 
-    .action-edit:hover {
-        background: #D8E3F4;
-    }
+    display: inline-flex;
 
+    align-items: center;
 
-    .action-delete {
-        background: #FDE8EA;
+    justify-content: center;
 
-        color: #E30613;
-    }
+    border: none;
 
+    border-radius: 7px;
 
-    .action-delete:hover {
-        background: #F9D4D8;
-    }
+    font-size: 10px;
 
+    font-weight: 600;
 
-    /* =========================================================
-       EMPTY STATE
-    ========================================================= */
+    text-decoration: none;
 
-    .empty-state {
-        padding: 55px 20px;
+    cursor: pointer;
 
-        text-align: center;
-    }
+    transition: .2s ease;
+}
 
 
-    .empty-icon {
-        width: 58px;
+.action-detail {
+    background: #F1F3F4;
 
-        height: 58px;
+    color: #3C4043;
+}
 
-        margin: 0 auto 13px;
 
-        border-radius: 15px;
+.action-detail:hover {
+    background: #E8EAED;
+}
 
-        background: #F1F3F4;
 
-        color: #9AA0A6;
+.action-edit {
+    background: #E8EEF9;
 
-        display: flex;
+    color: #0B2A6F;
+}
 
-        align-items: center;
 
-        justify-content: center;
-    }
+.action-edit:hover {
+    background: #D8E3F4;
+}
 
 
-    .empty-icon svg {
-        width: 25px;
+.action-delete {
+    background: #FDE8EA;
 
-        height: 25px;
-    }
+    color: #E30613;
+}
 
 
-    .empty-title {
-        margin-bottom: 5px;
+.action-delete:hover {
+    background: #F9D4D8;
+}
 
-        color: #5F6368;
 
-        font-size: 13px;
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
-        font-weight: 600;
-    }
+.empty-state {
+    padding: 55px 20px;
 
+    text-align: center;
+}
 
-    .empty-description {
-        color: #9AA0A6;
 
-        font-size: 11px;
-    }
+.empty-icon {
+    width: 58px;
 
+    height: 58px;
 
-   /* =========================================================
+    margin: 0 auto 13px;
+
+    border-radius: 15px;
+
+    background: #F1F3F4;
+
+    color: #9AA0A6;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.empty-icon svg {
+    width: 25px !important;
+
+    height: 25px !important;
+}
+
+
+.empty-title {
+    margin-bottom: 5px;
+
+    color: #5F6368;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.empty-description {
+    color: #9AA0A6;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
    PAGINATION
+   SAME STYLE AS ACTIVITIES
 ========================================================= */
 
 .pagination-area {
-    padding: 15px 20px;
+    padding: 18px 20px;
 
     display: flex;
 
@@ -701,6 +734,8 @@
     display: flex;
 
     gap: 6px;
+
+    align-items: center;
 }
 
 
@@ -726,6 +761,8 @@
 
     color: #4B5565;
 
+    background: #FFFFFF;
+
     font-size: 12px;
 
     box-sizing: border-box;
@@ -744,207 +781,226 @@
 .pagination-links a:hover {
     background: #F1F3F4;
 }
-    /* =========================================================
-       DELETE MODAL
-    ========================================================= */
 
-    .delete-modal {
-        position: fixed;
 
-        inset: 0;
+.pagination-links span:not(.active) {
+    color: #4B5565;
+}
 
-        z-index: 9999;
 
-        display: none;
+/* =========================================================
+   DELETE MODAL
+========================================================= */
 
-        align-items: center;
+.delete-modal {
+    position: fixed;
 
-        justify-content: center;
+    inset: 0;
 
-        padding: 20px;
+    z-index: 9999;
 
-        background: rgba(15, 23, 42, .48);
+    display: none;
 
-        backdrop-filter: blur(2px);
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, .48);
+
+    backdrop-filter: blur(2px);
+}
+
+
+.delete-modal.show {
+    display: flex;
+}
+
+
+.delete-modal-box {
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 28px;
+
+    background: #FFFFFF;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, .20);
+}
+
+
+.delete-modal-icon {
+    width: 54px;
+
+    height: 54px;
+
+    margin-bottom: 16px;
+
+    border-radius: 14px;
+
+    background: #FDE8EA;
+
+    color: #E30613;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.delete-modal-icon svg {
+    width: 24px !important;
+
+    height: 24px !important;
+}
+
+
+.delete-modal-title {
+    margin: 0 0 8px;
+
+    color: #202124;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.delete-modal-text {
+    margin: 0;
+
+    color: #5F6368;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.delete-modal-text strong {
+    color: #202124;
+}
+
+
+.delete-modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 24px;
+}
+
+
+.delete-cancel-btn,
+.delete-confirm-btn {
+    height: 40px;
+
+    padding: 0 16px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.delete-cancel-btn {
+    background: #F1F3F4;
+
+    color: #3C4043;
+}
+
+
+.delete-cancel-btn:hover {
+    background: #E8EAED;
+}
+
+
+.delete-confirm-btn {
+    background: #E30613;
+
+    color: #FFFFFF;
+}
+
+
+.delete-confirm-btn:hover {
+    background: #C80511;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .opportunities-header {
+        flex-direction: column;
+
+        align-items: flex-start;
     }
 
 
-    .delete-modal.show {
-        display: flex;
+    .opportunities-toolbar {
+        flex-direction: column;
+
+        align-items: stretch;
     }
 
 
-    .delete-modal-box {
+    .search-wrapper {
         width: 100%;
-
-        max-width: 430px;
-
-        padding: 28px;
-
-        background: #FFFFFF;
-
-        border-radius: 16px;
-
-        box-shadow:
-            0 20px 50px rgba(15, 23, 42, .20);
     }
 
 
-    .delete-modal-icon {
-        width: 54px;
-
-        height: 54px;
-
-        margin-bottom: 16px;
-
-        border-radius: 14px;
-
-        background: #FDE8EA;
-
-        color: #E30613;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
+    .stage-filter {
+        width: 100%;
     }
 
 
-    .delete-modal-icon svg {
-        width: 24px;
-
-        height: 24px;
+    .btn-search {
+        width: 100%;
     }
 
 
-    .delete-modal-title {
-        margin: 0 0 8px;
+    .pagination-area {
+        flex-direction: column;
 
-        color: #202124;
-
-        font-size: 18px;
-
-        font-weight: 700;
+        align-items: flex-start;
     }
 
-
-    .delete-modal-text {
-        margin: 0;
-
-        color: #5F6368;
-
-        font-size: 12px;
-
-        line-height: 1.7;
-    }
+}
 
 
-    .delete-modal-text strong {
-        color: #202124;
-    }
-
+@media (max-width: 600px) {
 
     .delete-modal-actions {
-        display: flex;
-
-        justify-content: flex-end;
-
-        gap: 8px;
-
-        margin-top: 24px;
+        flex-direction: column-reverse;
     }
 
 
     .delete-cancel-btn,
     .delete-confirm-btn {
-        height: 40px;
-
-        padding: 0 16px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
-        cursor: pointer;
-
-        transition: .2s ease;
+        width: 100%;
     }
 
-
-    .delete-cancel-btn {
-        background: #F1F3F4;
-
-        color: #3C4043;
-    }
-
-
-    .delete-cancel-btn:hover {
-        background: #E8EAED;
-    }
-
-
-    .delete-confirm-btn {
-        background: #E30613;
-
-        color: #FFFFFF;
-    }
-
-
-    .delete-confirm-btn:hover {
-        background: #C80511;
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 800px) {
-
-        .opportunities-header {
-            flex-direction: column;
-
-            align-items: flex-start;
-        }
-
-
-        .opportunities-toolbar {
-            flex-direction: column;
-
-            align-items: stretch;
-        }
-
-
-        .stage-filter {
-            width: 100%;
-        }
-
-
-        .btn-search {
-            width: 100%;
-        }
-
-    }
-
-
-    @media (max-width: 600px) {
-
-        .delete-modal-actions {
-            flex-direction: column-reverse;
-        }
-
-
-        .delete-cancel-btn,
-        .delete-confirm-btn {
-            width: 100%;
-        }
-
-    }
+}
 
 </style>
 
@@ -988,6 +1044,7 @@
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
+                stroke-linejoin="round"
             >
 
                 <path d="M12 5v14"/>
@@ -995,7 +1052,6 @@
                 <path d="M5 12h14"/>
 
             </svg>
-
 
             Add Opportunity
 
@@ -1039,7 +1095,9 @@
                         r="7"
                     />
 
-                    <path d="m20 20-4-4"/>
+                    <path
+                        d="m20 20-4-4"
+                    />
 
                 </svg>
 
@@ -1186,6 +1244,7 @@
                                         {{ $opportunity->name }}
 
                                     </div>
+
 
                                     <div class="opportunity-id">
 
@@ -1349,7 +1408,7 @@
                                 <div class="actions">
 
 
-                                    <!-- DETAIL -->
+                                    <!-- DETAILS -->
 
                                     <a
                                         href="{{ route(
@@ -1484,91 +1543,105 @@
              PAGINATION
         ================================================== -->
 
-       @if($opportunities->hasPages())
+        @if($opportunities->hasPages())
 
-    <div class="pagination-area">
-
-        <div class="pagination-info">
-
-            Showing
-            {{ $opportunities->firstItem() ?? 0 }}
-            -
-            {{ $opportunities->lastItem() ?? 0 }}
-            of
-            {{ $opportunities->total() }}
-            opportunities
-
-        </div>
+            <div class="pagination-area">
 
 
-        <div class="pagination-links">
+                <!-- INFORMATION -->
 
-            @if($opportunities->onFirstPage())
+                <div class="pagination-info">
 
-                <span>
-                    ‹
-                </span>
+                    Showing
+                    {{ $opportunities->firstItem() ?? 0 }}
+                    -
+                    {{ $opportunities->lastItem() ?? 0 }}
+                    of
+                    {{ $opportunities->total() }}
+                    opportunities
 
-            @else
-
-                <a
-                    href="{{ $opportunities->previousPageUrl() }}"
-                >
-                    ‹
-                </a>
-
-            @endif
+                </div>
 
 
-            @foreach(
-                $opportunities->getUrlRange(
-                    1,
-                    $opportunities->lastPage()
-                )
-                as $page => $url
-            )
+                <!-- LINKS -->
 
-                @if(
-                    $page ==
-                    $opportunities->currentPage()
-                )
-
-                    <span class="active">
-                        {{ $page }}
-                    </span>
-
-                @else
-
-                    <a href="{{ $url }}">
-                        {{ $page }}
-                    </a>
-
-                @endif
-
-            @endforeach
+                <div class="pagination-links">
 
 
-            @if($opportunities->hasMorePages())
+                    <!-- PREVIOUS -->
 
-                <a
-                    href="{{ $opportunities->nextPageUrl() }}"
-                >
-                    ›
-                </a>
+                    @if($opportunities->onFirstPage())
 
-            @else
+                        <span>
+                            ‹
+                        </span>
 
-                <span>
-                    ›
-                </span>
+                    @else
 
-            @endif
+                        <a
+                            href="{{ $opportunities->previousPageUrl() }}"
+                        >
+                            ‹
+                        </a>
 
-        </div>
+                    @endif
 
-    </div>
 
-@endif
+                    <!-- PAGE NUMBERS -->
+
+                    @foreach(
+                        $opportunities->getUrlRange(
+                            1,
+                            $opportunities->lastPage()
+                        )
+                        as $page => $url
+                    )
+
+                        @if(
+                            $page ==
+                            $opportunities->currentPage()
+                        )
+
+                            <span class="active">
+                                {{ $page }}
+                            </span>
+
+                        @else
+
+                            <a href="{{ $url }}">
+                                {{ $page }}
+                            </a>
+
+                        @endif
+
+                    @endforeach
+
+
+                    <!-- NEXT -->
+
+                    @if($opportunities->hasMorePages())
+
+                        <a
+                            href="{{ $opportunities->nextPageUrl() }}"
+                        >
+                            ›
+                        </a>
+
+                    @else
+
+                        <span>
+                            ›
+                        </span>
+
+                    @endif
+
+
+                </div>
+
+            </div>
+
+        @endif
+
 
     </div>
 
@@ -1606,15 +1679,25 @@
                 stroke-linejoin="round"
             >
 
-                <polyline points="3 6 5 6 21 6"/>
+                <polyline
+                    points="3 6 5 6 21 6"
+                />
 
-                <path d="M19 6l-1 14H6L5 6"/>
+                <path
+                    d="M19 6l-1 14H6L5 6"
+                />
 
-                <path d="M10 11v6"/>
+                <path
+                    d="M10 11v6"
+                />
 
-                <path d="M14 11v6"/>
+                <path
+                    d="M14 11v6"
+                />
 
-                <path d="M9 6V4h6v2"/>
+                <path
+                    d="M9 6V4h6v2"
+                />
 
             </svg>
 
@@ -1658,7 +1741,9 @@
                 class="delete-cancel-btn"
                 id="deleteOpportunityCancel"
             >
+
                 Cancel
+
             </button>
 
 
@@ -1667,7 +1752,9 @@
                 class="delete-confirm-btn"
                 id="deleteOpportunityConfirm"
             >
+
                 Delete Opportunity
+
             </button>
 
 
@@ -1718,11 +1805,9 @@ document.addEventListener(
             );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | OPEN MODAL
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           OPEN MODAL
+        ===================================================== */
 
         window.openOpportunityDeleteModal =
             function (
@@ -1752,11 +1837,9 @@ document.addEventListener(
             };
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | CLOSE MODAL
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           CLOSE MODAL
+        ===================================================== */
 
         function closeDeleteModal()
         {
@@ -1778,11 +1861,9 @@ document.addEventListener(
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | CANCEL BUTTON
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           CANCEL
+        ===================================================== */
 
         cancelButton.addEventListener(
             'click',
@@ -1795,11 +1876,9 @@ document.addEventListener(
         );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | DELETE BUTTON
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           CONFIRM DELETE
+        ===================================================== */
 
         confirmButton.addEventListener(
             'click',
@@ -1830,11 +1909,9 @@ document.addEventListener(
         );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | CLICK OUTSIDE MODAL
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           CLICK OUTSIDE
+        ===================================================== */
 
         modal.addEventListener(
             'click',
@@ -1853,11 +1930,9 @@ document.addEventListener(
         );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | ESCAPE
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           ESCAPE
+        ===================================================== */
 
         document.addEventListener(
             'keydown',
