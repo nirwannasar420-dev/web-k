@@ -1904,35 +1904,52 @@
                                         </td>
 
 
-                                        {{-- QUANTITY --}}
+                                       {{-- QUANTITY --}}
 
-                                        <td>
+<td>
 
-                                            <span class="product-quantity">
+    @php
 
-                                                {{
-                                                    number_format(
-                                                        (float)
-                                                        $item->quantity,
-                                                        2,
-                                                        ',',
-                                                        '.'
-                                                    )
-                                                }}
+        $quantity = (float) $item->quantity;
 
-                                                {{
-                                                    $item
-                                                        ->product
-                                                        ->unit
-                                                    ?? ''
-                                                }}
+        if ($quantity == floor($quantity)) {
 
-                                            </span>
+            $quantityDisplay = number_format(
+                $quantity,
+                0,
+                ',',
+                '.'
+            );
+
+        } else {
+
+            $quantityDisplay = rtrim(
+                rtrim(
+                    number_format(
+                        $quantity,
+                        2,
+                        ',',
+                        '.'
+                    ),
+                    '0'
+                ),
+                ','
+            );
+
+        }
+
+    @endphp
 
 
-                                        </td>
+    <span class="product-quantity">
 
+        {{ $quantityDisplay }}
 
+        {{ $item->product->unit ?? '' }}
+
+    </span>
+
+</td>
                                         {{-- UNIT PRICE --}}
 
                                         <td>
