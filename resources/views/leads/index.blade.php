@@ -580,12 +580,77 @@
        PAGINATION
     ========================================================= */
 
-    .pagination-area {
-        padding: 15px 20px;
+   .pagination-area {
+    padding: 18px 20px;
 
-        border-top: 1px solid #E5E7EB;
-    }
+    display: flex;
 
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.pagination-info {
+    color: #8992A3;
+
+    font-size: 12px;
+}
+
+
+.pagination-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+.pagination-links a,
+.pagination-links span {
+    min-width: 32px;
+
+    height: 32px;
+
+    padding: 0 8px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #E1E5EB;
+
+    border-radius: 7px;
+
+    background: #FFFFFF;
+
+    color: #4B5565;
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+}
+
+
+.pagination-links .active {
+    background: #0B2A6F;
+
+    border-color: #0B2A6F;
+
+    color: #FFFFFF;
+}
+
+
+.pagination-links a:hover {
+    background: #F1F3F4;
+}
 
     /* =========================================================
        DELETE MODAL
@@ -1216,15 +1281,86 @@
 
         <!-- PAGINATION -->
 
-        @if($leads->hasPages())
+       @if($leads->hasPages())
 
-            <div class="pagination-area">
+    <div class="pagination-area">
 
-                {{ $leads->links() }}
+        <div class="pagination-info">
 
-            </div>
+            Showing
+            {{ $leads->firstItem() ?? 0 }}
+            -
+            {{ $leads->lastItem() ?? 0 }}
+            of
+            {{ $leads->total() }}
+            leads
 
-        @endif
+        </div>
+
+
+        <div class="pagination-links">
+
+            @if($leads->onFirstPage())
+
+                <span>
+                    ‹
+                </span>
+
+            @else
+
+                <a href="{{ $leads->previousPageUrl() }}">
+                    ‹
+                </a>
+
+            @endif
+
+
+            @foreach(
+                $leads->getUrlRange(
+                    1,
+                    $leads->lastPage()
+                )
+                as $page => $url
+            )
+
+                @if(
+                    $page == $leads->currentPage()
+                )
+
+                    <span class="active">
+                        {{ $page }}
+                    </span>
+
+                @else
+
+                    <a href="{{ $url }}">
+                        {{ $page }}
+                    </a>
+
+                @endif
+
+            @endforeach
+
+
+            @if($leads->hasMorePages())
+
+                <a href="{{ $leads->nextPageUrl() }}">
+                    ›
+                </a>
+
+            @else
+
+                <span>
+                    ›
+                </span>
+
+            @endif
+
+        </div>
+
+    </div>
+
+@endif
 
 
     </div>
