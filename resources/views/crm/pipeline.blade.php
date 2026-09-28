@@ -740,7 +740,7 @@
             </h1>
 
             <p>
-                Kelola dan pantau peluang penjualan berdasarkan tahapan.
+                Manage and monitor sales opportunities by stage.
             </p>
 
         </div>
@@ -766,8 +766,7 @@
 
             </svg>
 
-
-            Tambah Opportunity
+            Add Opportunity
 
         </a>
 
@@ -1026,7 +1025,7 @@
                                         class="stage-label"
                                     >
 
-                                        Pindah Stage
+                                        Move to Stage
 
                                     </label>
 
@@ -1092,7 +1091,7 @@
 
                                     @else
 
-                                        Tanggal belum diatur
+                                        Date not set
 
                                     @endif
 
@@ -1107,7 +1106,7 @@
                                     class="detail-link"
                                 >
 
-                                    Detail
+                                    Details
 
 
                                     <svg
@@ -1170,14 +1169,14 @@
 
                             <div class="empty-column-title">
 
-                                Belum ada opportunity
+                                No opportunities yet
 
                             </div>
 
 
                             <div>
 
-                                Opportunity pada tahap ini akan muncul di sini.
+                                Opportunities at this stage will appear here.
 
                             </div>
 
