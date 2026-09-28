@@ -2666,6 +2666,970 @@
 
     </style>
 
+    <style>
+
+/* =========================================================
+   MOBILE FIX
+   LEADS / OPPORTUNITIES / ACTIVITIES / USERS ONLY
+
+   CUSTOMERS / DASHBOARD / PRODUCTS / SALES RESUME /
+   REPORTS ARE NOT CHANGED
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* =====================================================
+       COMMON
+    ===================================================== */
+
+    .leads-page,
+    .opportunities-page,
+    .activities-page,
+    .users-page {
+        width: 100%;
+        min-width: 0;
+        overflow: visible;
+    }
+
+
+    /* =====================================================
+       COMMON TABLE WRAPPER
+    ===================================================== */
+
+    .leads-page .table-wrapper,
+    .opportunities-page .table-wrapper,
+    .activities-page .table-wrapper,
+    .users-page .table-wrapper {
+        width: 100%;
+        overflow: visible !important;
+        padding: 10px;
+    }
+
+
+    /* =====================================================
+       COMMON TABLE RESET
+    ===================================================== */
+
+    .leads-table,
+    .opportunities-table,
+    .activities-table,
+    .users-table {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        display: block !important;
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        table-layout: auto !important;
+    }
+
+
+    .leads-table thead,
+    .opportunities-table thead,
+    .activities-table thead,
+    .users-table thead {
+        display: none !important;
+    }
+
+
+    .leads-table tbody,
+    .opportunities-table tbody,
+    .activities-table tbody,
+    .users-table tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+
+    /* =====================================================
+       COMMON ROW -> CARD
+    ===================================================== */
+
+    .leads-table tbody tr,
+    .opportunities-table tbody tr,
+    .activities-table tbody tr,
+    .users-table tbody tr {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 0 12px !important;
+        padding: 15px !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 14px !important;
+        box-shadow: 0 4px 12px rgba(15,23,42,.045) !important;
+        overflow: hidden !important;
+    }
+
+
+    .leads-table tbody tr:last-child,
+    .opportunities-table tbody tr:last-child,
+    .activities-table tbody tr:last-child,
+    .users-table tbody tr:last-child {
+        margin-bottom: 0 !important;
+    }
+
+
+    /* =====================================================
+       COMMON CELL
+    ===================================================== */
+
+    .leads-table td,
+    .opportunities-table td,
+    .activities-table td,
+    .users-table td {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 8px 0 !important;
+
+        border: none !important;
+
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+
+        vertical-align: middle !important;
+
+        text-align: right !important;
+
+        white-space: normal !important;
+
+        overflow: visible !important;
+    }
+
+
+    /* =====================================================
+       FIRST CELL
+       MAIN INFORMATION
+    ===================================================== */
+
+    .leads-table td:first-child,
+    .opportunities-table td:first-child,
+    .activities-table td:first-child,
+    .users-table td:first-child {
+        display: block !important;
+
+        padding: 0 0 12px !important;
+        margin-bottom: 4px !important;
+
+        text-align: left !important;
+
+        border-bottom: 1px solid #EEF2F6 !important;
+    }
+
+
+    /* =====================================================
+       LAST CELL / ACTIONS
+    ===================================================== */
+
+    .leads-table td:last-child,
+    .opportunities-table td:last-child,
+    .activities-table td:last-child,
+    .users-table td:last-child {
+        display: block !important;
+
+        padding: 12px 0 0 !important;
+        margin-top: 5px !important;
+
+        border-top: 1px solid #EEF2F6 !important;
+
+        text-align: left !important;
+    }
+
+
+    /* =====================================================
+       LEADS
+    ===================================================== */
+
+    .leads-header {
+        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+
+
+    .leads-header-left h1 {
+        font-size: 32px !important;
+        line-height: 1.1 !important;
+        margin-bottom: 7px !important;
+    }
+
+
+    .leads-header-left p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+
+    .btn-add-lead {
+        width: 100% !important;
+        min-height: 48px !important;
+        height: 48px !important;
+
+        justify-content: center !important;
+
+        border-radius: 11px !important;
+        font-size: 14px !important;
+    }
+
+
+    .leads-toolbar {
+        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+
+    .leads-toolbar .search-wrapper,
+    .leads-toolbar .status-select,
+    .leads-toolbar .btn-search {
+        width: 100% !important;
+    }
+
+
+    .leads-toolbar .search-input {
+        width: 100% !important;
+        min-height: 48px !important;
+    }
+
+
+    .leads-table tbody tr {
+        padding: 15px !important;
+    }
+
+
+    .lead-info {
+        width: 100%;
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+    }
+
+
+    .lead-avatar {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .lead-name {
+        min-width: 0;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+
+        font-size: 14px !important;
+        line-height: 1.35 !important;
+        font-weight: 700;
+    }
+
+
+    .leads-table td:nth-child(2)::before {
+        content: "Contact";
+    }
+
+
+    .leads-table td:nth-child(3)::before {
+        content: "Email";
+    }
+
+
+    .leads-table td:nth-child(4)::before {
+        content: "Source";
+    }
+
+
+    .leads-table td:nth-child(5)::before {
+        content: "Status";
+    }
+
+
+    .leads-table td:nth-child(2)::before,
+    .leads-table td:nth-child(3)::before,
+    .leads-table td:nth-child(4)::before,
+    .leads-table td:nth-child(5)::before {
+        color: #94A3B8;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
+        text-align: left;
+    }
+
+
+    .contact-text,
+    .email-text,
+    .source-text {
+        min-width: 0;
+        max-width: 68%;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+
+        color: #475569;
+        text-align: right;
+    }
+
+
+    .leads-table .actions {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+
+        gap: 7px !important;
+    }
+
+
+    .leads-table .action-btn {
+        width: 100% !important;
+        height: 38px !important;
+        padding: 0 6px !important;
+
+        border-radius: 8px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    /* =====================================================
+       OPPORTUNITIES
+    ===================================================== */
+
+    .opportunities-header {
+        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+
+
+    .opportunities-header-left h1 {
+        font-size: 32px !important;
+        line-height: 1.1 !important;
+        margin-bottom: 7px !important;
+    }
+
+
+    .opportunities-header-left p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+
+    .btn-add-opportunity {
+        width: 100% !important;
+        min-height: 48px !important;
+        height: 48px !important;
+
+        justify-content: center !important;
+
+        border-radius: 11px !important;
+
+        font-size: 14px !important;
+    }
+
+
+    .opportunities-toolbar {
+        width: 100%;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        gap: 10px !important;
+    }
+
+
+    .opportunities-toolbar .search-wrapper,
+    .opportunities-toolbar .stage-filter,
+    .opportunities-toolbar .btn-search {
+        width: 100% !important;
+    }
+
+
+    .opportunities-toolbar .search-input {
+        width: 100% !important;
+        min-height: 48px !important;
+    }
+
+
+    .opportunities-table tbody tr {
+        padding: 15px !important;
+    }
+
+
+    .opportunity-info {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+
+    .opportunity-name {
+        min-width: 0;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        font-weight: 700 !important;
+    }
+
+
+    .opportunity-id {
+        margin-top: 4px !important;
+
+        font-size: 11px !important;
+        color: #94A3B8 !important;
+    }
+
+
+    .opportunities-table td:nth-child(2)::before {
+        content: "Customer";
+    }
+
+
+    .opportunities-table td:nth-child(3)::before {
+        content: "Stage";
+    }
+
+
+    .opportunities-table td:nth-child(4)::before {
+        content: "Revenue";
+    }
+
+
+    .opportunities-table td:nth-child(5)::before {
+        content: "Rating";
+    }
+
+
+    .opportunities-table td:nth-child(6)::before {
+        content: "Date";
+    }
+
+
+    .opportunities-table td:nth-child(2)::before,
+    .opportunities-table td:nth-child(3)::before,
+    .opportunities-table td:nth-child(4)::before,
+    .opportunities-table td:nth-child(5)::before,
+    .opportunities-table td:nth-child(6)::before {
+        color: #94A3B8;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
+        text-align: left;
+    }
+
+
+    .opportunities-table .customer-info {
+        min-width: 0 !important;
+
+        display: flex;
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .opportunities-table .customer-avatar {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .opportunities-table .customer-name,
+    .opportunities-table .customer-company {
+        max-width: 100% !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        white-space: normal !important;
+    }
+
+
+    .opportunities-table .revenue {
+        white-space: normal !important;
+        text-align: right !important;
+        font-size: 13px !important;
+    }
+
+
+    .opportunities-table .rating {
+        white-space: nowrap !important;
+        font-size: 14px !important;
+    }
+
+
+    .opportunities-table .date-text {
+        white-space: normal !important;
+    }
+
+
+    .opportunities-table .actions {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+
+        gap: 7px !important;
+    }
+
+
+    .opportunities-table .action-btn {
+        width: 100% !important;
+        height: 38px !important;
+
+        padding: 0 7px !important;
+
+        border-radius: 8px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    /* =====================================================
+       ACTIVITIES
+    ===================================================== */
+
+    .activities-page {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+
+    .activities-header {
+        width: 100%;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+
+
+    .activities-title h1 {
+        font-size: 32px !important;
+        line-height: 1.1 !important;
+    }
+
+
+    .activities-title p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+
+    .activities-header .btn-add {
+        width: 100% !important;
+        min-height: 48px !important;
+        height: 48px !important;
+
+        border-radius: 11px !important;
+        font-size: 14px !important;
+    }
+
+
+    .activity-card {
+        width: 100% !important;
+        border-radius: 16px !important;
+    }
+
+
+    .activity-card .filter-area {
+        padding: 16px !important;
+    }
+
+
+    .activity-card .filter-form {
+        display: flex !important;
+        flex-direction: column !important;
+
+        gap: 10px !important;
+    }
+
+
+    .activity-card .form-group,
+    .activity-card .btn-filter,
+    .activity-card .form-control-custom,
+    .activity-card .form-select-custom {
+        width: 100% !important;
+    }
+
+
+    .activity-card .form-control-custom,
+    .activity-card .form-select-custom {
+        min-height: 46px !important;
+    }
+
+
+    .activities-table tbody tr {
+        padding: 15px !important;
+
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+
+    .activities-table td:first-child {
+        display: block !important;
+
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+
+    .activity-subject {
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+
+
+    .activity-description {
+        max-width: 100% !important;
+
+        margin-top: 5px !important;
+
+        white-space: normal !important;
+
+        overflow: visible !important;
+        text-overflow: clip !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        font-size: 12px !important;
+        line-height: 1.45 !important;
+    }
+
+
+    .activities-table td:nth-child(2)::before {
+        content: "Opportunity";
+    }
+
+
+    .activities-table td:nth-child(3)::before {
+        content: "Customer";
+    }
+
+
+    .activities-table td:nth-child(4)::before {
+        content: "Date";
+    }
+
+
+    .activities-table td:nth-child(5)::before {
+        content: "Status";
+    }
+
+
+    .activities-table td:nth-child(2)::before,
+    .activities-table td:nth-child(3)::before,
+    .activities-table td:nth-child(4)::before,
+    .activities-table td:nth-child(5)::before {
+        color: #94A3B8;
+
+        font-size: 11px;
+        font-weight: 600;
+
+        flex-shrink: 0;
+
+        text-align: left;
+    }
+
+
+    .activities-table td:nth-child(2) .opportunity-name,
+    .activities-table td:nth-child(3) .customer-name {
+        max-width: 68% !important;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        text-align: right !important;
+    }
+
+
+    .activities-table .date-text {
+        max-width: 68% !important;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        text-align: right !important;
+    }
+
+
+    .activities-table .status-badge {
+        flex-shrink: 0;
+    }
+
+
+    .activities-table .action-area {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+
+        gap: 7px !important;
+
+        white-space: normal !important;
+    }
+
+
+    .activities-table .action-btn {
+        width: 100% !important;
+        height: 38px !important;
+
+        padding: 0 5px !important;
+
+        border-radius: 8px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    /* =====================================================
+       USERS
+    ===================================================== */
+
+    .users-header {
+        width: 100%;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+
+
+    .users-header-left h1 {
+        font-size: 32px !important;
+        line-height: 1.1 !important;
+    }
+
+
+    .users-header-left p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+
+    .users-header .btn {
+        width: 100% !important;
+        min-height: 48px !important;
+        height: 48px !important;
+
+        border-radius: 11px !important;
+
+        font-size: 14px !important;
+    }
+
+
+    .users-table tbody tr {
+        padding: 15px !important;
+    }
+
+
+    .user-info {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+
+        gap: 11px !important;
+    }
+
+
+    .users-table .user-avatar {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+
+        border-radius: 11px !important;
+    }
+
+
+    .user-name {
+        min-width: 0 !important;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        font-size: 14px !important;
+        line-height: 1.35 !important;
+        font-weight: 700 !important;
+    }
+
+
+    .users-table td:nth-child(2)::before {
+        content: "Email";
+    }
+
+
+    .users-table td:nth-child(3)::before {
+        content: "Role";
+    }
+
+
+    .users-table td:nth-child(4)::before {
+        content: "Created";
+    }
+
+
+    .users-table td:nth-child(2)::before,
+    .users-table td:nth-child(3)::before,
+    .users-table td:nth-child(4)::before {
+        color: #94A3B8;
+
+        font-size: 11px;
+        font-weight: 600;
+
+        flex-shrink: 0;
+
+        text-align: left;
+    }
+
+
+    .users-table .user-email {
+        max-width: 68% !important;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+
+        text-align: right !important;
+    }
+
+
+    .users-table .role-badge {
+        flex-shrink: 0;
+    }
+
+
+    .users-table td:nth-child(4) {
+        align-items: flex-start !important;
+    }
+
+
+    .users-table td:nth-child(4) {
+        white-space: normal !important;
+    }
+
+
+    .users-table .actions {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+
+        gap: 7px !important;
+    }
+
+
+    .users-table .action-btn {
+        width: 100% !important;
+
+        height: 38px !important;
+
+        padding: 0 6px !important;
+
+        border-radius: 8px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ===================================================== */
+
+    .leads-table .empty-row,
+    .opportunities-table .empty-row,
+    .activities-table .empty-row,
+    .users-table .empty-row {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .leads-table tbody tr,
+    .opportunities-table tbody tr,
+    .activities-table tbody tr,
+    .users-table tbody tr {
+        padding: 13px !important;
+    }
+
+
+    .leads-table .action-btn,
+    .opportunities-table .action-btn,
+    .activities-table .action-btn,
+    .users-table .action-btn {
+        font-size: 9px !important;
+    }
+
+
+    .contact-text,
+    .email-text,
+    .source-text,
+    .users-table .user-email {
+        max-width: 64% !important;
+    }
+
+}
+
+</style>
+
 </head>
 
 
