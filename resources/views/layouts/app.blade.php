@@ -15,16 +15,14 @@
     >
 
     <title>
-    @yield('title', 'CRM Petra Textima')
-</title>
+        @yield('title', 'CRM Petra Textima')
+    </title>
 
-
-<link
-    rel="icon"
-    type="image/png"
-    href="{{ asset('images/favicon-petra-textima.png') }}"
->
-
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ asset('images/favicon-petra-textima.png') }}"
+    >
 
     <style>
 
@@ -67,11 +65,9 @@
             box-sizing: border-box;
         }
 
-
         html {
             min-height: 100%;
         }
-
 
         body {
 
@@ -88,14 +84,12 @@
 
         }
 
-
         button,
         input,
         select,
         textarea {
             font-family: inherit;
         }
-
 
         a {
             text-decoration: none;
@@ -172,9 +166,6 @@
 
         }
 
-
-        /* FULL RED LINE */
-
         .brand::after {
 
             content: '';
@@ -182,9 +173,7 @@
             position: absolute;
 
             left: 0;
-
             right: 0;
-
             bottom: 0;
 
             height: 3px;
@@ -193,11 +182,9 @@
 
         }
 
-
         .brand-link {
 
             width: 215px;
-
             height: 85px;
 
             display: block;
@@ -208,30 +195,26 @@
 
         }
 
-
         .brand-logo-image {
 
             position: absolute;
 
             width: 315px;
-
             height: 315px;
 
             max-width: none;
-
             max-height: none;
 
             object-fit: contain;
 
             left: -50px;
-
             top: -116px;
 
         }
 
 
         /* =====================================================
-           NAVIGATION
+           SIDEBAR NAVIGATION
         ===================================================== */
 
         .sidebar-navigation {
@@ -250,7 +233,8 @@
                     #09245F 100%
                 );
 
-            padding: 20px 12px 15px;
+            padding:
+                20px 12px 15px;
 
         }
 
@@ -261,28 +245,31 @@
 
         .sidebar-section-title {
 
-            padding: 0 13px;
+            padding:
+                0 13px;
 
-            margin: 2px 0 9px;
+            margin:
+                2px 0 9px;
 
             color:
                 rgba(255,255,255,.48);
 
-            font-size: 9px;
+            font-size:
+                9px;
 
-            font-weight: 800;
+            font-weight:
+                800;
 
-            text-transform: uppercase;
+            text-transform:
+                uppercase;
 
-            letter-spacing: 1px;
+            letter-spacing:
+                1px;
 
         }
 
-
         .sidebar-section-title.management {
-
             margin-top: 22px;
-
         }
 
 
@@ -294,7 +281,8 @@
 
             height: 1px;
 
-            margin: 8px 12px 18px;
+            margin:
+                8px 12px 18px;
 
             background:
                 rgba(255,255,255,.11);
@@ -303,7 +291,7 @@
 
 
         /* =====================================================
-           MENU
+           SIDEBAR MENU
         ===================================================== */
 
         .sidebar-menu {
@@ -311,18 +299,13 @@
             list-style: none;
 
             margin: 0;
-
             padding: 0;
 
         }
 
-
         .sidebar-menu li {
-
             margin-bottom: 4px;
-
         }
-
 
         .sidebar-menu a {
 
@@ -330,7 +313,8 @@
 
             min-height: 44px;
 
-            padding: 10px 13px;
+            padding:
+                10px 13px;
 
             display: flex;
 
@@ -351,43 +335,38 @@
 
         }
 
-
-        /* =====================================================
-           HOVER
-        ===================================================== */
-
         .sidebar-menu a:hover {
 
             background:
                 rgba(255,255,255,.09);
 
-            color: #FFFFFF;
+            color:
+                #FFFFFF;
 
             transform:
                 translateX(2px);
 
         }
 
-
-        /* =====================================================
-           ACTIVE
-        ===================================================== */
-
         .sidebar-menu a.active {
 
-            background: #FFFFFF;
+            background:
+                #FFFFFF;
 
-            color: #0B2A6F;
+            color:
+                #0B2A6F;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
             box-shadow:
-                0 5px 14px rgba(0,0,0,.12);
+                0 5px 14px
+                rgba(0,0,0,.12);
 
-            transform: none;
+            transform:
+                none;
 
         }
-
 
         .sidebar-menu a.active::before {
 
@@ -398,26 +377,28 @@
             left: 0;
 
             top: 8px;
-
             bottom: 8px;
 
             width: 4px;
 
-            background: #E30613;
+            background:
+                #E30613;
 
             border-radius:
                 0 5px 5px 0;
 
         }
 
-
         .sidebar-menu a.active:hover {
 
-            background: #FFFFFF;
+            background:
+                #FFFFFF;
 
-            color: #0B2A6F;
+            color:
+                #0B2A6F;
 
-            transform: none;
+            transform:
+                none;
 
         }
 
@@ -429,13 +410,11 @@
         .menu-icon {
 
             width: 21px;
-
             height: 21px;
 
             display: inline-flex;
 
             align-items: center;
-
             justify-content: center;
 
             flex-shrink: 0;
@@ -444,11 +423,9 @@
 
         }
 
-
         .menu-icon svg {
 
             width: 18px;
-
             height: 18px;
 
             stroke:
@@ -456,11 +433,8 @@
 
         }
 
-
         .menu-label {
-
             flex: 1;
-
         }
 
 
@@ -479,7 +453,8 @@
             margin-left:
                 var(--sidebar-width);
 
-            min-height: 100vh;
+            min-height:
+                100vh;
 
         }
 
@@ -498,18 +473,22 @@
 
             justify-content: space-between;
 
-            padding: 0 30px;
+            padding:
+                0 30px;
 
-            background: #0B2A6F;
+            background:
+                #0B2A6F;
 
             border-bottom:
                 1px solid #071D4D;
 
-            position: sticky;
+            position:
+                sticky;
 
             top: 0;
 
-            z-index: 900;
+            z-index:
+                900;
 
             box-shadow:
                 0 3px 10px
@@ -517,25 +496,27 @@
 
         }
 
-
         .topbar-left {
 
             display: flex;
 
             align-items: center;
 
-            gap: 12px;
+            gap:
+                12px;
 
         }
 
-
         .page-title {
 
-            color: #FFFFFF;
+            color:
+                #FFFFFF;
 
-            font-size: 19px;
+            font-size:
+                19px;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
         }
 
@@ -550,10 +531,10 @@
 
             align-items: center;
 
-            gap: 15px;
+            gap:
+                15px;
 
         }
-
 
         .user-area {
 
@@ -561,16 +542,18 @@
 
             align-items: center;
 
-            gap: 10px;
+            gap:
+                10px;
 
         }
 
-
         .user-avatar {
 
-            width: 36px;
+            width:
+                36px;
 
-            height: 36px;
+            height:
+                36px;
 
             display: flex;
 
@@ -578,7 +561,8 @@
 
             justify-content: center;
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             background:
                 rgba(255,255,255,.14);
@@ -587,41 +571,44 @@
                 1px solid
                 rgba(255,255,255,.22);
 
-            color: #FFFFFF;
+            color:
+                #FFFFFF;
 
-            font-size: 13px;
+            font-size:
+                13px;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
         }
-
 
         .user-details {
-
             line-height: 1.2;
-
         }
-
 
         .user-name {
 
-            color: #FFFFFF;
+            color:
+                #FFFFFF;
 
-            font-size: 12px;
+            font-size:
+                12px;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
         }
 
-
         .user-role {
 
-            margin-top: 3px;
+            margin-top:
+                3px;
 
             color:
                 rgba(255,255,255,.62);
 
-            font-size: 10px;
+            font-size:
+                10px;
 
         }
 
@@ -632,36 +619,46 @@
 
         .logout-button {
 
-            padding: 8px 13px;
+            padding:
+                8px 13px;
 
-            background: #FFFFFF;
+            background:
+                #FFFFFF;
 
             border:
                 1px solid
                 rgba(255,255,255,.65);
 
-            border-radius: 8px;
+            border-radius:
+                8px;
 
-            color: #0B2A6F;
+            color:
+                #0B2A6F;
 
-            font-size: 11px;
+            font-size:
+                11px;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
-            cursor: pointer;
+            cursor:
+                pointer;
 
-            transition: .2s ease;
+            transition:
+                .2s ease;
 
         }
 
-
         .logout-button:hover {
 
-            background: #E8EEF9;
+            background:
+                #E8EEF9;
 
-            border-color: #E8EEF9;
+            border-color:
+                #E8EEF9;
 
-            color: #071D4D;
+            color:
+                #071D4D;
 
         }
 
@@ -672,34 +669,39 @@
 
         .page-content {
 
-            padding: 30px;
+            padding:
+                30px;
 
         }
 
 
         /* =====================================================
-           OLD ALERT
-           Kept for validation errors
+           ALERT
         ===================================================== */
 
         .alert {
 
-            padding: 12px 15px;
+            padding:
+                12px 15px;
 
-            border-radius: 9px;
+            border-radius:
+                9px;
 
-            margin-bottom: 20px;
+            margin-bottom:
+                20px;
 
-            font-size: 13px;
+            font-size:
+                13px;
 
         }
 
-
         .alert-error {
 
-            background: #FCE8E6;
+            background:
+                #FCE8E6;
 
-            color: var(--danger);
+            color:
+                var(--danger);
 
             border:
                 1px solid #F5B8B3;
@@ -708,64 +710,84 @@
 
 
         /* =====================================================
-           TOAST NOTIFICATION
+           TOAST
         ===================================================== */
 
         .toast-container {
 
-            position: fixed;
+            position:
+                fixed;
 
-            top: 88px;
+            top:
+                88px;
 
-            right: 25px;
+            right:
+                25px;
 
-            z-index: 99999;
+            z-index:
+                99999;
 
-            display: flex;
+            display:
+                flex;
 
-            flex-direction: column;
+            flex-direction:
+                column;
 
-            gap: 10px;
+            gap:
+                10px;
 
-            width: min(
-                380px,
-                calc(100vw - 30px)
-            );
+            width:
+                min(
+                    380px,
+                    calc(100vw - 30px)
+                );
 
-            pointer-events: none;
+            pointer-events:
+                none;
 
         }
 
-
         .toast {
 
-            position: relative;
+            position:
+                relative;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: flex-start;
+            align-items:
+                flex-start;
 
-            gap: 12px;
+            gap:
+                12px;
 
-            width: 100%;
+            width:
+                100%;
 
-            padding: 14px 15px;
+            padding:
+                14px 15px;
 
-            background: #FFFFFF;
+            background:
+                #FFFFFF;
 
-            border: 1px solid #E2E8F0;
+            border:
+                1px solid #E2E8F0;
 
-            border-radius: 13px;
+            border-radius:
+                13px;
 
             box-shadow:
                 0 12px 30px
                 rgba(15,23,42,.14);
 
-            pointer-events: auto;
+            pointer-events:
+                auto;
 
-            overflow: hidden;
+            overflow:
+                hidden;
 
-            opacity: 0;
+            opacity:
+                0;
 
             transform:
                 translateX(30px);
@@ -776,7 +798,6 @@
 
         }
 
-
         .toast.toast-hide {
 
             animation:
@@ -785,180 +806,189 @@
 
         }
 
-
-        /* =====================================================
-           TOAST ICON
-        ===================================================== */
-
         .toast-icon {
 
-            width: 36px;
+            width:
+                36px;
 
-            height: 36px;
+            height:
+                36px;
 
-            flex-shrink: 0;
+            flex-shrink:
+                0;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
-            border-radius: 10px;
+            border-radius:
+                10px;
 
         }
-
 
         .toast-icon svg {
 
-            width: 19px;
+            width:
+                19px;
 
-            height: 19px;
+            height:
+                19px;
 
         }
-
 
         .toast-success .toast-icon {
 
-            background: #E7F6EF;
+            background:
+                #E7F6EF;
 
-            color: #159A6C;
+            color:
+                #159A6C;
 
         }
-
 
         .toast-error .toast-icon {
 
-            background: #FDEBED;
+            background:
+                #FDEBED;
 
-            color: #E30613;
+            color:
+                #E30613;
 
         }
-
-
-        /* =====================================================
-           TOAST CONTENT
-        ===================================================== */
 
         .toast-content {
 
-            flex: 1;
+            flex:
+                1;
 
-            min-width: 0;
+            min-width:
+                0;
 
-            padding-top: 1px;
+            padding-top:
+                1px;
 
         }
-
 
         .toast-title {
 
-            color: #172033;
+            color:
+                #172033;
 
-            font-size: 12px;
+            font-size:
+                12px;
 
-            font-weight: 800;
+            font-weight:
+                800;
 
-            line-height: 1.3;
+            line-height:
+                1.3;
 
         }
-
 
         .toast-message {
 
-            margin-top: 4px;
+            margin-top:
+                4px;
 
-            color: #64748B;
+            color:
+                #64748B;
 
-            font-size: 11px;
+            font-size:
+                11px;
 
-            line-height: 1.45;
+            line-height:
+                1.45;
 
         }
-
-
-        /* =====================================================
-           TOAST CLOSE
-        ===================================================== */
 
         .toast-close {
 
-            width: 25px;
+            width:
+                25px;
 
-            height: 25px;
+            height:
+                25px;
 
-            flex-shrink: 0;
+            flex-shrink:
+                0;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
-            border: none;
+            border:
+                none;
 
-            background: transparent;
+            background:
+                transparent;
 
-            color: #94A3B8;
+            color:
+                #94A3B8;
 
-            border-radius: 6px;
+            border-radius:
+                6px;
 
-            cursor: pointer;
+            cursor:
+                pointer;
 
-            font-size: 17px;
+            font-size:
+                17px;
 
-            line-height: 1;
-
-            transition: .2s ease;
+            line-height:
+                1;
 
         }
-
 
         .toast-close:hover {
 
-            background: #F1F5F9;
+            background:
+                #F1F5F9;
 
-            color: #475569;
+            color:
+                #475569;
 
         }
 
-
-        /* =====================================================
-           TOAST PROGRESS
-        ===================================================== */
-
         .toast-progress {
 
-            position: absolute;
+            position:
+                absolute;
 
             left: 0;
-
             right: 0;
-
             bottom: 0;
 
-            height: 3px;
+            height:
+                3px;
 
-            transform-origin: left;
+            transform-origin:
+                left;
 
             animation:
-                toastProgress 4s linear
+                toastProgress
+                4s linear
                 forwards;
 
         }
 
-
         .toast-success .toast-progress {
-
-            background: #159A6C;
-
+            background:
+                #159A6C;
         }
 
-
         .toast-error .toast-progress {
-
-            background: #E30613;
-
+            background:
+                #E30613;
         }
 
 
@@ -970,7 +1000,8 @@
 
             from {
 
-                opacity: 0;
+                opacity:
+                    0;
 
                 transform:
                     translateX(30px);
@@ -979,7 +1010,8 @@
 
             to {
 
-                opacity: 1;
+                opacity:
+                    1;
 
                 transform:
                     translateX(0);
@@ -987,13 +1019,13 @@
             }
 
         }
-
 
         @keyframes toastOut {
 
             from {
 
-                opacity: 1;
+                opacity:
+                    1;
 
                 transform:
                     translateX(0);
@@ -1002,7 +1034,8 @@
 
             to {
 
-                opacity: 0;
+                opacity:
+                    0;
 
                 transform:
                     translateX(30px);
@@ -1011,41 +1044,41 @@
 
         }
 
-
         @keyframes toastProgress {
 
             from {
-
                 transform:
                     scaleX(1);
-
             }
 
             to {
-
                 transform:
                     scaleX(0);
-
             }
 
         }
 
 
         /* =====================================================
-           MOBILE MENU
+           MOBILE MENU BUTTON
         ===================================================== */
 
         .mobile-menu-button {
 
-            display: none;
+            display:
+                none;
 
-            width: 38px;
+            width:
+                38px;
 
-            height: 38px;
+            height:
+                38px;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
             border:
                 1px solid
@@ -1054,16 +1087,19 @@
             background:
                 rgba(255,255,255,.10);
 
-            color: #FFFFFF;
+            color:
+                #FFFFFF;
 
-            border-radius: 8px;
+            border-radius:
+                8px;
 
-            cursor: pointer;
+            cursor:
+                pointer;
 
-            font-size: 18px;
+            font-size:
+                18px;
 
         }
-
 
         .mobile-menu-button:hover {
 
@@ -1079,24 +1115,26 @@
 
         .sidebar-overlay {
 
-            display: none;
+            display:
+                none;
 
-            position: fixed;
+            position:
+                fixed;
 
-            inset: 0;
+            inset:
+                0;
 
             background:
                 rgba(15,23,42,.42);
 
-            z-index: 999;
+            z-index:
+                999;
 
         }
 
-
         .sidebar-overlay.show {
-
-            display: block;
-
+            display:
+                block;
         }
 
 
@@ -1105,31 +1143,28 @@
         ===================================================== */
 
         .sidebar::-webkit-scrollbar {
-
-            width: 5px;
-
+            width:
+                5px;
         }
-
 
         .sidebar::-webkit-scrollbar-track {
-
-            background: #09245F;
-
+            background:
+                #09245F;
         }
-
 
         .sidebar::-webkit-scrollbar-thumb {
 
             background:
                 rgba(255,255,255,.22);
 
-            border-radius: 99px;
+            border-radius:
+                99px;
 
         }
 
 
         /* =====================================================
-           RESPONSIVE
+           DESKTOP/GENERAL RESPONSIVE
         ===================================================== */
 
         @media (max-width: 900px) {
@@ -1144,7 +1179,6 @@
 
             }
 
-
             .sidebar.show {
 
                 transform:
@@ -1152,85 +1186,1479 @@
 
             }
 
-
             .main-content {
 
-                width: 100%;
+                width:
+                    100%;
 
-                margin-left: 0;
+                margin-left:
+                    0;
 
             }
-
 
             .mobile-menu-button {
 
-                display: inline-flex;
+                display:
+                    inline-flex;
 
             }
-
 
             .topbar {
 
-                padding: 0 20px;
+                padding:
+                    0 20px;
 
             }
-
 
             .page-content {
 
-                padding: 20px;
+                padding:
+                    20px;
 
             }
 
-
             .toast-container {
 
-                top: 78px;
+                top:
+                    78px;
 
-                right: 15px;
+                right:
+                    15px;
 
-                width: calc(
-                    100vw - 30px
-                );
+                width:
+                    calc(100vw - 30px);
 
             }
 
         }
 
 
+    </style>
+
+
+    {{-- PAGE-SPECIFIC STYLES --}}
+    @yield('styles')
+
+
+    {{-- =====================================================
+         MOBILE ONLY
+         Desktop is intentionally untouched.
+    ====================================================== --}}
+
+    <style>
+
         @media (max-width: 600px) {
+
+            /* =================================================
+               GLOBAL
+            ================================================= */
+
+            html,
+            body {
+
+                width:
+                    100%;
+
+                max-width:
+                    100%;
+
+                overflow-x:
+                    hidden;
+
+            }
+
+            body {
+
+                background:
+                    #F1F5F9;
+
+                -webkit-font-smoothing:
+                    antialiased;
+
+            }
+
+            .app-layout {
+
+                width:
+                    100%;
+
+                min-height:
+                    100vh;
+
+            }
+
+            .main-content {
+
+                width:
+                    100%;
+
+                margin-left:
+                    0;
+
+                min-width:
+                    0;
+
+            }
+
+
+            /* =================================================
+               MOBILE TOPBAR
+            ================================================= */
 
             .topbar {
 
-                height: 64px;
+                height:
+                    68px;
+
+                min-height:
+                    68px;
+
+                padding:
+                    0 14px;
+
+                gap:
+                    10px;
+
+                box-shadow:
+                    0 4px 16px
+                    rgba(7,29,77,.16);
 
             }
 
+            .topbar-left {
+
+                min-width:
+                    0;
+
+                flex:
+                    1;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                gap:
+                    10px;
+
+            }
+
+            .mobile-menu-button {
+
+                width:
+                    42px;
+
+                height:
+                    42px;
+
+                min-width:
+                    42px;
+
+                border-radius:
+                    11px;
+
+                border:
+                    1px solid
+                    rgba(255,255,255,.26);
+
+                background:
+                    rgba(255,255,255,.10);
+
+                font-size:
+                    21px;
+
+                line-height:
+                    1;
+
+                flex-shrink:
+                    0;
+
+                -webkit-tap-highlight-color:
+                    transparent;
+
+            }
+
+            .mobile-menu-button:active {
+
+                transform:
+                    scale(.95);
+
+                background:
+                    rgba(255,255,255,.17);
+
+            }
 
             .page-title {
 
-                font-size: 16px;
+                min-width:
+                    0;
+
+                max-width:
+                    100%;
+
+                overflow:
+                    hidden;
+
+                white-space:
+                    nowrap;
+
+                text-overflow:
+                    ellipsis;
+
+                font-size:
+                    18px;
 
             }
 
+
+            /* =================================================
+               USER
+            ================================================= */
+
+            .topbar-right {
+
+                gap:
+                    8px;
+
+                flex-shrink:
+                    0;
+
+            }
 
             .user-details {
 
-                display: none;
+                display:
+                    none !important;
+
+            }
+
+            .user-avatar {
+
+                width:
+                    42px;
+
+                height:
+                    42px;
+
+                min-width:
+                    42px;
+
+                font-size:
+                    14px;
+
+            }
+
+            .logout-button {
+
+                min-width:
+                    78px;
+
+                height:
+                    42px;
+
+                padding:
+                    0 13px;
+
+                display:
+                    inline-flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                border-radius:
+                    10px;
+
+                font-size:
+                    12px;
 
             }
 
 
-            .page-content {
+            /* =================================================
+               SIDEBAR
+            ================================================= */
 
-                padding: 15px;
+            .sidebar {
+
+                width:
+                    268px;
+
+                max-width:
+                    calc(100vw - 42px);
+
+                box-shadow:
+                    14px 0 38px
+                    rgba(7,29,77,.25);
+
+                overscroll-behavior:
+                    contain;
 
             }
 
+            .sidebar-overlay {
+
+                background:
+                    rgba(15,23,42,.54);
+
+                backdrop-filter:
+                    blur(2px);
+
+                -webkit-backdrop-filter:
+                    blur(2px);
+
+            }
 
             .brand {
 
-                height: 120px;
+                height:
+                    108px;
+
+                padding:
+                    10px;
+
+            }
+
+            .brand-link {
+
+                width:
+                    215px;
+
+                height:
+                    76px;
+
+            }
+
+            .brand-logo-image {
+
+                width:
+                    285px;
+
+                height:
+                    285px;
+
+                left:
+                    -35px;
+
+                top:
+                    -104px;
+
+            }
+
+            .sidebar-navigation {
+
+                padding:
+                    18px 10px 20px;
+
+            }
+
+            .sidebar-section-title {
+
+                padding:
+                    0 13px;
+
+                margin:
+                    2px 0 10px;
+
+                font-size:
+                    10px;
+
+                letter-spacing:
+                    1.1px;
+
+            }
+
+            .sidebar-menu li {
+
+                margin-bottom:
+                    5px;
+
+            }
+
+            .sidebar-menu a {
+
+                min-height:
+                    47px;
+
+                padding:
+                    10px 14px;
+
+                gap:
+                    12px;
+
+                border-radius:
+                    10px;
+
+            }
+
+            .menu-icon {
+
+                width:
+                    22px;
+
+                height:
+                    22px;
+
+            }
+
+            .menu-icon svg {
+
+                width:
+                    19px;
+
+                height:
+                    19px;
+
+            }
+
+            .menu-label {
+
+                font-size:
+                    15px;
+
+            }
+
+
+            /* =================================================
+               PAGE CONTENT
+            ================================================= */
+
+            .page-content {
+
+                width:
+                    100%;
+
+                max-width:
+                    540px;
+
+                margin:
+                    0 auto;
+
+                padding:
+                    20px 15px 34px;
+
+                min-width:
+                    0;
+
+            }
+
+
+            /* =================================================
+               GENERAL HEADINGS
+            ================================================= */
+
+            .page-content h1 {
+
+                max-width:
+                    100%;
+
+                line-height:
+                    1.12;
+
+            }
+
+
+            .page-content p {
+
+                max-width:
+                    100%;
+
+                line-height:
+                    1.55;
+
+            }
+
+
+            /* =================================================
+               FORM CONTROLS
+            ================================================= */
+
+            .page-content input,
+            .page-content select,
+            .page-content textarea {
+
+                min-height:
+                    46px;
+
+                font-size:
+                    15px;
+
+                border-radius:
+                    10px;
+
+            }
+
+
+            .page-content textarea {
+
+                min-height:
+                    110px;
+
+            }
+
+
+            /* =================================================
+               GENERAL BUTTON
+            ================================================= */
+
+            .page-content a,
+            .page-content button {
+
+                -webkit-tap-highlight-color:
+                    transparent;
+
+            }
+
+
+            /* =================================================
+               CUSTOMERS
+            ================================================= */
+
+            .customers-page {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+            }
+
+            .customers-header {
+
+                width:
+                    100%;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+                gap:
+                    14px;
+
+                margin-bottom:
+                    18px;
+
+            }
+
+            .customers-header-left h1 {
+
+                font-size:
+                    32px;
+
+                line-height:
+                    1.1;
+
+            }
+
+            .customers-header-left p {
+
+                font-size:
+                    14px;
+
+                line-height:
+                    1.5;
+
+            }
+
+            .btn-add-customer {
+
+                width:
+                    100%;
+
+                height:
+                    48px;
+
+                border-radius:
+                    11px;
+
+                font-size:
+                    14px;
+
+                box-shadow:
+                    0 5px 14px
+                    rgba(11,42,111,.14);
+
+            }
+
+            .btn-add-customer svg {
+
+                width:
+                    18px;
+
+                height:
+                    18px;
+
+            }
+
+            .customers-card {
+
+                width:
+                    100%;
+
+                border-radius:
+                    17px;
+
+                box-shadow:
+                    0 5px 20px
+                    rgba(15,23,42,.06);
+
+            }
+
+            .customers-toolbar {
+
+                display:
+                    flex;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+
+                padding:
+                    15px;
+
+            }
+
+            .search-wrapper {
+
+                width:
+                    100%;
+
+            }
+
+            .search-input {
+
+                width:
+                    100%;
+
+                height:
+                    48px;
+
+                font-size:
+                    14px;
+
+                border-radius:
+                    10px;
+
+            }
+
+            .btn-search {
+
+                width:
+                    100%;
+
+                height:
+                    46px;
+
+                border-radius:
+                    10px;
+
+                font-size:
+                    14px;
+
+            }
+
+
+            /* =================================================
+               CUSTOMER TABLE -> MOBILE CARDS
+            ================================================= */
+
+            .table-wrapper {
+
+                width:
+                    100%;
+
+                padding:
+                    10px;
+
+                overflow:
+                    visible;
+
+            }
+
+            .customers-table {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+                display:
+                    block;
+
+                border-collapse:
+                    separate;
+
+            }
+
+            .customers-table thead {
+
+                display:
+                    none;
+
+            }
+
+            .customers-table tbody {
+
+                display:
+                    block;
+
+                width:
+                    100%;
+
+            }
+
+            .customers-table tbody tr {
+
+                display:
+                    block;
+
+                width:
+                    100%;
+
+                margin-bottom:
+                    12px;
+
+                padding:
+                    15px;
+
+                background:
+                    #FFFFFF;
+
+                border:
+                    1px solid #E2E8F0;
+
+                border-radius:
+                    14px;
+
+                box-shadow:
+                    0 4px 12px
+                    rgba(15,23,42,.045);
+
+            }
+
+            .customers-table tbody tr:last-child {
+
+                margin-bottom:
+                    0;
+
+            }
+
+            .customers-table td {
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    space-between;
+
+                gap:
+                    12px;
+
+                width:
+                    100%;
+
+                padding:
+                    7px 0;
+
+                border:
+                    none;
+
+                text-align:
+                    right;
+
+                font-size:
+                    13px;
+
+            }
+
+            .customers-table td:first-child {
+
+                display:
+                    block;
+
+                padding:
+                    0 0 12px;
+
+                margin-bottom:
+                    4px;
+
+                text-align:
+                    left;
+
+                border-bottom:
+                    1px solid #EEF2F6;
+
+            }
+
+            .customer-info {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                gap:
+                    11px;
+
+            }
+
+            .customer-avatar {
+
+                width:
+                    42px;
+
+                height:
+                    42px;
+
+                min-width:
+                    42px;
+
+                border-radius:
+                    11px;
+
+                font-size:
+                    13px;
+
+            }
+
+            .customer-name {
+
+                min-width:
+                    0;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
+
+                white-space:
+                    nowrap;
+
+                font-size:
+                    14px;
+
+                font-weight:
+                    700;
+
+            }
+
+            .customers-table td:nth-child(2)::before {
+
+                content:
+                    "Company";
+
+                color:
+                    #94A3B8;
+
+                font-size:
+                    11px;
+
+                font-weight:
+                    600;
+
+                flex-shrink:
+                    0;
+
+            }
+
+            .company-text {
+
+                max-width:
+                    62%;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
+
+                white-space:
+                    nowrap;
+
+                color:
+                    #475569;
+
+            }
+
+            .customers-table td:nth-child(3)::before {
+
+                content:
+                    "Email";
+
+                color:
+                    #94A3B8;
+
+                font-size:
+                    11px;
+
+                font-weight:
+                    600;
+
+                flex-shrink:
+                    0;
+
+            }
+
+            .email-text {
+
+                max-width:
+                    62%;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
+
+                white-space:
+                    nowrap;
+
+            }
+
+            .customers-table td:nth-child(4)::before {
+
+                content:
+                    "Phone";
+
+                color:
+                    #94A3B8;
+
+                font-size:
+                    11px;
+
+                font-weight:
+                    600;
+
+                flex-shrink:
+                    0;
+
+            }
+
+            .customers-table td:nth-child(5) {
+
+                display:
+                    block;
+
+                padding:
+                    12px 0 0;
+
+                margin-top:
+                    5px;
+
+                border-top:
+                    1px solid #EEF2F6;
+
+            }
+
+            .actions {
+
+                display:
+                    grid;
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+                gap:
+                    7px;
+
+                width:
+                    100%;
+
+            }
+
+            .action-btn {
+
+                width:
+                    100%;
+
+                height:
+                    38px;
+
+                padding:
+                    0 5px;
+
+                border-radius:
+                    8px;
+
+                font-size:
+                    11px;
+
+            }
+
+
+            /* =================================================
+               DASHBOARD
+            ================================================= */
+
+            .dashboard-page {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+            }
+
+            .dashboard-top {
+
+                display:
+                    flex;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap:
+                    8px;
+
+                margin-bottom:
+                    18px;
+
+            }
+
+            .dashboard-top h1 {
+
+                margin-bottom:
+                    7px;
+
+                font-size:
+                    32px;
+
+                line-height:
+                    1.1;
+
+            }
+
+            .dashboard-top p {
+
+                font-size:
+                    14px;
+
+            }
+
+            .today-label {
+
+                display:
+                    inline-flex;
+
+                align-items:
+                    center;
+
+                min-height:
+                    32px;
+
+                padding:
+                    0 11px;
+
+                margin-top:
+                    2px;
+
+                background:
+                    #E8EEF9;
+
+                border:
+                    1px solid #D8E2F4;
+
+                border-radius:
+                    8px;
+
+                color:
+                    #0B2A6F;
+
+                font-size:
+                    11px;
+
+                font-weight:
+                    600;
+
+                white-space:
+                    nowrap;
+
+            }
+
+            .stats-grid {
+
+                width:
+                    100%;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    13px;
+
+                margin-bottom:
+                    18px;
+
+            }
+
+            .stat-card {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+                min-height:
+                    126px;
+
+                padding:
+                    17px 17px 16px 20px;
+
+                border-radius:
+                    15px;
+
+                box-shadow:
+                    0 4px 14px
+                    rgba(15,23,42,.055);
+
+            }
+
+            .stat-card::before {
+
+                width:
+                    4px;
+
+            }
+
+            .stat-top {
+
+                margin-bottom:
+                    12px;
+
+            }
+
+            .stat-title {
+
+                font-size:
+                    13px;
+
+            }
+
+            .stat-subtitle {
+
+                font-size:
+                    11px;
+
+            }
+
+            .stat-icon {
+
+                width:
+                    43px;
+
+                height:
+                    43px;
+
+                min-width:
+                    43px;
+
+                border-radius:
+                    11px;
+
+            }
+
+            .stat-value {
+
+                font-size:
+                    34px;
+
+            }
+
+            .stat-value.revenue {
+
+                font-size:
+                    19px;
+
+            }
+
+
+            /* =================================================
+               DASHBOARD CARDS
+            ================================================= */
+
+            .dashboard-grid {
+
+                width:
+                    100%;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    14px;
+
+                margin-bottom:
+                    16px;
+
+            }
+
+            .dashboard-card,
+            .table-card {
+
+                width:
+                    100%;
+
+                min-width:
+                    0;
+
+                padding:
+                    17px;
+
+                border-radius:
+                    15px;
+
+            }
+
+            .card-header {
+
+                margin-bottom:
+                    15px;
+
+            }
+
+            .card-header h3 {
+
+                font-size:
+                    15px;
+
+            }
+
+
+            /* =================================================
+               DASHBOARD PIPELINE
+            ================================================= */
+
+            .pipeline-wrapper {
+
+                width:
+                    100%;
+
+                overflow-x:
+                    auto;
+
+                -webkit-overflow-scrolling:
+                    touch;
+
+            }
+
+            .pipeline {
+
+                min-width:
+                    590px;
+
+            }
+
+
+            /* =================================================
+               SUMMARY
+            ================================================= */
+
+            .summary-list {
+
+                gap:
+                    8px;
+
+            }
+
+            .summary-item {
+
+                padding:
+                    11px 12px;
+
+                border-radius:
+                    10px;
+
+            }
+
+
+            /* =================================================
+               TOAST MOBILE
+            ================================================= */
+
+            .toast-container {
+
+                top:
+                    78px;
+
+                left:
+                    12px;
+
+                right:
+                    12px;
+
+                width:
+                    auto;
+
+            }
+
+            .toast {
+
+                border-radius:
+                    12px;
+
+            }
+
+
+            /* =================================================
+               DELETE MODAL
+            ================================================= */
+
+            .delete-modal {
+
+                padding:
+                    16px;
+
+            }
+
+            .delete-modal-box {
+
+                width:
+                    100%;
+
+                max-width:
+                    390px;
+
+                padding:
+                    23px 18px;
+
+                border-radius:
+                    16px;
+
+            }
+
+            .delete-actions {
+
+                width:
+                    100%;
+
+                gap:
+                    8px;
+
+            }
+
+            .cancel-delete,
+            .confirm-delete {
+
+                flex:
+                    1;
+
+                height:
+                    42px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL PHONES
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            .topbar {
+
+                padding:
+                    0 10px;
+
+            }
+
+            .mobile-menu-button {
+
+                width:
+                    39px;
+
+                height:
+                    39px;
+
+                min-width:
+                    39px;
+
+            }
+
+            .page-title {
+
+                font-size:
+                    17px;
+
+            }
+
+            .user-avatar {
+
+                width:
+                    39px;
+
+                height:
+                    39px;
+
+                min-width:
+                    39px;
+
+            }
+
+            .logout-button {
+
+                min-width:
+                    70px;
+
+                height:
+                    40px;
+
+                padding:
+                    0 10px;
+
+            }
+
+            .sidebar {
+
+                width:
+                    250px;
+
+            }
+
+            .page-content {
+
+                padding:
+                    19px 13px 30px;
+
+            }
+
+            .customers-table tbody tr {
+
+                padding:
+                    14px;
+
+            }
+
+            .action-btn {
+
+                font-size:
+                    10px;
 
             }
 
@@ -1238,826 +2666,10 @@
 
     </style>
 
-
-    @yield('styles')
-
-    <style>
-/* =========================================================
-   MOBILE POLISH ONLY
-   Desktop layout is not affected.
-========================================================= */
-
-@media (max-width: 600px) {
-
-    /* =====================================================
-       GLOBAL MOBILE
-    ===================================================== */
-
-    html {
-        overflow-x: hidden;
-    }
-
-    body {
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    .app-layout {
-        min-height: 100vh;
-    }
-
-
-    /* =====================================================
-       TOPBAR
-    ===================================================== */
-
-    .topbar {
-        height: 68px;
-
-        min-height: 68px;
-
-        padding:
-            0 14px;
-
-        gap: 10px;
-
-        box-shadow:
-            0 4px 14px
-            rgba(7, 29, 77, 0.14);
-
-    }
-
-
-    .topbar-left {
-        min-width: 0;
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 10px;
-
-        flex: 1;
-    }
-
-
-    .mobile-menu-button {
-
-        width: 40px;
-        height: 40px;
-
-        min-width: 40px;
-
-        border-radius: 10px;
-
-        border:
-            1px solid
-            rgba(255,255,255,.25);
-
-        background:
-            rgba(255,255,255,.10);
-
-        font-size: 20px;
-
-        line-height: 1;
-
-        flex-shrink: 0;
-
-    }
-
-
-    .mobile-menu-button:active {
-
-        transform:
-            scale(.96);
-
-        background:
-            rgba(255,255,255,.17);
-
-    }
-
-
-    .page-title {
-
-        min-width: 0;
-
-        max-width: 100%;
-
-        overflow: hidden;
-
-        white-space: nowrap;
-
-        text-overflow: ellipsis;
-
-        font-size: 18px;
-
-        font-weight: 700;
-
-        line-height: 1.2;
-
-    }
-
-
-    /* =====================================================
-       USER AREA
-    ===================================================== */
-
-    .topbar-right {
-
-        gap: 8px;
-
-        flex-shrink: 0;
-
-    }
-
-
-    .user-area {
-
-        gap: 0;
-
-    }
-
-
-    .user-avatar {
-
-        width: 42px;
-        height: 42px;
-
-        min-width: 42px;
-
-        font-size: 14px;
-
-        border-radius: 50%;
-
-        background:
-            rgba(255,255,255,.14);
-
-    }
-
-
-    .user-details {
-
-        display: none !important;
-
-    }
-
-
-    .topbar-right form {
-
-        margin: 0;
-
-    }
-
-
-    .logout-button {
-
-        min-width: 76px;
-
-        height: 42px;
-
-        padding:
-            0 14px;
-
-        border-radius: 9px;
-
-        font-size: 12px;
-
-        display: inline-flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-    }
-
-
-    /* =====================================================
-       SIDEBAR
-    ===================================================== */
-
-    .sidebar {
-
-        width:
-            min(
-                var(--sidebar-width),
-                calc(100vw - 48px)
-            );
-
-        box-shadow:
-            12px 0 32px
-            rgba(7, 29, 77, 0.20);
-
-        overscroll-behavior:
-            contain;
-
-    }
-
-
-    .sidebar-overlay {
-
-        background:
-            rgba(15, 23, 42, 0.48);
-
-        backdrop-filter:
-            blur(2px);
-
-        -webkit-backdrop-filter:
-            blur(2px);
-
-    }
-
-
-    /* =====================================================
-       SIDEBAR BRAND
-    ===================================================== */
-
-    .brand {
-
-        height: 120px;
-
-        padding:
-            14px 10px;
-
-    }
-
-
-    .brand-link {
-
-        width: 215px;
-
-        max-width: 100%;
-
-        height: 85px;
-
-    }
-
-
-    /* =====================================================
-       SIDEBAR NAVIGATION
-    ===================================================== */
-
-    .sidebar-navigation {
-
-        padding:
-            18px 10px 18px;
-
-    }
-
-
-    .sidebar-section-title {
-
-        padding:
-            0 13px;
-
-        margin-bottom:
-            10px;
-
-        font-size:
-            10px;
-
-        letter-spacing:
-            1.2px;
-
-    }
-
-
-    .sidebar-section-divider {
-
-        margin:
-            10px 12px 18px;
-
-    }
-
-
-    .sidebar-menu li {
-
-        margin-bottom:
-            5px;
-
-    }
-
-
-    .sidebar-menu a {
-
-        min-height:
-            46px;
-
-        padding:
-            10px 13px;
-
-        gap:
-            12px;
-
-        border-radius:
-            10px;
-
-        -webkit-tap-highlight-color:
-            transparent;
-
-    }
-
-
-    .sidebar-menu a.active {
-
-        box-shadow:
-            0 4px 12px
-            rgba(0,0,0,.12);
-
-    }
-
-
-    .sidebar-menu a:active {
-
-        transform:
-            scale(.985);
-
-    }
-
-
-    .menu-icon {
-
-        width:
-            22px;
-
-        height:
-            22px;
-
-    }
-
-
-    .menu-icon svg {
-
-        width:
-            19px;
-
-        height:
-            19px;
-
-    }
-
-
-    .menu-label {
-
-        font-size:
-            15px;
-
-    }
-
-
-    /* =====================================================
-       MAIN CONTENT
-    ===================================================== */
-
-    .main-content {
-
-        width: 100%;
-
-        margin-left: 0;
-
-        min-width: 0;
-
-    }
-
-
-    .page-content {
-
-        padding:
-            20px 16px 34px;
-
-        min-width: 0;
-
-    }
-
-
-    /* =====================================================
-       GENERAL HEADINGS
-    ===================================================== */
-
-    .page-content h1 {
-
-        max-width: 100%;
-
-        font-size:
-            clamp(30px, 8vw, 40px);
-
-        line-height:
-            1.15;
-
-        margin-bottom:
-            10px;
-
-    }
-
-
-    .page-content h2 {
-
-        max-width:
-            100%;
-
-        line-height:
-            1.25;
-
-    }
-
-
-    .page-content p {
-
-        max-width:
-            100%;
-
-    }
-
-
-    /* =====================================================
-       GENERAL BUTTONS
-    ===================================================== */
-
-    .page-content button,
-    .page-content a[class*="btn"],
-    .page-content a[class*="button"] {
-
-        min-height:
-            44px;
-
-        -webkit-tap-highlight-color:
-            transparent;
-
-    }
-
-
-    /* =====================================================
-       FORM ELEMENTS
-    ===================================================== */
-
-    .page-content input,
-    .page-content select,
-    .page-content textarea {
-
-        min-height:
-            44px;
-
-        font-size:
-            15px;
-
-        border-radius:
-            9px;
-
-    }
-
-
-    .page-content textarea {
-
-        min-height:
-            110px;
-
-    }
-
-
-    /* =====================================================
-       SEARCH / TOOLBAR
-    ===================================================== */
-
-    .customers-toolbar {
-
-        width:
-            100%;
-
-    }
-
-
-    .search-wrapper {
-
-        width:
-            100%;
-
-    }
-
-
-    .search-input {
-
-        min-height:
-            46px;
-
-        font-size:
-            15px;
-
-    }
-
-
-    .btn-search {
-
-        min-height:
-            46px;
-
-        border-radius:
-            9px;
-
-    }
-
-
-    /* =====================================================
-       CUSTOMER CARD
-    ===================================================== */
-
-    .customers-card {
-
-        width:
-            100%;
-
-        border-radius:
-            16px;
-
-        overflow:
-            hidden;
-
-        box-shadow:
-            0 5px 18px
-            rgba(15,23,42,.07);
-
-    }
-
-
-    /* =====================================================
-       TABLE
-    ===================================================== */
-
-    .table-wrapper {
-
-        width:
-            100%;
-
-        max-width:
-            100%;
-
-        overflow-x:
-            auto;
-
-        overflow-y:
-            hidden;
-
-        -webkit-overflow-scrolling:
-            touch;
-
-        scrollbar-width:
-            thin;
-
-    }
-
-
-    .customers-table {
-
-        width:
-            100%;
-
-        min-width:
-            620px;
-
-    }
-
-
-    .customers-table th,
-    .customers-table td {
-
-        white-space:
-            nowrap;
-
-        padding:
-            14px 12px;
-
-    }
-
-
-    /* =====================================================
-       DASHBOARD
-    ===================================================== */
-
-    .dashboard-page {
-
-        width:
-            100%;
-
-        min-width:
-            0;
-
-    }
-
-
-    .dashboard-top {
-
-        width:
-            100%;
-
-        margin-bottom:
-            20px;
-
-    }
-
-
-    .dashboard-top h1 {
-
-        margin-bottom:
-            9px;
-
-    }
-
-
-    .dashboard-top p {
-
-        line-height:
-            1.55;
-
-    }
-
-
-    .today-label {
-
-        margin-top:
-            8px;
-
-    }
-
-
-    .stats-grid {
-
-        width:
-            100%;
-
-        gap:
-            16px;
-
-    }
-
-
-    .stat-card {
-
-        width:
-            100%;
-
-        min-width:
-            0;
-
-        border-radius:
-            16px;
-
-    }
-
-
-    .dashboard-card,
-    .table-card {
-
-        width:
-            100%;
-
-        min-width:
-            0;
-
-        border-radius:
-            16px;
-
-    }
-
-
-    /* =====================================================
-       TOUCH FEEDBACK
-    ===================================================== */
-
-    .page-content a,
-    .page-content button {
-
-        -webkit-tap-highlight-color:
-            transparent;
-
-    }
-
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    .toast-container {
-
-        top:
-            78px;
-
-        right:
-            12px;
-
-        left:
-            12px;
-
-        width:
-            auto;
-
-    }
-
-
-    .toast {
-
-        border-radius:
-            12px;
-
-    }
-
-
-    /* =====================================================
-       SAFE AREA
-    ===================================================== */
-
-    .page-content {
-
-        padding-bottom:
-            max(
-                34px,
-                env(safe-area-inset-bottom)
-            );
-
-    }
-
-
-    /* =====================================================
-       VERY SMALL PHONES
-    ===================================================== */
-
-    @media (max-width: 380px) {
-
-        .topbar {
-
-            padding:
-                0 10px;
-
-        }
-
-
-        .mobile-menu-button {
-
-            width:
-                38px;
-
-            height:
-                38px;
-
-            min-width:
-                38px;
-
-        }
-
-
-        .user-avatar {
-
-            width:
-                38px;
-
-            height:
-                38px;
-
-            min-width:
-                38px;
-
-        }
-
-
-        .logout-button {
-
-            min-width:
-                70px;
-
-            height:
-                40px;
-
-            padding:
-                0 11px;
-
-        }
-
-
-        .page-content {
-
-            padding-left:
-                13px;
-
-            padding-right:
-                13px;
-
-        }
-
-
-        .page-content h1 {
-
-            font-size:
-                30px;
-
-        }
-
-    }
-
-}
-</style>
-
 </head>
 
 
 <body>
-
 
 <div class="app-layout">
 
@@ -2116,11 +2728,9 @@
                     <a
                         href="{{ route('crm.dashboard') }}"
                         class="{{
-                            request()->routeIs(
-                                'crm.dashboard'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('crm.dashboard')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2171,11 +2781,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Dashboard
-
                         </span>
 
                     </a>
@@ -2190,11 +2797,9 @@
                     <a
                         href="{{ route('crm.pipeline') }}"
                         class="{{
-                            request()->routeIs(
-                                'crm.pipeline'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('crm.pipeline')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2219,11 +2824,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Pipeline
-
                         </span>
 
                     </a>
@@ -2238,11 +2840,9 @@
                     <a
                         href="{{ route('leads.index') }}"
                         class="{{
-                            request()->routeIs(
-                                'leads.*'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('leads.*')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2279,11 +2879,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Leads
-
                         </span>
 
                     </a>
@@ -2298,11 +2895,9 @@
                     <a
                         href="{{ route('customers.index') }}"
                         class="{{
-                            request()->routeIs(
-                                'customers.*'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('customers.*')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2339,11 +2934,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Customers
-
                         </span>
 
                     </a>
@@ -2356,15 +2948,11 @@
                 <li>
 
                     <a
-                        href="{{ route(
-                            'opportunities.index'
-                        ) }}"
+                        href="{{ route('opportunities.index') }}"
                         class="{{
-                            request()->routeIs(
-                                'opportunities.*'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('opportunities.*')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2391,11 +2979,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Opportunities
-
                         </span>
 
                     </a>
@@ -2411,8 +2996,8 @@
                         href="{{ route('products.index') }}"
                         class="{{
                             request()->routeIs('products.*')
-                                ? 'active'
-                                : ''
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2443,11 +3028,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Products
-
                         </span>
 
                     </a>
@@ -2460,15 +3042,11 @@
                 <li>
 
                     <a
-                        href="{{ route(
-                            'activities.index'
-                        ) }}"
+                        href="{{ route('activities.index') }}"
                         class="{{
-                            request()->routeIs(
-                                'activities.*'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('activities.*')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2513,11 +3091,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Activities
-
                         </span>
 
                     </a>
@@ -2525,20 +3100,16 @@
                 </li>
 
 
-                <!-- SALES RESUME / PIPO -->
+                <!-- SALES RESUME -->
 
                 <li>
 
                     <a
-                        href="{{ route(
-                            'sales_resume.index'
-                        ) }}"
+                        href="{{ route('sales_resume.index') }}"
                         class="{{
-                            request()->routeIs(
-                                'sales_resume.*'
-                            )
-                                ? 'active'
-                                : ''
+                            request()->routeIs('sales_resume.*')
+                            ? 'active'
+                            : ''
                         }}"
                     >
 
@@ -2569,11 +3140,8 @@
 
                         </span>
 
-
                         <span class="menu-label">
-
                             Sales Resume
-
                         </span>
 
                     </a>
@@ -2593,22 +3161,11 @@
 
             @auth
 
-                @if(
-                    Auth::user()->role === 'admin'
-                )
+                @if(Auth::user()->role === 'admin')
 
-
-                    <div
-                        class="
-                            sidebar-section-title
-                            management
-                        "
-                    >
-
+                    <div class="sidebar-section-title management">
                         Management
-
                     </div>
-
 
                     <ul class="sidebar-menu">
 
@@ -2618,15 +3175,11 @@
                         <li>
 
                             <a
-                                href="{{ route(
-                                    'reports.index'
-                                ) }}"
+                                href="{{ route('reports.index') }}"
                                 class="{{
-                                    request()->routeIs(
-                                        'reports.*'
-                                    )
-                                        ? 'active'
-                                        : ''
+                                    request()->routeIs('reports.*')
+                                    ? 'active'
+                                    : ''
                                 }}"
                             >
 
@@ -2643,31 +3196,20 @@
 
                                         <path d="M4 19V5"/>
 
-                                        <path
-                                            d="M4 19h16"
-                                        />
+                                        <path d="M4 19h16"/>
 
-                                        <path
-                                            d="M8 16v-5"
-                                        />
+                                        <path d="M8 16v-5"/>
 
-                                        <path
-                                            d="M12 16V8"
-                                        />
+                                        <path d="M12 16V8"/>
 
-                                        <path
-                                            d="M16 16v-9"
-                                        />
+                                        <path d="M16 16v-9"/>
 
                                     </svg>
 
                                 </span>
 
-
                                 <span class="menu-label">
-
                                     Reports
-
                                 </span>
 
                             </a>
@@ -2680,15 +3222,11 @@
                         <li>
 
                             <a
-                                href="{{ route(
-                                    'users.index'
-                                ) }}"
+                                href="{{ route('users.index') }}"
                                 class="{{
-                                    request()->routeIs(
-                                        'users.*'
-                                    )
-                                        ? 'active'
-                                        : ''
+                                    request()->routeIs('users.*')
+                                    ? 'active'
+                                    : ''
                                 }}"
                             >
 
@@ -2717,11 +3255,8 @@
 
                                 </span>
 
-
                                 <span class="menu-label">
-
                                     Users
-
                                 </span>
 
                             </a>
@@ -2731,14 +3266,12 @@
 
                     </ul>
 
-
                 @endif
 
             @endauth
 
 
         </div>
-
 
     </aside>
 
@@ -2755,7 +3288,7 @@
 
 
     <!-- =====================================================
-         MAIN
+         MAIN CONTENT
     ====================================================== -->
 
     <main class="main-content">
@@ -2775,6 +3308,7 @@
                     type="button"
                     class="mobile-menu-button"
                     onclick="toggleSidebar()"
+                    aria-label="Open navigation menu"
                 >
 
                     ☰
@@ -2802,19 +3336,20 @@
 
                 @auth
 
-
                     <div class="user-area">
 
 
                         <div class="user-avatar">
 
-                            {{ strtoupper(
-                                substr(
-                                    Auth::user()->name,
-                                    0,
-                                    1
+                            {{
+                                strtoupper(
+                                    substr(
+                                        Auth::user()->name,
+                                        0,
+                                        1
+                                    )
                                 )
-                            ) }}
+                            }}
 
                         </div>
 
@@ -2831,10 +3366,12 @@
 
                             <div class="user-role">
 
-                                {{ ucfirst(
-                                    Auth::user()->role
-                                    ?? 'User'
-                                ) }}
+                                {{
+                                    ucfirst(
+                                        Auth::user()->role
+                                        ?? 'User'
+                                    )
+                                }}
 
                             </div>
 
@@ -2852,7 +3389,6 @@
 
                         @csrf
 
-
                         <button
                             type="submit"
                             class="logout-button"
@@ -2862,22 +3398,17 @@
 
                         </button>
 
-
                     </form>
 
 
                 @else
 
-
                     <a
                         href="{{ route('login') }}"
                         class="logout-button"
                     >
-
                         Login
-
                     </a>
-
 
                 @endauth
 
@@ -2895,18 +3426,13 @@
         <section class="page-content">
 
 
-            {{-- VALIDATION ERRORS --}}
-
             @if($errors->any())
 
-
                 <div class="alert alert-error">
-
 
                     <strong>
                         An error occurred:
                     </strong>
-
 
                     <ul
                         style="
@@ -2915,26 +3441,20 @@
                         "
                     >
 
-
                         @foreach(
                             $errors->all()
                             as $error
                         )
 
                             <li>
-
                                 {{ $error }}
-
                             </li>
 
                         @endforeach
 
-
                     </ul>
 
-
                 </div>
-
 
             @endif
 
@@ -2963,15 +3483,12 @@
 
     @if(session('success'))
 
-
         <div
             class="toast toast-success"
             data-toast
         >
 
-
             <div class="toast-icon">
-
 
                 <svg
                     viewBox="0 0 24 24"
@@ -2988,26 +3505,18 @@
 
                 </svg>
 
-
             </div>
 
 
             <div class="toast-content">
 
-
                 <div class="toast-title">
-
                     Success
-
                 </div>
-
 
                 <div class="toast-message">
-
                     {{ session('success') }}
-
                 </div>
-
 
             </div>
 
@@ -3016,33 +3525,27 @@
                 type="button"
                 class="toast-close"
                 onclick="closeToast(this.closest('.toast'))"
+                aria-label="Close notification"
             >
-
                 ×
-
             </button>
 
 
             <div class="toast-progress"></div>
 
-
         </div>
-
 
     @endif
 
 
     @if(session('error'))
 
-
         <div
             class="toast toast-error"
             data-toast
         >
 
-
             <div class="toast-icon">
-
 
                 <svg
                     viewBox="0 0 24 24"
@@ -3059,32 +3562,28 @@
                         r="9"
                     />
 
-                    <path d="M12 8v4"/>
+                    <path
+                        d="M12 8v4"
+                    />
 
-                    <path d="M12 16h.01"/>
+                    <path
+                        d="M12 16h.01"
+                    />
 
                 </svg>
-
 
             </div>
 
 
             <div class="toast-content">
 
-
                 <div class="toast-title">
-
                     Failed
-
                 </div>
-
 
                 <div class="toast-message">
-
                     {{ session('error') }}
-
                 </div>
-
 
             </div>
 
@@ -3093,18 +3592,15 @@
                 type="button"
                 class="toast-close"
                 onclick="closeToast(this.closest('.toast'))"
+                aria-label="Close notification"
             >
-
                 ×
-
             </button>
 
 
             <div class="toast-progress"></div>
 
-
         </div>
-
 
     @endif
 
@@ -3118,6 +3614,7 @@
 
 <script>
 
+
     /* =====================================================
        SIDEBAR
     ===================================================== */
@@ -3130,7 +3627,6 @@
                 'sidebar'
             );
 
-
         const overlay =
             document.getElementById(
                 'sidebarOverlay'
@@ -3140,7 +3636,6 @@
         sidebar.classList.toggle(
             'show'
         );
-
 
         overlay.classList.toggle(
             'show'
@@ -3157,7 +3652,6 @@
                 'sidebar'
             );
 
-
         const overlay =
             document.getElementById(
                 'sidebarOverlay'
@@ -3168,13 +3662,16 @@
             'show'
         );
 
-
         overlay.classList.remove(
             'show'
         );
 
     }
 
+
+    /* =====================================================
+       CLOSE SIDEBAR WHEN MENU IS CLICKED
+    ===================================================== */
 
     document
         .querySelectorAll(
@@ -3197,6 +3694,31 @@
             }
         );
 
+
+    /* =====================================================
+       ESC KEY CLOSES MOBILE SIDEBAR
+    ===================================================== */
+
+    document.addEventListener(
+        'keydown',
+        function(event)
+        {
+
+            if (
+                event.key === 'Escape'
+            ) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE ON DESKTOP RESIZE
+    ===================================================== */
 
     window.addEventListener(
         'resize',
@@ -3248,6 +3770,10 @@
 
     }
 
+
+    /* =====================================================
+       AUTO CLOSE TOAST
+    ===================================================== */
 
     document.addEventListener(
         'DOMContentLoaded',

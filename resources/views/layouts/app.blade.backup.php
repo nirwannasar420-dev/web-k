@@ -3,7 +3,7 @@
 @endphp
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
 
@@ -15,8 +15,15 @@
     >
 
     <title>
-        @yield('title', 'CRM Petra Textima')
-    </title>
+    @yield('title', 'CRM Petra Textima')
+</title>
+
+
+<link
+    rel="icon"
+    type="image/png"
+    href="{{ asset('images/favicon-petra-textima.png') }}"
+>
 
 
     <style>
@@ -166,7 +173,7 @@
         }
 
 
-        /* GARIS MERAH FULL */
+        /* FULL RED LINE */
 
         .brand::after {
 
@@ -672,7 +679,7 @@
 
         /* =====================================================
            OLD ALERT
-           Tetap dipertahankan untuk error validasi
+           Kept for validation errors
         ===================================================== */
 
         .alert {
@@ -1227,13 +1234,824 @@
 
             }
 
-
         }
 
     </style>
 
 
     @yield('styles')
+
+    <style>
+/* =========================================================
+   MOBILE POLISH ONLY
+   Desktop layout is not affected.
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* =====================================================
+       GLOBAL MOBILE
+    ===================================================== */
+
+    html {
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .app-layout {
+        min-height: 100vh;
+    }
+
+
+    /* =====================================================
+       TOPBAR
+    ===================================================== */
+
+    .topbar {
+        height: 68px;
+
+        min-height: 68px;
+
+        padding:
+            0 14px;
+
+        gap: 10px;
+
+        box-shadow:
+            0 4px 14px
+            rgba(7, 29, 77, 0.14);
+
+    }
+
+
+    .topbar-left {
+        min-width: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        flex: 1;
+    }
+
+
+    .mobile-menu-button {
+
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+
+        border-radius: 10px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.25);
+
+        background:
+            rgba(255,255,255,.10);
+
+        font-size: 20px;
+
+        line-height: 1;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .mobile-menu-button:active {
+
+        transform:
+            scale(.96);
+
+        background:
+            rgba(255,255,255,.17);
+
+    }
+
+
+    .page-title {
+
+        min-width: 0;
+
+        max-width: 100%;
+
+        overflow: hidden;
+
+        white-space: nowrap;
+
+        text-overflow: ellipsis;
+
+        font-size: 18px;
+
+        font-weight: 700;
+
+        line-height: 1.2;
+
+    }
+
+
+    /* =====================================================
+       USER AREA
+    ===================================================== */
+
+    .topbar-right {
+
+        gap: 8px;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .user-area {
+
+        gap: 0;
+
+    }
+
+
+    .user-avatar {
+
+        width: 42px;
+        height: 42px;
+
+        min-width: 42px;
+
+        font-size: 14px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,.14);
+
+    }
+
+
+    .user-details {
+
+        display: none !important;
+
+    }
+
+
+    .topbar-right form {
+
+        margin: 0;
+
+    }
+
+
+    .logout-button {
+
+        min-width: 76px;
+
+        height: 42px;
+
+        padding:
+            0 14px;
+
+        border-radius: 9px;
+
+        font-size: 12px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+
+        width:
+            min(
+                var(--sidebar-width),
+                calc(100vw - 48px)
+            );
+
+        box-shadow:
+            12px 0 32px
+            rgba(7, 29, 77, 0.20);
+
+        overscroll-behavior:
+            contain;
+
+    }
+
+
+    .sidebar-overlay {
+
+        background:
+            rgba(15, 23, 42, 0.48);
+
+        backdrop-filter:
+            blur(2px);
+
+        -webkit-backdrop-filter:
+            blur(2px);
+
+    }
+
+
+    /* =====================================================
+       SIDEBAR BRAND
+    ===================================================== */
+
+    .brand {
+
+        height: 120px;
+
+        padding:
+            14px 10px;
+
+    }
+
+
+    .brand-link {
+
+        width: 215px;
+
+        max-width: 100%;
+
+        height: 85px;
+
+    }
+
+
+    /* =====================================================
+       SIDEBAR NAVIGATION
+    ===================================================== */
+
+    .sidebar-navigation {
+
+        padding:
+            18px 10px 18px;
+
+    }
+
+
+    .sidebar-section-title {
+
+        padding:
+            0 13px;
+
+        margin-bottom:
+            10px;
+
+        font-size:
+            10px;
+
+        letter-spacing:
+            1.2px;
+
+    }
+
+
+    .sidebar-section-divider {
+
+        margin:
+            10px 12px 18px;
+
+    }
+
+
+    .sidebar-menu li {
+
+        margin-bottom:
+            5px;
+
+    }
+
+
+    .sidebar-menu a {
+
+        min-height:
+            46px;
+
+        padding:
+            10px 13px;
+
+        gap:
+            12px;
+
+        border-radius:
+            10px;
+
+        -webkit-tap-highlight-color:
+            transparent;
+
+    }
+
+
+    .sidebar-menu a.active {
+
+        box-shadow:
+            0 4px 12px
+            rgba(0,0,0,.12);
+
+    }
+
+
+    .sidebar-menu a:active {
+
+        transform:
+            scale(.985);
+
+    }
+
+
+    .menu-icon {
+
+        width:
+            22px;
+
+        height:
+            22px;
+
+    }
+
+
+    .menu-icon svg {
+
+        width:
+            19px;
+
+        height:
+            19px;
+
+    }
+
+
+    .menu-label {
+
+        font-size:
+            15px;
+
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+    ===================================================== */
+
+    .main-content {
+
+        width: 100%;
+
+        margin-left: 0;
+
+        min-width: 0;
+
+    }
+
+
+    .page-content {
+
+        padding:
+            20px 16px 34px;
+
+        min-width: 0;
+
+    }
+
+
+    /* =====================================================
+       GENERAL HEADINGS
+    ===================================================== */
+
+    .page-content h1 {
+
+        max-width: 100%;
+
+        font-size:
+            clamp(30px, 8vw, 40px);
+
+        line-height:
+            1.15;
+
+        margin-bottom:
+            10px;
+
+    }
+
+
+    .page-content h2 {
+
+        max-width:
+            100%;
+
+        line-height:
+            1.25;
+
+    }
+
+
+    .page-content p {
+
+        max-width:
+            100%;
+
+    }
+
+
+    /* =====================================================
+       GENERAL BUTTONS
+    ===================================================== */
+
+    .page-content button,
+    .page-content a[class*="btn"],
+    .page-content a[class*="button"] {
+
+        min-height:
+            44px;
+
+        -webkit-tap-highlight-color:
+            transparent;
+
+    }
+
+
+    /* =====================================================
+       FORM ELEMENTS
+    ===================================================== */
+
+    .page-content input,
+    .page-content select,
+    .page-content textarea {
+
+        min-height:
+            44px;
+
+        font-size:
+            15px;
+
+        border-radius:
+            9px;
+
+    }
+
+
+    .page-content textarea {
+
+        min-height:
+            110px;
+
+    }
+
+
+    /* =====================================================
+       SEARCH / TOOLBAR
+    ===================================================== */
+
+    .customers-toolbar {
+
+        width:
+            100%;
+
+    }
+
+
+    .search-wrapper {
+
+        width:
+            100%;
+
+    }
+
+
+    .search-input {
+
+        min-height:
+            46px;
+
+        font-size:
+            15px;
+
+    }
+
+
+    .btn-search {
+
+        min-height:
+            46px;
+
+        border-radius:
+            9px;
+
+    }
+
+
+    /* =====================================================
+       CUSTOMER CARD
+    ===================================================== */
+
+    .customers-card {
+
+        width:
+            100%;
+
+        border-radius:
+            16px;
+
+        overflow:
+            hidden;
+
+        box-shadow:
+            0 5px 18px
+            rgba(15,23,42,.07);
+
+    }
+
+
+    /* =====================================================
+       TABLE
+    ===================================================== */
+
+    .table-wrapper {
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        overflow-x:
+            auto;
+
+        overflow-y:
+            hidden;
+
+        -webkit-overflow-scrolling:
+            touch;
+
+        scrollbar-width:
+            thin;
+
+    }
+
+
+    .customers-table {
+
+        width:
+            100%;
+
+        min-width:
+            620px;
+
+    }
+
+
+    .customers-table th,
+    .customers-table td {
+
+        white-space:
+            nowrap;
+
+        padding:
+            14px 12px;
+
+    }
+
+
+    /* =====================================================
+       DASHBOARD
+    ===================================================== */
+
+    .dashboard-page {
+
+        width:
+            100%;
+
+        min-width:
+            0;
+
+    }
+
+
+    .dashboard-top {
+
+        width:
+            100%;
+
+        margin-bottom:
+            20px;
+
+    }
+
+
+    .dashboard-top h1 {
+
+        margin-bottom:
+            9px;
+
+    }
+
+
+    .dashboard-top p {
+
+        line-height:
+            1.55;
+
+    }
+
+
+    .today-label {
+
+        margin-top:
+            8px;
+
+    }
+
+
+    .stats-grid {
+
+        width:
+            100%;
+
+        gap:
+            16px;
+
+    }
+
+
+    .stat-card {
+
+        width:
+            100%;
+
+        min-width:
+            0;
+
+        border-radius:
+            16px;
+
+    }
+
+
+    .dashboard-card,
+    .table-card {
+
+        width:
+            100%;
+
+        min-width:
+            0;
+
+        border-radius:
+            16px;
+
+    }
+
+
+    /* =====================================================
+       TOUCH FEEDBACK
+    ===================================================== */
+
+    .page-content a,
+    .page-content button {
+
+        -webkit-tap-highlight-color:
+            transparent;
+
+    }
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    .toast-container {
+
+        top:
+            78px;
+
+        right:
+            12px;
+
+        left:
+            12px;
+
+        width:
+            auto;
+
+    }
+
+
+    .toast {
+
+        border-radius:
+            12px;
+
+    }
+
+
+    /* =====================================================
+       SAFE AREA
+    ===================================================== */
+
+    .page-content {
+
+        padding-bottom:
+            max(
+                34px,
+                env(safe-area-inset-bottom)
+            );
+
+    }
+
+
+    /* =====================================================
+       VERY SMALL PHONES
+    ===================================================== */
+
+    @media (max-width: 380px) {
+
+        .topbar {
+
+            padding:
+                0 10px;
+
+        }
+
+
+        .mobile-menu-button {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            min-width:
+                38px;
+
+        }
+
+
+        .user-avatar {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            min-width:
+                38px;
+
+        }
+
+
+        .logout-button {
+
+            min-width:
+                70px;
+
+            height:
+                40px;
+
+            padding:
+                0 11px;
+
+        }
+
+
+        .page-content {
+
+            padding-left:
+                13px;
+
+            padding-right:
+                13px;
+
+        }
+
+
+        .page-content h1 {
+
+            font-size:
+                30px;
+
+        }
+
+    }
+
+}
+</style>
 
 </head>
 
@@ -1258,7 +2076,6 @@
 
         <div class="brand">
 
-
             <a
                 href="{{ route('crm.dashboard') }}"
                 class="brand-link"
@@ -1271,7 +2088,6 @@
                 >
 
             </a>
-
 
         </div>
 
@@ -1303,8 +2119,8 @@
                             request()->routeIs(
                                 'crm.dashboard'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
@@ -1353,7 +2169,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1362,7 +2177,6 @@
                             Dashboard
 
                         </span>
-
 
                     </a>
 
@@ -1379,13 +2193,12 @@
                             request()->routeIs(
                                 'crm.pipeline'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
                         <span class="menu-icon">
-
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -1404,7 +2217,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1413,7 +2225,6 @@
                             Pipeline
 
                         </span>
-
 
                     </a>
 
@@ -1430,13 +2241,12 @@
                             request()->routeIs(
                                 'leads.*'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
                         <span class="menu-icon">
-
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -1467,7 +2277,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1476,7 +2285,6 @@
                             Leads
 
                         </span>
-
 
                     </a>
 
@@ -1493,13 +2301,12 @@
                             request()->routeIs(
                                 'customers.*'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
                         <span class="menu-icon">
-
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -1530,7 +2337,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1539,7 +2345,6 @@
                             Customers
 
                         </span>
-
 
                     </a>
 
@@ -1558,13 +2363,12 @@
                             request()->routeIs(
                                 'opportunities.*'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
                         <span class="menu-icon">
-
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -1585,7 +2389,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1595,6 +2398,57 @@
 
                         </span>
 
+                    </a>
+
+                </li>
+
+
+                <!-- PRODUCTS -->
+
+                <li>
+
+                    <a
+                        href="{{ route('products.index') }}"
+                        class="{{
+                            request()->routeIs('products.*')
+                                ? 'active'
+                                : ''
+                        }}"
+                    >
+
+                        <span class="menu-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+
+                                <path
+                                    d="M3 7l9-4 9 4-9 4-9-4Z"
+                                />
+
+                                <path
+                                    d="M3 7v10l9 4 9-4V7"
+                                />
+
+                                <path
+                                    d="M12 11v10"
+                                />
+
+                            </svg>
+
+                        </span>
+
+
+                        <span class="menu-label">
+
+                            Products
+
+                        </span>
 
                     </a>
 
@@ -1613,13 +2467,12 @@
                             request()->routeIs(
                                 'activities.*'
                             )
-                            ? 'active'
-                            : ''
+                                ? 'active'
+                                : ''
                         }}"
                     >
 
                         <span class="menu-icon">
-
 
                             <svg
                                 viewBox="0 0 24 24"
@@ -1658,7 +2511,6 @@
 
                             </svg>
 
-
                         </span>
 
 
@@ -1668,6 +2520,61 @@
 
                         </span>
 
+                    </a>
+
+                </li>
+
+
+                <!-- SALES RESUME / PIPO -->
+
+                <li>
+
+                    <a
+                        href="{{ route(
+                            'sales_resume.index'
+                        ) }}"
+                        class="{{
+                            request()->routeIs(
+                                'sales_resume.*'
+                            )
+                                ? 'active'
+                                : ''
+                        }}"
+                    >
+
+                        <span class="menu-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+
+                                <path d="M4 19V5"/>
+
+                                <path d="M4 19h16"/>
+
+                                <path d="M8 16v-5"/>
+
+                                <path d="M12 16V8"/>
+
+                                <path d="M16 16v-3"/>
+
+                                <path d="M20 16v-7"/>
+
+                            </svg>
+
+                        </span>
+
+
+                        <span class="menu-label">
+
+                            Sales Resume
+
+                        </span>
 
                     </a>
 
@@ -1718,13 +2625,12 @@
                                     request()->routeIs(
                                         'reports.*'
                                     )
-                                    ? 'active'
-                                    : ''
+                                        ? 'active'
+                                        : ''
                                 }}"
                             >
 
                                 <span class="menu-icon">
-
 
                                     <svg
                                         viewBox="0 0 24 24"
@@ -1755,7 +2661,6 @@
 
                                     </svg>
 
-
                                 </span>
 
 
@@ -1764,7 +2669,6 @@
                                     Reports
 
                                 </span>
-
 
                             </a>
 
@@ -1783,13 +2687,12 @@
                                     request()->routeIs(
                                         'users.*'
                                     )
-                                    ? 'active'
-                                    : ''
+                                        ? 'active'
+                                        : ''
                                 }}"
                             >
 
                                 <span class="menu-icon">
-
 
                                     <svg
                                         viewBox="0 0 24 24"
@@ -1812,7 +2715,6 @@
 
                                     </svg>
 
-
                                 </span>
 
 
@@ -1821,7 +2723,6 @@
                                     Users
 
                                 </span>
-
 
                             </a>
 
@@ -1885,7 +2786,7 @@
 
                     @yield(
                         'page-title',
-                        'Dashboard CRM'
+                        'CRM Dashboard'
                     )
 
                 </div>
@@ -1994,7 +2895,8 @@
         <section class="page-content">
 
 
-            {{-- ERROR VALIDASI --}}
+            {{-- VALIDATION ERRORS --}}
+
             @if($errors->any())
 
 
@@ -2002,7 +2904,7 @@
 
 
                     <strong>
-                        Terjadi kesalahan:
+                        An error occurred:
                     </strong>
 
 
@@ -2095,7 +2997,7 @@
 
                 <div class="toast-title">
 
-                    Berhasil
+                    Success
 
                 </div>
 
@@ -2172,7 +3074,7 @@
 
                 <div class="toast-title">
 
-                    Gagal
+                    Failed
 
                 </div>
 
