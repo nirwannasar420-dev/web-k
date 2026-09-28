@@ -14,6 +14,14 @@
         Login - CRM Petra Textima
     </title>
 
+    <link
+    rel="icon"
+    type="image/png"
+    href="{{ asset('images/favicon-petra-textima.png') }}"
+>
+
+
+
 
     <style>
 
