@@ -51,23 +51,18 @@
     .btn {
         min-height: 40px;
         padding: 0 16px;
-
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 7px;
-
         border: none;
         border-radius: 8px;
-
         font-size: 11px;
         font-weight: 700;
-
         text-decoration: none;
-
         cursor: pointer;
-
         transition: .2s ease;
+        box-sizing: border-box;
     }
 
     .btn-primary {
@@ -132,6 +127,7 @@
         margin: 0;
         color: #94A3B8;
         font-size: 10px;
+        line-height: 1.5;
     }
 
 
@@ -143,6 +139,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 18px;
+    }
+
+    .form-group {
+        min-width: 0;
     }
 
     .form-group.full {
@@ -175,17 +175,13 @@
     .form-select,
     .form-textarea {
         width: 100%;
-
+        box-sizing: border-box;
         border: 1px solid #D9E1EC;
         border-radius: 8px;
-
         background: #FFFFFF;
         color: #172033;
-
         font-size: 11px;
-
         outline: none;
-
         transition:
             border-color .2s ease,
             box-shadow .2s ease,
@@ -215,6 +211,10 @@
     .form-textarea:focus {
         border-color: #0B2A6F;
         box-shadow: 0 0 0 3px rgba(11,42,111,.07);
+    }
+
+    .form-input[readonly] {
+        background: #F8FAFC;
     }
 
     .form-input.input-invalid {
@@ -263,18 +263,20 @@
         left: 12px;
         top: 50%;
         transform: translateY(-50%);
-
         color: #64748B;
-
         font-size: 11px;
         font-weight: 700;
-
         pointer-events: none;
         z-index: 2;
     }
 
     .revenue-input {
         padding-left: 33px !important;
+    }
+
+    .revenue-input[readonly] {
+        background: #F8FAFC;
+        cursor: not-allowed;
     }
 
 
@@ -292,17 +294,12 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
-
         min-height: 31px;
         width: fit-content;
-
         padding: 0 9px;
-
         border-radius: 7px;
-
         background: #FFFAEB;
         color: #F9AB00;
-
         font-size: 13px;
         letter-spacing: 1px;
     }
@@ -331,11 +328,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-
         padding: 14px 15px;
-
         background: #F8FAFC;
-
         border-bottom: 1px solid #E2E8F0;
     }
 
@@ -356,22 +350,15 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-
         min-height: 32px;
-
         padding: 0 11px;
-
         border: none;
         border-radius: 7px;
-
         background: #0B2A6F;
         color: #FFFFFF;
-
         font-size: 10px;
         font-weight: 800;
-
         cursor: pointer;
-
         transition: .2s ease;
     }
 
@@ -386,7 +373,7 @@
 
 
     /* =========================================================
-       PRODUCT ROWS
+       PRODUCT ROW
     ========================================================= */
 
     .product-items-container {
@@ -395,26 +382,18 @@
 
     .product-item-row {
         display: grid;
-
         grid-template-columns:
             minmax(210px, 1.6fr)
             minmax(100px, .7fr)
             minmax(130px, .9fr)
             minmax(130px, .9fr)
             36px;
-
         gap: 9px;
-
         align-items: end;
-
         padding: 13px;
-
         margin-bottom: 10px;
-
         border: 1px solid #E2E8F0;
-
         border-radius: 9px;
-
         background: #FFFFFF;
     }
 
@@ -422,90 +401,58 @@
         margin-bottom: 0;
     }
 
+    .product-field {
+        min-width: 0;
+    }
+
     .product-field label {
         display: block;
-
         margin-bottom: 6px;
-
         color: #64748B;
-
         font-size: 9px;
-
         font-weight: 800;
-
         text-transform: uppercase;
-
         letter-spacing: .4px;
     }
 
     .product-field input,
     .product-field select {
         width: 100%;
-
+        box-sizing: border-box;
         height: 38px;
-
         padding: 0 10px;
-
-        border:
-            1px solid #D9E1EC;
-
+        border: 1px solid #D9E1EC;
         border-radius: 7px;
-
         background: #FFFFFF;
-
         color: #172033;
-
         font-size: 10px;
-
         outline: none;
     }
 
     .product-field input:focus,
     .product-field select:focus {
         border-color: #0B2A6F;
-
-        box-shadow:
-            0 0 0 3px
-            rgba(11,42,111,.07);
-    }
-
-    .product-field input[readonly] {
-        background: #F8FAFC;
-
-        color: #172033;
-
-        font-weight: 700;
+        box-shadow: 0 0 0 3px rgba(11,42,111,.07);
     }
 
     .product-subtotal {
         font-weight: 800 !important;
-
         background: #F8FAFC !important;
+        color: #172033 !important;
     }
 
     .remove-product-button {
         width: 34px;
-
         height: 34px;
-
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         padding: 0;
-
         border: none;
-
         border-radius: 7px;
-
         background: #FFF6F6;
-
         color: #D93025;
-
         cursor: pointer;
-
         transition: .2s ease;
     }
 
@@ -518,51 +465,30 @@
         height: 15px;
     }
 
-    .product-empty-state {
-        padding: 25px;
-
-        text-align: center;
-
-        color: #94A3B8;
-
-        font-size: 10px;
-    }
-
 
     /* =========================================================
-       TOTAL PRODUCTS
+       PRODUCT TOTAL
     ========================================================= */
 
     .products-total-bar {
         display: flex;
-
         align-items: center;
-
         justify-content: space-between;
-
         gap: 15px;
-
         padding: 13px 15px;
-
-        border-top:
-            1px solid #E2E8F0;
-
+        border-top: 1px solid #E2E8F0;
         background: #FAFCFF;
     }
 
     .products-total-label {
         color: #64748B;
-
         font-size: 10px;
-
         font-weight: 700;
     }
 
     .products-total-value {
         color: #0B2A6F;
-
         font-size: 15px;
-
         font-weight: 800;
     }
 
@@ -573,17 +499,11 @@
 
     .form-actions {
         display: flex;
-
         align-items: center;
-
         justify-content: flex-end;
-
         gap: 8px;
-
         margin-top: 28px;
-
         padding-top: 20px;
-
         border-top: 1px solid #E2E8F0;
     }
 
@@ -618,7 +538,6 @@
 
         .opportunity-create-header {
             flex-direction: column;
-
             align-items: flex-start;
         }
 
@@ -636,7 +555,6 @@
 
         .products-section-top {
             align-items: flex-start;
-
             flex-direction: column;
         }
 
@@ -659,7 +577,6 @@
 
         .form-actions {
             flex-direction: column-reverse;
-
             align-items: stretch;
         }
 
@@ -679,9 +596,9 @@
 <div class="opportunity-create-page">
 
 
-    <!-- =====================================================
+    {{-- =====================================================
          HEADER
-    ====================================================== -->
+    ====================================================== --}}
 
     <div class="opportunity-create-header">
 
@@ -697,6 +614,7 @@
 
         </div>
 
+
         <a
             href="{{ route('opportunities.index') }}"
             class="btn btn-secondary"
@@ -707,11 +625,12 @@
     </div>
 
 
-    <!-- =====================================================
+    {{-- =====================================================
          FORM CARD
-    ====================================================== -->
+    ====================================================== --}}
 
     <div class="opportunity-form-card">
+
 
         <form
             id="opportunityForm"
@@ -723,11 +642,12 @@
             @csrf
 
 
-            <!-- =================================================
+            {{-- =================================================
                  OPPORTUNITY INFORMATION
-            ================================================== -->
+            ================================================== --}}
 
             <div class="form-section">
+
 
                 <div class="section-heading">
 
@@ -745,7 +665,7 @@
                 <div class="form-grid">
 
 
-                    <!-- OPPORTUNITY NAME -->
+                    {{-- OPPORTUNITY NAME --}}
 
                     <div class="form-group full">
 
@@ -753,10 +673,13 @@
                             for="name"
                             class="form-label"
                         >
+
                             Opportunity Name
 
                             <span class="required">*</span>
+
                         </label>
+
 
                         <input
                             type="text"
@@ -765,8 +688,10 @@
                             class="form-input"
                             value="{{ old('name') }}"
                             placeholder="Example: Yarn Order from PT ABC"
+                            maxlength="255"
                             required
                         >
+
 
                         @error('name')
 
@@ -779,7 +704,7 @@
                     </div>
 
 
-                    <!-- CUSTOMER -->
+                    {{-- CUSTOMER --}}
 
                     <div class="form-group">
 
@@ -787,10 +712,13 @@
                             for="customer_id"
                             class="form-label"
                         >
+
                             Customer
 
                             <span class="required">*</span>
+
                         </label>
+
 
                         <select
                             id="customer_id"
@@ -803,18 +731,12 @@
                                 Select Customer
                             </option>
 
+
                             @foreach($customers as $customer)
 
                                 <option
                                     value="{{ $customer->id }}"
-
-                                    {{
-                                        (string) old('customer_id')
-                                        ===
-                                        (string) $customer->id
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ (string) old('customer_id') === (string) $customer->id ? 'selected' : '' }}
                                 >
 
                                     {{ $customer->name }}
@@ -829,6 +751,7 @@
 
                         </select>
 
+
                         @error('customer_id')
 
                             <div class="field-error">
@@ -840,7 +763,7 @@
                     </div>
 
 
-                    <!-- SALESPERSON -->
+                    {{-- SALESPERSON --}}
 
                     <div class="form-group">
 
@@ -848,10 +771,13 @@
                             for="salesperson_id"
                             class="form-label"
                         >
+
                             Salesperson
 
                             <span class="required">*</span>
+
                         </label>
+
 
                         <select
                             id="salesperson_id"
@@ -864,18 +790,12 @@
                                 Select Salesperson
                             </option>
 
+
                             @foreach($salespeople as $salesperson)
 
                                 <option
                                     value="{{ $salesperson->id }}"
-
-                                    {{
-                                        (string) old('salesperson_id')
-                                        ===
-                                        (string) $salesperson->id
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ (string) old('salesperson_id') === (string) $salesperson->id ? 'selected' : '' }}
                                 >
 
                                     {{ $salesperson->name }}
@@ -890,6 +810,7 @@
 
                         </select>
 
+
                         @error('salesperson_id')
 
                             <div class="field-error">
@@ -901,7 +822,7 @@
                     </div>
 
 
-                    <!-- STAGE -->
+                    {{-- STAGE --}}
 
                     <div class="form-group">
 
@@ -909,10 +830,13 @@
                             for="stage_id"
                             class="form-label"
                         >
+
                             Stage
 
                             <span class="required">*</span>
+
                         </label>
+
 
                         <select
                             id="stage_id"
@@ -925,18 +849,12 @@
                                 Select Stage
                             </option>
 
+
                             @foreach($stages as $stage)
 
                                 <option
                                     value="{{ $stage->id }}"
-
-                                    {{
-                                        (string) old('stage_id')
-                                        ===
-                                        (string) $stage->id
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ (string) old('stage_id') === (string) $stage->id ? 'selected' : '' }}
                                 >
 
                                     {{ $stage->name }}
@@ -946,6 +864,7 @@
                             @endforeach
 
                         </select>
+
 
                         @error('stage_id')
 
@@ -963,11 +882,12 @@
             </div>
 
 
-            <!-- =================================================
+            {{-- =================================================
                  PRODUCTS
-            ================================================== -->
+            ================================================== --}}
 
             <div class="form-section">
+
 
                 <div class="section-heading">
 
@@ -995,10 +915,11 @@
                             </div>
 
                             <div class="products-section-description">
-                                Select products, enter quantity and unit price.
+                                Select a product, enter quantity and unit price.
                             </div>
 
                         </div>
+
 
                         <button
                             type="button"
@@ -1047,6 +968,7 @@
                             count($oldProducts) > 0
                         )
 
+
                             @foreach(
                                 $oldProducts
                                 as $index => $oldProduct
@@ -1057,6 +979,7 @@
                                     data-product-row
                                 >
 
+
                                     {{-- PRODUCT --}}
 
                                     <div class="product-field product-field-product">
@@ -1064,6 +987,7 @@
                                         <label>
                                             Product
                                         </label>
+
 
                                         <select
                                             name="products[{{ $index }}][product_id]"
@@ -1075,23 +999,14 @@
                                                 Select Product
                                             </option>
 
-                                            @foreach(
-                                                $products
-                                                as $product
-                                            )
+
+                                            @foreach($products as $product)
 
                                                 <option
                                                     value="{{ $product->id }}"
                                                     data-price="{{ $product->price }}"
                                                     data-unit="{{ $product->unit }}"
-
-                                                    {{
-                                                        (string) ($oldProduct['product_id'] ?? '')
-                                                        ===
-                                                        (string) $product->id
-                                                            ? 'selected'
-                                                            : ''
-                                                    }}
+                                                    {{ (string) ($oldProduct['product_id'] ?? '') === (string) $product->id ? 'selected' : '' }}
                                                 >
 
                                                     {{ $product->product_name }}
@@ -1103,6 +1018,7 @@
                                             @endforeach
 
                                         </select>
+
 
                                         @error(
                                             'products.' . $index . '.product_id'
@@ -1125,6 +1041,7 @@
                                             Quantity
                                         </label>
 
+
                                         <input
                                             type="text"
                                             name="products[{{ $index }}][quantity]"
@@ -1133,8 +1050,8 @@
                                             inputmode="decimal"
                                             placeholder="0"
                                             autocomplete="off"
-                                            oninput="updateProductSubtotal(this)"
                                         >
+
 
                                         @error(
                                             'products.' . $index . '.quantity'
@@ -1157,16 +1074,17 @@
                                             Unit Price
                                         </label>
 
+
                                         <input
                                             type="text"
                                             name="products[{{ $index }}][unit_price]"
                                             value="{{ $oldProduct['unit_price'] ?? '' }}"
                                             class="product-unit-price"
-                                            inputmode="decimal"
+                                            inputmode="numeric"
                                             placeholder="0"
                                             autocomplete="off"
-                                            oninput="updateProductSubtotal(this)"
                                         >
+
 
                                         @error(
                                             'products.' . $index . '.unit_price'
@@ -1188,6 +1106,7 @@
                                         <label>
                                             Subtotal
                                         </label>
+
 
                                         <input
                                             type="text"
@@ -1223,7 +1142,7 @@
 
                                             <path d="M14 11v6"/>
 
-                                            <path d="M6 7l1 13h10l1-13"/>
+                                            <path d="M6 7l1 13h10l-1-13"/>
 
                                             <path d="M9 7V4h6v3"/>
 
@@ -1231,16 +1150,20 @@
 
                                     </button>
 
+
                                 </div>
 
                             @endforeach
 
+
                         @else
+
 
                             <div
                                 class="product-item-row"
                                 data-product-row
                             >
+
 
                                 {{-- PRODUCT --}}
 
@@ -1249,6 +1172,7 @@
                                     <label>
                                         Product
                                     </label>
+
 
                                     <select
                                         name="products[0][product_id]"
@@ -1259,6 +1183,7 @@
                                         <option value="">
                                             Select Product
                                         </option>
+
 
                                         @foreach($products as $product)
 
@@ -1289,6 +1214,7 @@
                                         Quantity
                                     </label>
 
+
                                     <input
                                         type="text"
                                         name="products[0][quantity]"
@@ -1296,7 +1222,6 @@
                                         inputmode="decimal"
                                         placeholder="0"
                                         autocomplete="off"
-                                        oninput="updateProductSubtotal(this)"
                                     >
 
                                 </div>
@@ -1310,14 +1235,14 @@
                                         Unit Price
                                     </label>
 
+
                                     <input
                                         type="text"
                                         name="products[0][unit_price]"
                                         class="product-unit-price"
-                                        inputmode="decimal"
+                                        inputmode="numeric"
                                         placeholder="0"
                                         autocomplete="off"
-                                        oninput="updateProductSubtotal(this)"
                                     >
 
                                 </div>
@@ -1330,6 +1255,7 @@
                                     <label>
                                         Subtotal
                                     </label>
+
 
                                     <input
                                         type="text"
@@ -1365,7 +1291,7 @@
 
                                         <path d="M14 11v6"/>
 
-                                        <path d="M6 7l1 13h10l1-13"/>
+                                        <path d="M6 7l1 13h10l-1-13"/>
 
                                         <path d="M9 7V4h6v3"/>
 
@@ -1373,9 +1299,12 @@
 
                                 </button>
 
+
                             </div>
 
+
                         @endif
+
 
                     </div>
 
@@ -1385,6 +1314,7 @@
                         <span class="products-total-label">
                             Product Total
                         </span>
+
 
                         <span
                             id="productsTotalValue"
@@ -1407,14 +1337,16 @@
 
                 @enderror
 
+
             </div>
 
 
-            <!-- =================================================
+            {{-- =================================================
                  SALES VALUE
-            ================================================== -->
+            ================================================== --}}
 
             <div class="form-section">
+
 
                 <div class="section-heading">
 
@@ -1423,7 +1355,7 @@
                     </h2>
 
                     <p>
-                        Set the estimated transaction value and opportunity rating.
+                        Set the transaction value and opportunity rating.
                     </p>
 
                 </div>
@@ -1440,16 +1372,20 @@
                             for="expected_revenue"
                             class="form-label"
                         >
+
                             Expected Revenue
 
                             <span class="required">*</span>
+
                         </label>
+
 
                         <div class="input-prefix-wrapper">
 
                             <span class="input-prefix">
                                 Rp
                             </span>
+
 
                             <input
                                 type="text"
@@ -1465,12 +1401,14 @@
 
                         </div>
 
-                        <div class="field-help">
 
-                            Enter numbers only.
-                            Example: 100000000
-
+                        <div
+                            id="revenueHelp"
+                            class="field-help"
+                        >
+                            Expected Revenue automatically follows Product Total when products are added.
                         </div>
+
 
                         <div
                             id="revenueError"
@@ -1478,6 +1416,7 @@
                         >
                             Expected Revenue must contain numbers only.
                         </div>
+
 
                         @error('expected_revenue')
 
@@ -1498,89 +1437,67 @@
                             for="rating"
                             class="form-label"
                         >
+
                             Rating
 
                             <span class="required">*</span>
+
                         </label>
 
+
                         <div class="rating-wrapper">
+
 
                             <select
                                 id="rating"
                                 name="rating"
                                 class="form-select"
                                 required
-                                onchange="updateRatingPreview()"
                             >
 
                                 <option
                                     value="0"
-
-                                    {{
-                                        old('rating', 0) == 0
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating', 0) == 0 ? 'selected' : '' }}
                                 >
                                     0 — No rating
                                 </option>
 
+
                                 <option
                                     value="1"
-
-                                    {{
-                                        old('rating') == 1
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating') == 1 ? 'selected' : '' }}
                                 >
                                     1 — Very low
                                 </option>
 
+
                                 <option
                                     value="2"
-
-                                    {{
-                                        old('rating') == 2
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating') == 2 ? 'selected' : '' }}
                                 >
                                     2 — Low
                                 </option>
 
+
                                 <option
                                     value="3"
-
-                                    {{
-                                        old('rating') == 3
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating') == 3 ? 'selected' : '' }}
                                 >
                                     3 — Medium
                                 </option>
 
+
                                 <option
                                     value="4"
-
-                                    {{
-                                        old('rating') == 4
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating') == 4 ? 'selected' : '' }}
                                 >
                                     4 — High
                                 </option>
 
+
                                 <option
                                     value="5"
-
-                                    {{
-                                        old('rating') == 5
-                                            ? 'selected'
-                                            : ''
-                                    }}
+                                    {{ old('rating') == 5 ? 'selected' : '' }}
                                 >
                                     5 — Very high
                                 </option>
@@ -1597,6 +1514,7 @@
                                     ☆☆☆☆☆
                                 </span>
 
+
                                 <span
                                     id="ratingText"
                                     class="rating-preview-text"
@@ -1606,7 +1524,9 @@
 
                             </div>
 
+
                         </div>
+
 
                         @error('rating')
 
@@ -1630,17 +1550,20 @@
                             Opportunity Date
                         </label>
 
+
                         <input
                             type="date"
                             id="opportunity_date"
                             name="opportunity_date"
                             class="form-input"
-                            value="{{ old('opportunity_date') }}"
+                            value="{{ old('opportunity_date', now()->format('Y-m-d')) }}"
                         >
+
 
                         <div class="field-help">
                             Leave empty if the date will be decided later.
                         </div>
+
 
                         @error('opportunity_date')
 
@@ -1658,11 +1581,12 @@
             </div>
 
 
-            <!-- =================================================
+            {{-- =================================================
                  NOTES
-            ================================================== -->
+            ================================================== --}}
 
             <div class="form-section">
+
 
                 <div class="section-heading">
 
@@ -1679,6 +1603,7 @@
 
                 <div class="form-grid">
 
+
                     <div class="form-group full">
 
                         <label
@@ -1688,12 +1613,14 @@
                             Notes
                         </label>
 
+
                         <textarea
                             id="notes"
                             name="notes"
                             class="form-textarea"
                             placeholder="Example: Customer requested a quotation for 5 tons of yarn."
                         >{{ old('notes') }}</textarea>
+
 
                         @error('notes')
 
@@ -1705,16 +1632,18 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
-            <!-- =================================================
+            {{-- =================================================
                  ACTIONS
-            ================================================== -->
+            ================================================== --}}
 
             <div class="form-actions">
+
 
                 <a
                     href="{{ route('opportunities.index') }}"
@@ -1722,6 +1651,7 @@
                 >
                     Cancel
                 </a>
+
 
                 <button
                     type="submit"
@@ -1749,12 +1679,15 @@
 
                 </button>
 
+
             </div>
 
 
         </form>
 
+
     </div>
+
 
 </div>
 
@@ -1766,7 +1699,7 @@
 <script>
 
     /* =========================================================
-       PRODUCT DATA
+       PRODUCT ROW INDEX
     ========================================================= */
 
     let productRowIndex =
@@ -1776,7 +1709,7 @@
 
 
     /* =========================================================
-       FORMAT NUMBER
+       FORMAT RUPIAH
     ========================================================= */
 
     function formatRupiah(value)
@@ -1794,18 +1727,48 @@
 
 
     /* =========================================================
-       CLEAN NUMERIC INPUT
+       CLEAN NUMBER
     ========================================================= */
 
     function cleanNumericValue(value)
     {
         return String(value)
-            .replace(/[^0-9.]/g, '');
+            .replace(
+                /[^0-9.]/g,
+                ''
+            );
     }
 
 
     /* =========================================================
-       HANDLE PRODUCT CHANGE
+       GET SELECTED PRODUCT PRICE
+    ========================================================= */
+
+    function getSelectedProductPrice(select)
+    {
+        if (!select) {
+            return 0;
+        }
+
+        const selectedOption =
+            select.options[
+                select.selectedIndex
+            ];
+
+        if (!selectedOption) {
+            return 0;
+        }
+
+        const price =
+            selectedOption.dataset.price
+            || '';
+
+        return Number(price) || 0;
+    }
+
+
+    /* =========================================================
+       PRODUCT CHANGE
     ========================================================= */
 
     function handleProductChange(select)
@@ -1815,37 +1778,54 @@
                 '[data-product-row]'
             );
 
-        const selectedOption =
-            select.options[
-                select.selectedIndex
-            ];
+        if (!row) {
+            return;
+        }
 
-        const price =
-            selectedOption.dataset.price
-            || '';
 
-        const unitPrice =
+        const unitPriceInput =
             row.querySelector(
                 '.product-unit-price'
             );
 
-        if (
-            price !== ''
-            &&
-            (
-                unitPrice.value === ''
-                ||
-                unitPrice.value === '0'
-            )
-        ) {
+        if (!unitPriceInput) {
+            return;
+        }
 
-            unitPrice.value =
-                Number(price);
+
+        const price =
+            getSelectedProductPrice(
+                select
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | IMPORTANT
+        |--------------------------------------------------------------------------
+        | Always replace Unit Price when Product changes.
+        |
+        | This fixes:
+        | Benang -> Kain
+        | 550000 -> 1000000
+        |
+        */
+
+        if (price > 0) {
+
+            unitPriceInput.value =
+                String(price);
+
+        } else {
+
+            unitPriceInput.value =
+                '';
 
         }
 
+
         updateProductSubtotal(
-            unitPrice
+            unitPriceInput
         );
     }
 
@@ -1860,15 +1840,16 @@
             return;
         }
 
-        input.value =
-            cleanNumericValue(
-                input.value
-            );
 
         const row =
             input.closest(
                 '[data-product-row]'
             );
+
+        if (!row) {
+            return;
+        }
+
 
         const quantityInput =
             row.querySelector(
@@ -1885,6 +1866,29 @@
                 '.product-subtotal'
             );
 
+
+        if (
+            !quantityInput
+            ||
+            !unitPriceInput
+            ||
+            !subtotalInput
+        ) {
+            return;
+        }
+
+
+        quantityInput.value =
+            cleanNumericValue(
+                quantityInput.value
+            );
+
+        unitPriceInput.value =
+            cleanNumericValue(
+                unitPriceInput.value
+            );
+
+
         const quantity =
             parseFloat(
                 quantityInput.value
@@ -1895,8 +1899,11 @@
                 unitPriceInput.value
             ) || 0;
 
+
         const subtotal =
-            quantity * unitPrice;
+            quantity *
+            unitPrice;
+
 
         subtotalInput.value =
             'Rp ' +
@@ -1904,17 +1911,19 @@
                 subtotal
             );
 
+
         updateProductsTotal();
     }
 
 
     /* =========================================================
-       UPDATE TOTAL
+       UPDATE PRODUCT TOTAL
     ========================================================= */
 
     function updateProductsTotal()
     {
         let total = 0;
+
 
         document
             .querySelectorAll(
@@ -1924,19 +1933,37 @@
                 function(row)
                 {
 
+                    const quantityInput =
+                        row.querySelector(
+                            '.product-quantity'
+                        );
+
+                    const unitPriceInput =
+                        row.querySelector(
+                            '.product-unit-price'
+                        );
+
+
+                    if (
+                        !quantityInput
+                        ||
+                        !unitPriceInput
+                    ) {
+                        return;
+                    }
+
+
                     const quantity =
                         parseFloat(
-                            row.querySelector(
-                                '.product-quantity'
-                            ).value
+                            quantityInput.value
                         ) || 0;
+
 
                     const unitPrice =
                         parseFloat(
-                            row.querySelector(
-                                '.product-unit-price'
-                            ).value
+                            unitPriceInput.value
                         ) || 0;
+
 
                     total +=
                         quantity *
@@ -1945,11 +1972,86 @@
                 }
             );
 
-        document.getElementById(
-            'productsTotalValue'
-        ).textContent =
-            'Rp ' +
-            formatRupiah(total);
+
+        const totalElement =
+            document.getElementById(
+                'productsTotalValue'
+            );
+
+
+        if (totalElement) {
+
+            totalElement.textContent =
+                'Rp ' +
+                formatRupiah(
+                    total
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | EXPECTED REVENUE
+        |--------------------------------------------------------------------------
+        |
+        | When Product Total > 0:
+        | Expected Revenue follows Product Total.
+        |
+        | When Product Total = 0:
+        | Expected Revenue becomes editable again.
+        |
+        */
+
+        const revenueInput =
+            document.getElementById(
+                'expected_revenue'
+            );
+
+        const revenueHelp =
+            document.getElementById(
+                'revenueHelp'
+            );
+
+
+        if (!revenueInput) {
+            return;
+        }
+
+
+        if (total > 0) {
+
+            revenueInput.value =
+                String(
+                    Math.round(total)
+                );
+
+            revenueInput.readOnly =
+                true;
+
+
+            if (revenueHelp) {
+
+                revenueHelp.textContent =
+                    'Expected Revenue is automatically calculated from Product Total.';
+
+            }
+
+        } else {
+
+            revenueInput.readOnly =
+                false;
+
+
+            if (revenueHelp) {
+
+                revenueHelp.textContent =
+                    'Enter Expected Revenue manually when no product has been added.';
+
+            }
+
+        }
+
     }
 
 
@@ -1964,10 +2066,17 @@
                 'productItemsContainer'
             );
 
+
+        if (!container) {
+            return;
+        }
+
+
         const row =
             document.createElement(
                 'div'
             );
+
 
         row.className =
             'product-item-row';
@@ -1976,6 +2085,7 @@
             'data-product-row',
             ''
         );
+
 
         row.innerHTML = `
 
@@ -1988,7 +2098,6 @@
                 <select
                     name="products[${productRowIndex}][product_id]"
                     class="product-select"
-                    onchange="handleProductChange(this)"
                 >
 
                     <option value="">
@@ -2027,7 +2136,6 @@
                     inputmode="decimal"
                     placeholder="0"
                     autocomplete="off"
-                    oninput="updateProductSubtotal(this)"
                 >
 
             </div>
@@ -2043,10 +2151,9 @@
                     type="text"
                     name="products[${productRowIndex}][unit_price]"
                     class="product-unit-price"
-                    inputmode="decimal"
+                    inputmode="numeric"
                     placeholder="0"
                     autocomplete="off"
-                    oninput="updateProductSubtotal(this)"
                 >
 
             </div>
@@ -2071,7 +2178,6 @@
             <button
                 type="button"
                 class="remove-product-button"
-                onclick="removeProductRow(this)"
                 title="Remove Product"
             >
 
@@ -2090,7 +2196,7 @@
 
                     <path d="M14 11v6"/>
 
-                    <path d="M6 7l1 13h10l1-13"/>
+                    <path d="M6 7l1 13h10l-1-13"/>
 
                     <path d="M9 7V4h6v3"/>
 
@@ -2100,11 +2206,19 @@
 
         `;
 
+
         container.appendChild(
             row
         );
 
+
         productRowIndex++;
+
+
+        bindProductRowEvents(
+            row
+        );
+
 
         updateProductsTotal();
     }
@@ -2116,42 +2230,80 @@
 
     function removeProductRow(button)
     {
+        if (!button) {
+            return;
+        }
+
+
         const rows =
             document.querySelectorAll(
                 '[data-product-row]'
             );
 
+
+        const row =
+            button.closest(
+                '[data-product-row]'
+            );
+
+
+        if (!row) {
+            return;
+        }
+
+
         if (rows.length <= 1) {
 
-            const row =
-                button.closest(
-                    '[data-product-row]'
+            const productSelect =
+                row.querySelector(
+                    '.product-select'
                 );
 
-            row.querySelector(
-                '.product-select'
-            ).value = '';
+            const quantityInput =
+                row.querySelector(
+                    '.product-quantity'
+                );
 
-            row.querySelector(
-                '.product-quantity'
-            ).value = '';
+            const unitPriceInput =
+                row.querySelector(
+                    '.product-unit-price'
+                );
 
-            row.querySelector(
-                '.product-unit-price'
-            ).value = '';
+            const subtotalInput =
+                row.querySelector(
+                    '.product-subtotal'
+                );
 
-            row.querySelector(
-                '.product-subtotal'
-            ).value = 'Rp 0';
+
+            if (productSelect) {
+                productSelect.value = '';
+            }
+
+
+            if (quantityInput) {
+                quantityInput.value = '';
+            }
+
+
+            if (unitPriceInput) {
+                unitPriceInput.value = '';
+            }
+
+
+            if (subtotalInput) {
+                subtotalInput.value =
+                    'Rp 0';
+            }
+
 
             updateProductsTotal();
 
             return;
         }
 
-        button.closest(
-            '[data-product-row]'
-        ).remove();
+
+        row.remove();
+
 
         updateProductsTotal();
     }
@@ -2163,14 +2315,41 @@
 
     function updateRatingPreview()
     {
+        const ratingInput =
+            document.getElementById(
+                'rating'
+            );
+
+        const starsElement =
+            document.getElementById(
+                'ratingStars'
+            );
+
+        const textElement =
+            document.getElementById(
+                'ratingText'
+            );
+
+
+        if (
+            !ratingInput
+            ||
+            !starsElement
+            ||
+            !textElement
+        ) {
+            return;
+        }
+
+
         const rating =
             parseInt(
-                document.getElementById(
-                    'rating'
-                ).value
+                ratingInput.value
             ) || 0;
 
+
         let stars = '';
+
 
         for (
             let i = 1;
@@ -2185,14 +2364,11 @@
 
         }
 
-        document.getElementById(
-            'ratingStars'
-        ).textContent =
+
+        starsElement.textContent =
             stars;
 
-        document.getElementById(
-            'ratingText'
-        ).textContent =
+        textElement.textContent =
             rating + '/5';
     }
 
@@ -2213,26 +2389,84 @@
                 'revenueError'
             );
 
+
+        if (!input) {
+            return false;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | If products exist, Product Total controls Expected Revenue.
+        |--------------------------------------------------------------------------
+        */
+
+        const rows =
+            document.querySelectorAll(
+                '[data-product-row]'
+            );
+
+
+        let hasProduct =
+            false;
+
+
+        rows.forEach(
+            function(row)
+            {
+
+                const productSelect =
+                    row.querySelector(
+                        '.product-select'
+                    );
+
+                if (
+                    productSelect
+                    &&
+                    productSelect.value !== ''
+                ) {
+
+                    hasProduct = true;
+
+                }
+
+            }
+        );
+
+
         const value =
             input.value.trim();
 
+
+        if (hasProduct) {
+
+            return true;
+        }
+
+
         if (value === '') {
 
-            input.classList.remove(
+            input.classList.add(
                 'input-invalid'
             );
 
-            error.classList.remove(
-                'show'
-            );
+            if (error) {
+
+                error.classList.add(
+                    'show'
+                );
+
+            }
 
             return false;
         }
+
 
         const isNumber =
             /^[0-9]+$/.test(
                 value
             );
+
 
         if (!isNumber) {
 
@@ -2240,204 +2474,259 @@
                 'input-invalid'
             );
 
-            error.classList.add(
-                'show'
-            );
+            if (error) {
+
+                error.classList.add(
+                    'show'
+                );
+
+            }
 
             return false;
         }
+
 
         input.classList.remove(
             'input-invalid'
         );
 
-        error.classList.remove(
-            'show'
-        );
+
+        if (error) {
+
+            error.classList.remove(
+                'show'
+            );
+
+        }
+
 
         return true;
     }
 
 
     /* =========================================================
-       PRODUCT INPUT VALIDATION
+       PRODUCT ROW EVENTS
     ========================================================= */
 
-    document.addEventListener(
-        'input',
-        function(event)
-        {
+    function bindProductRowEvents(row)
+    {
+        if (!row) {
+            return;
+        }
 
-            if (
-                event.target.classList.contains(
-                    'product-quantity'
-                )
-                ||
-                event.target.classList.contains(
-                    'product-unit-price'
-                )
-            ) {
 
-                event.target.value =
-                    event.target.value.replace(
-                        /[^0-9.]/g,
-                        ''
+        const productSelect =
+            row.querySelector(
+                '.product-select'
+            );
+
+        const quantityInput =
+            row.querySelector(
+                '.product-quantity'
+            );
+
+        const unitPriceInput =
+            row.querySelector(
+                '.product-unit-price'
+            );
+
+        const removeButton =
+            row.querySelector(
+                '.remove-product-button'
+            );
+
+
+        if (productSelect) {
+
+            productSelect.addEventListener(
+                'change',
+                function () {
+
+                    handleProductChange(
+                        this
                     );
 
-                updateProductSubtotal(
-                    event.target
-                );
-
-            }
+                }
+            );
 
         }
-    );
 
 
-    /* =========================================================
-       REVENUE INPUT
-    ========================================================= */
+        if (quantityInput) {
 
-    document
-        .getElementById(
-            'expected_revenue'
-        )
-        .addEventListener(
-            'input',
-            function()
-            {
+            quantityInput.addEventListener(
+                'input',
+                function () {
 
-                this.value =
-                    this.value.replace(
-                        /[^0-9]/g,
-                        ''
+                    this.value =
+                        cleanNumericValue(
+                            this.value
+                        );
+
+                    updateProductSubtotal(
+                        this
                     );
 
-                validateRevenue();
+                }
+            );
 
-            }
-        );
+        }
+
+
+        if (unitPriceInput) {
+
+            unitPriceInput.addEventListener(
+                'input',
+                function () {
+
+                    this.value =
+                        cleanNumericValue(
+                            this.value
+                        );
+
+                    updateProductSubtotal(
+                        this
+                    );
+
+                }
+            );
+
+        }
+
+
+        if (removeButton) {
+
+            removeButton.addEventListener(
+                'click',
+                function () {
+
+                    removeProductRow(
+                        this
+                    );
+
+                }
+            );
+
+        }
+
+    }
 
 
     /* =========================================================
        FORM SUBMIT
     ========================================================= */
 
-    document
-        .getElementById(
-            'opportunityForm'
-        )
-        .addEventListener(
-            'submit',
-            function(event)
-            {
-
-                if (
-                    !validateRevenue()
-                ) {
-
-                    event.preventDefault();
-
-                    document
-                        .getElementById(
-                            'expected_revenue'
-                        )
-                        .focus();
-
-                    return;
-                }
-
-                const rows =
-                    document.querySelectorAll(
-                        '[data-product-row]'
-                    );
+    function handleOpportunitySubmit(event)
+    {
+        const form =
+            document.getElementById(
+                'opportunityForm'
+            );
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | REMOVE EMPTY PRODUCT ROWS
-                |--------------------------------------------------------------------------
-                */
-
-                rows.forEach(
-                    function(row)
-                    {
-
-                        const product =
-                            row.querySelector(
-                                '.product-select'
-                            ).value;
-
-                        const quantity =
-                            row.querySelector(
-                                '.product-quantity'
-                            ).value;
-
-                        const price =
-                            row.querySelector(
-                                '.product-unit-price'
-                            ).value;
+        if (!form) {
+            return;
+        }
 
 
-                        /*
-                        |--------------------------------------------------------------------------
-                        | If entire row is empty, disable inputs
-                        |--------------------------------------------------------------------------
-                        */
+        if (
+            !validateRevenue()
+        ) {
 
-                        if (
-                            product === ''
-                            &&
-                            quantity === ''
-                            &&
-                            price === ''
-                        ) {
+            event.preventDefault();
 
-                            row.querySelector(
-                                '.product-select'
-                            ).disabled = true;
 
-                            row.querySelector(
-                                '.product-quantity'
-                            ).disabled = true;
-
-                            row.querySelector(
-                                '.product-unit-price'
-                            ).disabled = true;
-
-                        }
-
-                    }
+            const revenueInput =
+                document.getElementById(
+                    'expected_revenue'
                 );
 
 
-                const rating =
-                    parseInt(
-                        document
-                            .getElementById(
-                                'rating'
-                            )
-                            .value
-                    );
+            if (revenueInput) {
 
-                if (
-                    Number.isNaN(rating)
-                    ||
-                    rating < 0
-                    ||
-                    rating > 5
-                ) {
-
-                    event.preventDefault();
-
-                    alert(
-                        'Rating must be between 0 and 5.'
-                    );
-
-                }
+                revenueInput.focus();
 
             }
-        );
+
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remove completely empty product rows from submission.
+        |--------------------------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                '[data-product-row]'
+            )
+            .forEach(
+                function(row)
+                {
+
+                    const productSelect =
+                        row.querySelector(
+                            '.product-select'
+                        );
+
+                    const quantityInput =
+                        row.querySelector(
+                            '.product-quantity'
+                        );
+
+                    const unitPriceInput =
+                        row.querySelector(
+                            '.product-unit-price'
+                        );
+
+
+                    if (
+                        !productSelect
+                        ||
+                        !quantityInput
+                        ||
+                        !unitPriceInput
+                    ) {
+                        return;
+                    }
+
+
+                    const product =
+                        productSelect.value;
+
+                    const quantity =
+                        quantityInput.value.trim();
+
+                    const unitPrice =
+                        unitPriceInput.value.trim();
+
+
+                    if (
+                        product === ''
+                        &&
+                        quantity === ''
+                        &&
+                        unitPrice === ''
+                    ) {
+
+                        productSelect.disabled =
+                            true;
+
+                        quantityInput.disabled =
+                            true;
+
+                        unitPriceInput.disabled =
+                            true;
+
+                    }
+
+                }
+            );
+
+    }
 
 
     /* =========================================================
@@ -2446,12 +2735,14 @@
 
     document.addEventListener(
         'DOMContentLoaded',
-        function()
+        function ()
         {
 
-            updateRatingPreview();
-
-            validateRevenue();
+            /*
+            |--------------------------------------------------------------------------
+            | Bind all existing rows
+            |--------------------------------------------------------------------------
+            */
 
             document
                 .querySelectorAll(
@@ -2461,32 +2752,192 @@
                     function(row)
                     {
 
-                        const quantity =
+                        bindProductRowEvents(
+                            row
+                        );
+
+
+                        const productSelect =
+                            row.querySelector(
+                                '.product-select'
+                            );
+
+
+                        const quantityInput =
                             row.querySelector(
                                 '.product-quantity'
-                            ).value;
+                            );
 
-                        const price =
-                            row.querySelector(
-                                '.product-unit-price'
-                            ).value;
+
+                        /*
+                        | If an existing/old product is selected,
+                        | make sure its current master price is loaded.
+                        */
 
                         if (
-                            quantity !== ''
-                            ||
-                            price !== ''
+                            productSelect
+                            &&
+                            productSelect.value !== ''
+                        ) {
+
+                            const price =
+                                getSelectedProductPrice(
+                                    productSelect
+                                );
+
+
+                            const unitPriceInput =
+                                row.querySelector(
+                                    '.product-unit-price'
+                                );
+
+
+                            /*
+                            | Only initialize empty Unit Price.
+                            | This preserves old submitted transaction
+                            | values after validation errors.
+                            */
+
+                            if (
+                                unitPriceInput
+                                &&
+                                unitPriceInput.value.trim() === ''
+                                &&
+                                price > 0
+                            ) {
+
+                                unitPriceInput.value =
+                                    String(price);
+
+                            }
+
+                        }
+
+
+                        if (
+                            quantityInput
+                            &&
+                            (
+                                quantityInput.value.trim() !== ''
+                                ||
+                                (
+                                    productSelect
+                                    &&
+                                    productSelect.value !== ''
+                                )
+                            )
                         ) {
 
                             updateProductSubtotal(
-                                row.querySelector(
-                                    '.product-quantity'
-                                )
+                                quantityInput
                             );
 
                         }
 
                     }
                 );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Rating
+            |--------------------------------------------------------------------------
+            */
+
+            const ratingInput =
+                document.getElementById(
+                    'rating'
+                );
+
+
+            if (ratingInput) {
+
+                ratingInput.addEventListener(
+                    'change',
+                    updateRatingPreview
+                );
+
+            }
+
+
+            updateRatingPreview();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Expected Revenue
+            |--------------------------------------------------------------------------
+            */
+
+            const revenueInput =
+                document.getElementById(
+                    'expected_revenue'
+                );
+
+
+            if (revenueInput) {
+
+                revenueInput.addEventListener(
+                    'input',
+                    function ()
+                    {
+
+                        /*
+                        | Do not allow manual editing
+                        | while Product Total controls it.
+                        */
+
+                        if (
+                            this.readOnly
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        this.value =
+                            this.value.replace(
+                                /[^0-9]/g,
+                                ''
+                            );
+
+
+                        validateRevenue();
+
+                    }
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Form submit
+            |--------------------------------------------------------------------------
+            */
+
+            const opportunityForm =
+                document.getElementById(
+                    'opportunityForm'
+                );
+
+
+            if (opportunityForm) {
+
+                opportunityForm.addEventListener(
+                    'submit',
+                    handleOpportunitySubmit
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Final calculation
+            |--------------------------------------------------------------------------
+            */
 
             updateProductsTotal();
 

@@ -639,29 +639,91 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">
+                        <label
+                            for="status"
+                            class="form-label"
+                        >
                             Status
                         </label>
 
 
-                        <div class="status-grid-box">
+                        @if($lead->status === 'converted')
 
-                            <span class="status-dot"></span>
+                            {{-- Converted hanya ditampilkan dan tidak dapat
+                                 diubah manual dari Edit Lead. --}}
 
-                            <span class="status-text">
+                            <div class="status-grid-box">
 
-                                {{ ucfirst($lead->status ?? 'New') }}
+                                <span class="status-dot"></span>
 
-                            </span>
+                                <span class="status-text">
+                                    Converted
+                                </span>
 
-                        </div>
+                            </div>
 
 
-                        <input
-                            type="hidden"
-                            name="status"
-                            value="{{ old('status', $lead->status) }}"
-                        >
+                            <input
+                                type="hidden"
+                                name="status"
+                                value="converted"
+                            >
+
+                        @else
+
+                            <select
+                                id="status"
+                                name="status"
+                                class="form-select"
+                                required
+                            >
+
+                                <option
+                                    value="new"
+                                    {{ old('status', $lead->status) === 'new'
+                                        ? 'selected'
+                                        : ''
+                                    }}
+                                >
+                                    New
+                                </option>
+
+
+                                <option
+                                    value="contacted"
+                                    {{ old('status', $lead->status) === 'contacted'
+                                        ? 'selected'
+                                        : ''
+                                    }}
+                                >
+                                    Contacted
+                                </option>
+
+
+                                <option
+                                    value="qualified"
+                                    {{ old('status', $lead->status) === 'qualified'
+                                        ? 'selected'
+                                        : ''
+                                    }}
+                                >
+                                    Qualified
+                                </option>
+
+
+                                <option
+                                    value="lost"
+                                    {{ old('status', $lead->status) === 'lost'
+                                        ? 'selected'
+                                        : ''
+                                    }}
+                                >
+                                    Lost
+                                </option>
+
+                            </select>
+
+                        @endif
 
 
                         @error('status')

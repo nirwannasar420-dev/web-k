@@ -3,6 +3,12 @@
 @section('title', 'Convert Lead')
 @section('page-title', 'Convert Lead')
 
+@php
+    $customerList = $customers ?? collect();
+    $salespersonList = $salespeople ?? collect();
+    $opportunityLabel = 'Opportunity';
+@endphp
+
 @section('styles')
 
 <style>
@@ -12,7 +18,7 @@
     ========================================================= */
 
     .convert-page {
-        max-width: 950px;
+        max-width: 1000px;
         margin: 0 auto;
     }
 
@@ -38,19 +44,20 @@
         margin: 0;
         color: #5F6368;
         font-size: 13px;
+        line-height: 1.6;
     }
 
 
     /* =========================================================
-       INFO LEAD
+       LEAD INFORMATION
     ========================================================= */
 
     .lead-info-card {
+        margin-bottom: 20px;
+        padding: 18px 20px;
         background: #E8EEF9;
         border: 1px solid #D5E0F1;
         border-radius: 14px;
-        padding: 18px;
-        margin-bottom: 20px;
     }
 
 
@@ -71,6 +78,11 @@
     }
 
 
+    .lead-info-item {
+        min-width: 0;
+    }
+
+
     .lead-info-item span {
         display: block;
     }
@@ -87,6 +99,7 @@
         color: #202124;
         font-size: 12px;
         font-weight: 600;
+        word-break: break-word;
     }
 
 
@@ -104,27 +117,11 @@
 
 
     /* =========================================================
-       ERROR GLOBAL
-    ========================================================= */
-
-    .alert-error {
-        margin-bottom: 22px;
-        padding: 14px 15px;
-        border-radius: 10px;
-        background: #FFF0F1;
-        border: 1px solid #F4C8CC;
-        color: #B4232D;
-        font-size: 12px;
-        line-height: 1.6;
-    }
-
-
-    /* =========================================================
        SECTION
     ========================================================= */
 
     .form-section {
-        margin-bottom: 28px;
+        margin-bottom: 30px;
     }
 
 
@@ -133,26 +130,108 @@
     }
 
 
-    .section-title {
+    .section-heading {
         margin-bottom: 18px;
         padding-bottom: 11px;
         border-bottom: 1px solid #F1F3F4;
+    }
+
+
+    .section-heading h2 {
+        margin: 0 0 4px;
         color: #202124;
         font-size: 15px;
         font-weight: 700;
     }
 
 
-    .section-description {
-        margin-top: -10px;
-        margin-bottom: 18px;
+    .section-heading p {
+        margin: 0;
         color: #80868B;
         font-size: 11px;
+        line-height: 1.6;
     }
 
 
     /* =========================================================
-       GRID
+       CUSTOMER MODE
+    ========================================================= */
+
+    .customer-mode-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+
+    .mode-option {
+        position: relative;
+    }
+
+
+    .mode-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+
+    .mode-card {
+        display: block;
+        padding: 15px 16px;
+        background: #FFFFFF;
+        border: 1px solid #DADCE0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+
+    .mode-card:hover {
+        border-color: #AEB8CA;
+        box-shadow: 0 2px 8px rgba(11,42,111,.06);
+    }
+
+
+    .mode-option input:checked + .mode-card {
+        border-color: #0B2A6F;
+        background: #F5F8FD;
+        box-shadow: 0 0 0 2px rgba(11,42,111,.08);
+    }
+
+
+    .mode-title {
+        margin-bottom: 4px;
+        color: #202124;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+
+    .mode-description {
+        color: #80868B;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       PANELS
+    ========================================================= */
+
+    .customer-panel {
+        display: none;
+    }
+
+
+    .customer-panel.active {
+        display: block;
+    }
+
+
+    /* =========================================================
+       FORM GRID
     ========================================================= */
 
     .form-grid {
@@ -198,13 +277,13 @@
     .form-select,
     .form-textarea {
         width: 100%;
+        box-sizing: border-box;
         border: 1px solid #DADCE0;
         border-radius: 8px;
         background: #FFFFFF;
         color: #202124;
         outline: none;
         font-size: 12px;
-        box-sizing: border-box;
         transition: .2s ease;
     }
 
@@ -238,79 +317,58 @@
     }
 
 
-    /* =========================================================
-       INPUT ERROR
-    ========================================================= */
-
-    .input-error {
-        border-color: #E30613 !important;
-        box-shadow: 0 0 0 2px rgba(227,6,19,.08) !important;
+    .form-input[readonly] {
+        background: #F8F9FA;
+        cursor: not-allowed;
     }
 
 
     /* =========================================================
-       FIELD ERROR
+       INFO BOX
     ========================================================= */
 
-    .field-error {
-        margin-top: 5px;
-        color: #D93025;
+    .info-box {
+        margin-top: 10px;
+        padding: 11px 12px;
+        background: #F8F9FA;
+        border: 1px solid #E8EAED;
+        border-radius: 8px;
+        color: #5F6368;
         font-size: 10px;
-        line-height: 1.4;
-    }
-
-
-    .client-error {
-        display: none;
-    }
-
-
-    .client-error.show {
-        display: block;
+        line-height: 1.6;
     }
 
 
     /* =========================================================
-       CURRENT STAGE
+       FIXED STAGE
     ========================================================= */
 
-    .current-stage {
+    .fixed-field {
         display: flex;
         align-items: center;
         gap: 10px;
         min-height: 40px;
         padding: 0 12px;
+        box-sizing: border-box;
         background: #F8F9FA;
         border: 1px solid #E8EAED;
         border-radius: 8px;
-        box-sizing: border-box;
     }
 
 
-    .stage-dot {
+    .fixed-dot {
         width: 8px;
         height: 8px;
-        background: #0B2A6F;
-        border-radius: 50%;
         flex-shrink: 0;
+        border-radius: 50%;
+        background: #0B2A6F;
     }
 
 
-    .current-stage-text {
+    .fixed-text {
         color: #3C4043;
         font-size: 12px;
         font-weight: 600;
-    }
-
-
-    /* =========================================================
-       REVENUE NOTE
-    ========================================================= */
-
-    .field-hint {
-        margin-top: 5px;
-        color: #94A3B8;
-        font-size: 10px;
     }
 
 
@@ -332,8 +390,8 @@
     .btn {
         height: 40px;
         padding: 0 16px;
-        border-radius: 8px;
         border: none;
+        border-radius: 8px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -368,6 +426,12 @@
     }
 
 
+    .btn-convert:disabled {
+        opacity: .65;
+        cursor: not-allowed;
+    }
+
+
     .btn-convert svg {
         width: 15px;
         height: 15px;
@@ -378,9 +442,23 @@
        RESPONSIVE
     ========================================================= */
 
+    @media (max-width: 800px) {
+
+        .lead-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
     @media (max-width: 700px) {
 
-        .lead-info-grid,
+        .form-card {
+            padding: 20px;
+        }
+
+
+        .customer-mode-grid,
         .form-grid {
             grid-template-columns: 1fr;
         }
@@ -424,28 +502,25 @@
         </h1>
 
         <p>
-            Ubah lead yang sudah memenuhi kualifikasi menjadi Customer
-            dan Opportunity baru.
+            Convert this qualified lead into a Customer and a new {{ $opportunityLabel }}.
         </p>
 
     </div>
 
 
     {{-- =====================================================
-         LEAD INFO
+         LEAD INFORMATION
     ====================================================== --}}
 
     <div class="lead-info-card">
 
         <div class="lead-info-title">
-            Data Lead
+            Lead Information
         </div>
 
 
         <div class="lead-info-grid">
 
-
-            {{-- NAMA LEAD --}}
 
             <div class="lead-info-item">
 
@@ -460,12 +535,10 @@
             </div>
 
 
-            {{-- KONTAK --}}
-
             <div class="lead-info-item">
 
                 <span class="lead-info-label">
-                    Kontak
+                    Contact
                 </span>
 
                 <span class="lead-info-value">
@@ -474,8 +547,6 @@
 
             </div>
 
-
-            {{-- STATUS --}}
 
             <div class="lead-info-item">
 
@@ -496,37 +567,10 @@
 
 
     {{-- =====================================================
-         FORM CARD
+         FORM
     ====================================================== --}}
 
     <div class="form-card">
-
-
-        {{-- ERROR GLOBAL DARI LARAVEL --}}
-
-        @if($errors->any())
-
-            <div class="alert-error">
-
-                <strong>
-                    Terjadi kesalahan:
-                </strong>
-
-                <div style="margin-top:6px;">
-
-                    @foreach($errors->all() as $error)
-
-                        <div>
-                            • {{ $error }}
-                        </div>
-
-                    @endforeach
-
-                </div>
-
-            </div>
-
-        @endif
 
 
         <form
@@ -539,204 +583,308 @@
 
 
             {{-- =================================================
-                 DATA CUSTOMER
+                 CUSTOMER
             ================================================== --}}
 
             <div class="form-section">
 
-                <div class="section-title">
-                    Data Customer
+
+                <div class="section-heading">
+
+                    <h2>
+                        Customer
+                    </h2>
+
+                    <p>
+                        Choose whether to create a new customer or use an existing customer.
+                    </p>
+
                 </div>
 
-                <div class="section-description">
-                    Data ini akan digunakan untuk membuat customer baru.
+
+                {{-- CUSTOMER MODE --}}
+
+                <div class="customer-mode-grid">
+
+
+                    <div class="mode-option">
+
+                        <input
+                            type="radio"
+                            id="customer_mode_new"
+                            name="customer_mode"
+                            value="new"
+                            {{ old('customer_mode', 'new') === 'new' ? 'checked' : '' }}
+                        >
+
+
+                        <label
+                            for="customer_mode_new"
+                            class="mode-card"
+                        >
+
+                            <div class="mode-title">
+                                Create New Customer
+                            </div>
+
+                            <div class="mode-description">
+                                Create a new customer record using the lead information.
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="mode-option">
+
+                        <input
+                            type="radio"
+                            id="customer_mode_existing"
+                            name="customer_mode"
+                            value="existing"
+                            {{ old('customer_mode') === 'existing' ? 'checked' : '' }}
+                        >
+
+
+                        <label
+                            for="customer_mode_existing"
+                            class="mode-card"
+                        >
+
+                            <div class="mode-title">
+                                Use Existing Customer
+                            </div>
+
+                            <div class="mode-description">
+                                Link this lead to a customer that already exists in the CRM.
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
                 </div>
 
 
-                <div class="form-grid">
+                {{-- =================================================
+                     EXISTING CUSTOMER
+                ================================================== --}}
+
+                <div
+                    id="existingCustomerPanel"
+                    class="customer-panel"
+                >
+
+                    <div class="form-grid">
 
 
-                    {{-- CUSTOMER NAME --}}
+                        <div class="form-group full">
 
-                    <div class="form-group">
+                            <label
+                                for="customer_id"
+                                class="form-label"
+                            >
 
-                        <label
-                            for="customer_name"
-                            class="form-label"
-                        >
+                                Existing Customer
 
-                            Nama Customer
-                            <span class="required">*</span>
+                                <span class="required">*</span>
 
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="customer_name"
-                            id="customer_name"
-                            class="form-input"
-                            value="{{ old(
-                                'customer_name',
-                                $lead->contact_name ?? $lead->name
-                            ) }}"
-                            required
-                            maxlength="255"
-                        >
+                            </label>
 
 
-                        @error('customer_name')
+                            <select
+                                id="customer_id"
+                                name="customer_id"
+                                class="form-select"
+                            >
 
-                            <div class="field-error">
-                                {{ $message }}
+                                <option value="">
+                                    Select Customer
+                                </option>
+
+
+                                @foreach($customerList as $customer)
+
+                                    <option
+                                        value="{{ $customer->id }}"
+                                        {{ (string) old('customer_id') === (string) $customer->id ? 'selected' : '' }}
+                                    >
+
+                                        {{ $customer->name }}
+
+                                        @if($customer->company)
+                                            — {{ $customer->company }}
+                                        @endif
+
+                                    </option>
+
+                                @endforeach
+
+                            </select>
+
+
+                            <div class="info-box">
+                                The selected customer will be reused. No duplicate customer record will be created.
                             </div>
 
-                        @enderror
-
-                    </div>
-
-
-                    {{-- COMPANY --}}
-
-                    <div class="form-group">
-
-                        <label
-                            for="company"
-                            class="form-label"
-                        >
-
-                            Perusahaan
-                            <span class="required">*</span>
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="company"
-                            id="company"
-                            class="form-input"
-                            value="{{ old(
-                                'company',
-                                $lead->name
-                            ) }}"
-                            required
-                            maxlength="255"
-                        >
-
-
-                        @error('company')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
-
-                    </div>
-
-
-                    {{-- EMAIL --}}
-
-                    <div class="form-group">
-
-                        <label
-                            for="email"
-                            class="form-label"
-                        >
-                            Email
-                        </label>
-
-
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            class="form-input"
-                            value="{{ old(
-                                'email',
-                                $lead->email
-                            ) }}"
-                            maxlength="255"
-                            autocomplete="email"
-                        >
-
-
-                        @error('email')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
-
-                    </div>
-
-
-                    {{-- TELEPON --}}
-
-                    <div class="form-group">
-
-                        <label
-                            for="phone"
-                            class="form-label"
-                        >
-                            Telepon
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="phone"
-                            id="phone"
-                            class="form-input"
-                            value="{{ old(
-                                'phone',
-                                $lead->phone
-                            ) }}"
-                            inputmode="numeric"
-                            autocomplete="tel"
-                            maxlength="50"
-                            placeholder="Contoh: 081234567890"
-                        >
-
-
-                        <div
-                            id="phoneError"
-                            class="field-error client-error"
-                        >
-                            Nomor telepon harus berupa angka.
                         </div>
 
 
-                        @error('phone')
+                    </div>
 
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
+                </div>
 
-                        @enderror
+
+                {{-- =================================================
+                     NEW CUSTOMER
+                ================================================== --}}
+
+                <div
+                    id="newCustomerPanel"
+                    class="customer-panel"
+                >
+
+                    <div class="form-grid">
+
+
+                        {{-- CUSTOMER NAME --}}
+
+                        <div class="form-group">
+
+                            <label
+                                for="customer_name"
+                                class="form-label"
+                            >
+
+                                Customer Name
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="customer_name"
+                                name="customer_name"
+                                class="form-input"
+                                value="{{ old('customer_name', $lead->contact_name ?? $lead->name) }}"
+                                placeholder="Example: John Doe"
+                                maxlength="255"
+                            >
+
+                        </div>
+
+
+                        {{-- COMPANY --}}
+
+                        <div class="form-group">
+
+                            <label
+                                for="company"
+                                class="form-label"
+                            >
+
+                                Company
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="company"
+                                name="company"
+                                class="form-input"
+                                value="{{ old('company', $lead->name) }}"
+                                placeholder="Example: PT Maju Textile"
+                                maxlength="255"
+                            >
+
+                        </div>
+
+
+                        {{-- EMAIL --}}
+
+                        <div class="form-group">
+
+                            <label
+                                for="email"
+                                class="form-label"
+                            >
+                                Email
+                            </label>
+
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                value="{{ old('email', $lead->email) }}"
+                                placeholder="email@company.com"
+                                maxlength="255"
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+
+                        {{-- PHONE --}}
+
+                        <div class="form-group">
+
+                            <label
+                                for="phone"
+                                class="form-label"
+                            >
+                                Phone
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="phone"
+                                name="phone"
+                                class="form-input"
+                                value="{{ old('phone', $lead->phone) }}"
+                                placeholder="081234567890"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                maxlength="50"
+                            >
+
+                        </div>
+
 
                     </div>
 
-
                 </div>
+
 
             </div>
 
 
             {{-- =================================================
-                 DATA OPPORTUNITY
+                 OPPORTUNITY
             ================================================== --}}
 
             <div class="form-section">
 
-                <div class="section-title">
-                    Data Opportunity
-                </div>
 
-                <div class="section-description">
-                    Opportunity baru akan otomatis dimulai dari stage Prospect.
+                <div class="section-heading">
+
+                    <h2>
+                        {{ $opportunityLabel }}
+                    </h2>
+
+                    <p>
+                        Enter the information for the new sales {{ strtolower($opportunityLabel) }}.
+                    </p>
+
                 </div>
 
 
@@ -752,7 +900,8 @@
                             class="form-label"
                         >
 
-                            Nama Opportunity
+                            {{ $opportunityLabel }} Name
+
                             <span class="required">*</span>
 
                         </label>
@@ -760,25 +909,14 @@
 
                         <input
                             type="text"
-                            name="opportunity_name"
                             id="opportunity_name"
+                            name="opportunity_name"
                             class="form-input"
-                            value="{{ old(
-                                'opportunity_name',
-                                'Peluang ' . $lead->name
-                            ) }}"
-                            required
+                            value="{{ old('opportunity_name', $opportunityLabel . ' - ' . $lead->name) }}"
+                            placeholder="Example: Yarn Order from PT ABC"
                             maxlength="255"
+                            required
                         >
-
-
-                        @error('opportunity_name')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
 
                     </div>
 
@@ -792,49 +930,24 @@
                             class="form-label"
                         >
 
-                            Estimasi Revenue
+                            Expected Revenue
+
                             <span class="required">*</span>
 
                         </label>
 
 
                         <input
-                            type="text"
-                            name="expected_revenue"
+                            type="number"
                             id="expected_revenue"
+                            name="expected_revenue"
                             class="form-input"
-                            value="{{ old(
-                                'expected_revenue',
-                                '0'
-                            ) }}"
-                            inputmode="numeric"
-                            autocomplete="off"
+                            value="{{ old('expected_revenue', 0) }}"
+                            min="0"
+                            step="0.01"
+                            placeholder="5000000"
                             required
-                            placeholder="Contoh: 50000000"
                         >
-
-
-                        <div
-                            id="revenueError"
-                            class="field-error client-error"
-                        >
-                            Estimasi Revenue harus berupa angka dan tidak boleh negatif.
-                        </div>
-
-
-                        <div class="field-hint">
-                            Masukkan angka tanpa titik atau koma.
-                            Contoh: 50000000
-                        </div>
-
-
-                        @error('expected_revenue')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
 
                     </div>
 
@@ -849,103 +962,135 @@
                         >
 
                             Rating
+
                             <span class="required">*</span>
 
                         </label>
 
 
                         <select
-                            name="rating"
                             id="rating"
+                            name="rating"
                             class="form-select"
                             required
                         >
 
-                            <option
-                                value="1"
-                                {{ old('rating', 1) == 1
-                                    ? 'selected'
-                                    : ''
-                                }}
-                            >
-                                ★☆☆☆☆
+                            <option value="">
+                                Select Rating
                             </option>
 
 
-                            <option
-                                value="2"
-                                {{ old('rating') == 2
-                                    ? 'selected'
-                                    : ''
-                                }}
-                            >
-                                ★★☆☆☆
-                            </option>
+                            @for($rating = 1; $rating <= 5; $rating++)
 
+                                <option
+                                    value="{{ $rating }}"
+                                    {{ (string) old('rating') === (string) $rating ? 'selected' : '' }}
+                                >
+                                    {{ str_repeat('★', $rating) . str_repeat('☆', 5 - $rating) }}
+                                </option>
 
-                            <option
-                                value="3"
-                                {{ old('rating') == 3
-                                    ? 'selected'
-                                    : ''
-                                }}
-                            >
-                                ★★★☆☆
-                            </option>
-
-
-                            <option
-                                value="4"
-                                {{ old('rating') == 4
-                                    ? 'selected'
-                                    : ''
-                                }}
-                            >
-                                ★★★★☆
-                            </option>
-
-
-                            <option
-                                value="5"
-                                {{ old('rating') == 5
-                                    ? 'selected'
-                                    : ''
-                                }}
-                            >
-                                ★★★★★
-                            </option>
+                            @endfor
 
                         </select>
-
-
-                        @error('rating')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
 
                     </div>
 
 
-                    {{-- STAGE --}}
+                    {{-- SALESPERSON --}}
 
-                    <div class="form-group full">
+                    <div class="form-group">
 
-                        <label class="form-label">
-                            Stage Awal
+                        <label
+                            for="salesperson_id"
+                            class="form-label"
+                        >
+
+                            Salesperson
+
+                            <span class="required">*</span>
+
                         </label>
 
 
-                        <div class="current-stage">
+                        @if(
+                            auth()->check() &&
+                            auth()->user()->role === 'sales'
+                        )
 
-                            <div class="stage-dot"></div>
+                            <input
+                                type="text"
+                                class="form-input"
+                                value="{{ auth()->user()->name }}"
+                                readonly
+                            >
 
-                            <div class="current-stage-text">
+
+                            <input
+                                type="hidden"
+                                name="salesperson_id"
+                                value="{{ auth()->user()->id }}"
+                            >
+
+                        @else
+
+                            <select
+                                id="salesperson_id"
+                                name="salesperson_id"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Salesperson
+                                </option>
+
+
+                                @foreach($salespersonList as $salesperson)
+
+                                    <option
+                                        value="{{ $salesperson->id }}"
+                                        {{ (string) old('salesperson_id') === (string) $salesperson->id ? 'selected' : '' }}
+                                    >
+
+                                        {{ $salesperson->name }}
+
+                                        @if($salesperson->email)
+                                            — {{ $salesperson->email }}
+                                        @endif
+
+                                    </option>
+
+                                @endforeach
+
+                            </select>
+
+                        @endif
+
+                    </div>
+
+
+                    {{-- INITIAL STAGE --}}
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Initial Stage
+                        </label>
+
+
+                        <div class="fixed-field">
+
+                            <span class="fixed-dot"></span>
+
+                            <span class="fixed-text">
                                 Prospect
-                            </div>
+                            </span>
 
+                        </div>
+
+
+                        <div class="info-box">
+                            New sales opportunities created through lead conversion always start at Prospect.
                         </div>
 
                     </div>
@@ -959,25 +1104,16 @@
                             for="notes"
                             class="form-label"
                         >
-                            Catatan
+                            Notes
                         </label>
 
 
                         <textarea
-                            name="notes"
                             id="notes"
+                            name="notes"
                             class="form-textarea"
-                            placeholder="Tambahkan catatan mengenai opportunity..."
-                        >{{ old('notes') }}</textarea>
-
-
-                        @error('notes')
-
-                            <div class="field-error">
-                                {{ $message }}
-                            </div>
-
-                        @enderror
+                            placeholder="Add additional information about this sales opportunity..."
+                        >{{ old('notes', $lead->notes) }}</textarea>
 
                     </div>
 
@@ -988,7 +1124,7 @@
 
 
             {{-- =================================================
-                 ACTION
+                 ACTIONS
             ================================================== --}}
 
             <div class="form-actions">
@@ -998,13 +1134,14 @@
                     href="{{ route('leads.show', $lead) }}"
                     class="btn btn-cancel"
                 >
-                    Batal
+                    Cancel
                 </a>
 
 
                 <button
                     type="submit"
                     class="btn btn-convert"
+                    id="convertButton"
                 >
 
                     <svg
@@ -1022,7 +1159,10 @@
 
                     </svg>
 
-                    Convert Lead
+
+                    <span id="convertButtonText">
+                        Convert Lead
+                    </span>
 
                 </button>
 
@@ -1051,292 +1191,222 @@
                 );
 
 
-            const phoneInput =
+            const newMode =
                 document.getElementById(
-                    'phone'
+                    'customer_mode_new'
                 );
 
 
-            const phoneError =
+            const existingMode =
                 document.getElementById(
-                    'phoneError'
+                    'customer_mode_existing'
                 );
 
 
-            const revenueInput =
+            const newPanel =
                 document.getElementById(
-                    'expected_revenue'
+                    'newCustomerPanel'
                 );
 
 
-            const revenueError =
+            const existingPanel =
                 document.getElementById(
-                    'revenueError'
+                    'existingCustomerPanel'
                 );
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | VALIDASI PHONE
-            |--------------------------------------------------------------------------
-            */
-
-            function validatePhone() {
-
-                const value =
-                    phoneInput.value.trim();
-
-
-                // Telepon boleh kosong
-                if (value === '') {
-
-                    phoneInput.classList.remove(
-                        'input-error'
-                    );
-
-                    phoneError.classList.remove(
-                        'show'
-                    );
-
-                    return true;
-                }
-
-
-                const valid =
-                    /^[0-9]+$/.test(value);
-
-
-                if (!valid) {
-
-                    phoneInput.classList.add(
-                        'input-error'
-                    );
-
-                    phoneError.classList.add(
-                        'show'
-                    );
-
-                    return false;
-                }
-
-
-                phoneInput.classList.remove(
-                    'input-error'
+            const customerName =
+                document.getElementById(
+                    'customer_name'
                 );
 
-                phoneError.classList.remove(
-                    'show'
+
+            const company =
+                document.getElementById(
+                    'company'
                 );
 
-                return true;
-            }
+
+            const customerId =
+                document.getElementById(
+                    'customer_id'
+                );
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | VALIDASI REVENUE
-            |--------------------------------------------------------------------------
-            */
-
-            function validateRevenue() {
-
-                const value =
-                    revenueInput.value.trim();
+            const convertButton =
+                document.getElementById(
+                    'convertButton'
+                );
 
 
-                // Revenue wajib diisi
-                if (value === '') {
-
-                    revenueInput.classList.add(
-                        'input-error'
-                    );
-
-                    revenueError.textContent =
-                        'Estimasi Revenue wajib diisi.';
-
-                    revenueError.classList.add(
-                        'show'
-                    );
-
-                    return false;
-                }
+            const convertButtonText =
+                document.getElementById(
+                    'convertButtonText'
+                );
 
 
-                /*
-                 * Hanya angka 0-9.
-                 * Tidak menerima:
-                 * titik
-                 * koma
-                 * minus
-                 * huruf
-                 */
+            /* =================================================
+               CUSTOMER MODE
+            ================================================== */
 
-                const valid =
-                    /^[0-9]+$/.test(value);
-
-
-                if (!valid) {
-
-                    revenueInput.classList.add(
-                        'input-error'
-                    );
-
-                    revenueError.textContent =
-                        'Estimasi Revenue harus berupa angka dan tidak boleh negatif.';
-
-                    revenueError.classList.add(
-                        'show'
-                    );
-
-                    return false;
-                }
-
-
-                /*
-                 * Pastikan nilainya tidak negatif.
-                 * Regex di atas sebenarnya sudah mencegah minus,
-                 * tetapi pengecekan ini menjaga validasi tetap jelas.
-                 */
-
-                const numericValue =
-                    Number(value);
-
+            function updateCustomerMode() {
 
                 if (
-                    !Number.isSafeInteger(
-                        numericValue
-                    ) ||
-                    numericValue < 0
+                    !newMode ||
+                    !existingMode ||
+                    !newPanel ||
+                    !existingPanel
                 ) {
+                    return;
+                }
 
-                    revenueInput.classList.add(
-                        'input-error'
+
+                const isNewCustomer =
+                    newMode.checked;
+
+
+                if (isNewCustomer) {
+
+                    newPanel.classList.add(
+                        'active'
                     );
 
-                    revenueError.textContent =
-                        'Estimasi Revenue tidak valid.';
 
-                    revenueError.classList.add(
-                        'show'
+                    existingPanel.classList.remove(
+                        'active'
                     );
 
-                    return false;
-                }
+
+                    if (customerName) {
+
+                        customerName.required =
+                            true;
+
+                    }
 
 
-                revenueInput.classList.remove(
-                    'input-error'
-                );
+                    if (company) {
 
-                revenueError.classList.remove(
-                    'show'
-                );
+                        company.required =
+                            true;
 
-                return true;
-            }
+                    }
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | EVENT PHONE
-            |--------------------------------------------------------------------------
-            */
+                    if (customerId) {
 
-            phoneInput.addEventListener(
-                'input',
-                function () {
+                        customerId.required =
+                            false;
 
-                    validatePhone();
+                    }
 
-                }
-            );
+                } else {
+
+                    newPanel.classList.remove(
+                        'active'
+                    );
 
 
-            phoneInput.addEventListener(
-                'blur',
-                function () {
-
-                    validatePhone();
-
-                }
-            );
+                    existingPanel.classList.add(
+                        'active'
+                    );
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | EVENT REVENUE
-            |--------------------------------------------------------------------------
-            */
+                    if (customerName) {
 
-            revenueInput.addEventListener(
-                'input',
-                function () {
+                        customerName.required =
+                            false;
 
-                    validateRevenue();
-
-                }
-            );
+                    }
 
 
-            revenueInput.addEventListener(
-                'blur',
-                function () {
+                    if (company) {
 
-                    validateRevenue();
+                        company.required =
+                            false;
 
-                }
-            );
+                    }
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | SUBMIT
-            |--------------------------------------------------------------------------
-            */
+                    if (customerId) {
 
-            form.addEventListener(
-                'submit',
-                function (event) {
-
-                    const phoneValid =
-                        validatePhone();
-
-
-                    const revenueValid =
-                        validateRevenue();
-
-
-                    if (
-                        !phoneValid ||
-                        !revenueValid
-                    ) {
-
-                        event.preventDefault();
-
-                        if (!phoneValid) {
-
-                            phoneInput.focus();
-
-                        } else {
-
-                            revenueInput.focus();
-
-                        }
+                        customerId.required =
+                            true;
 
                     }
 
                 }
-            );
+
+            }
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | INITIAL VALIDATION
-            |--------------------------------------------------------------------------
-            */
+            if (newMode) {
 
-            validatePhone();
-            validateRevenue();
+                newMode.addEventListener(
+                    'change',
+                    updateCustomerMode
+                );
+
+            }
+
+
+            if (existingMode) {
+
+                existingMode.addEventListener(
+                    'change',
+                    updateCustomerMode
+                );
+
+            }
+
+
+            updateCustomerMode();
+
+
+            /* =================================================
+               PREVENT DOUBLE SUBMIT
+            ================================================== */
+
+            let isSubmitting = false;
+
+
+            if (form) {
+
+                form.addEventListener(
+                    'submit',
+                    function (event) {
+
+                        if (isSubmitting) {
+
+                            event.preventDefault();
+
+                            return;
+
+                        }
+
+
+                        isSubmitting = true;
+
+
+                        if (convertButton) {
+
+                            convertButton.disabled =
+                                true;
+
+                        }
+
+
+                        if (convertButtonText) {
+
+                            convertButtonText.textContent =
+                                'Converting...';
+
+                        }
+
+                    }
+                );
+
+            }
 
         }
     );

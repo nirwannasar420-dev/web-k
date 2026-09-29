@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Lead;
+use App\Models\Opportunity;
+use App\Models\Stage;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class LeadController extends Controller
 {
     /**
-     * Menampilkan daftar lead.
+     * Display the lead list.
      */
     public function index(Request $request)
     {
@@ -26,7 +33,6 @@ class LeadController extends Controller
                 $request->search
             );
 
-            // Normalisasi kata pencarian
             $normalizedSearch = strtolower(
                 str_replace(
                     [' ', '.', '-'],
@@ -40,24 +46,11 @@ class LeadController extends Controller
                 $normalizedSearch
             ) {
 
-                /*
-                |--------------------------------------------------------------------------
-                | NAMA
-                |--------------------------------------------------------------------------
-                */
-
                 $q->where(
                     'name',
                     'like',
                     '%' . $search . '%'
                 );
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | NAMA TANPA SPASI / TITIK / -
-                |--------------------------------------------------------------------------
-                */
 
                 $q->orWhereRaw(
                     "
@@ -84,25 +77,11 @@ class LeadController extends Controller
                     ]
                 );
 
-
-                /*
-                |--------------------------------------------------------------------------
-                | CONTACT NAME
-                |--------------------------------------------------------------------------
-                */
-
                 $q->orWhere(
                     'contact_name',
                     'like',
                     '%' . $search . '%'
                 );
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | CONTACT TANPA SPASI / TITIK / -
-                |--------------------------------------------------------------------------
-                */
 
                 $q->orWhereRaw(
                     "
@@ -115,26 +94,19 @@ class LeadController extends Controller
                                     ''
                                 ),
                                 ' ',
-                                    ''
-                                ),
-                                '-',
                                 ''
-                            )
-                        ) LIKE ?
-                        ",
+                            ),
+                            '-',
+                            ''
+                        )
+                    ) LIKE ?
+                    ",
                     [
                         '%' .
                         $normalizedSearch .
                         '%'
                     ]
                 );
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | EMAIL
-                |--------------------------------------------------------------------------
-                */
 
                 $q->orWhere(
                     'email',
@@ -147,7 +119,7 @@ class LeadController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | FILTER STATUS
+        | STATUS FILTER
         |--------------------------------------------------------------------------
         */
 
@@ -180,7 +152,7 @@ class LeadController extends Controller
 
 
     /**
-     * Menampilkan form tambah lead.
+     * Show the create lead form.
      */
     public function create()
     {
@@ -191,88 +163,59 @@ class LeadController extends Controller
 
 
     /**
-     * Menyimpan lead baru.
+     * Store a new lead.
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(
-            [
+        $validated = $request->validate([
 
-                'name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-
-                'contact_name' => [
-                    'nullable',
-                    'string',
-                    'max:255',
-                ],
-
-                'email' => [
-                    'nullable',
-                    'email',
-                    'max:255',
-                ],
-
-                'phone' => [
-                    'nullable',
-                    'regex:/^[0-9]+$/',
-                    'max:30',
-                ],
-
-                'source' => [
-                    'nullable',
-                    'string',
-                    'max:255',
-                ],
-
-                'status' => [
-                    'required',
-                    'in:new,contacted,qualified,converted,lost',
-                ],
-
-                'notes' => [
-                    'nullable',
-                    'string',
-                ],
-
+            'name' => [
+                'required',
+                'string',
+                'max:255',
             ],
-            [
 
-                'name.required' =>
-                    'Nama Lead wajib diisi.',
+            'contact_name' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-                'name.max' =>
-                    'Nama Lead maksimal 255 karakter.',
+            'email' => [
+                'nullable',
+                'email',
+                'max:255',
+            ],
 
-                'contact_name.max' =>
-                    'Nama kontak maksimal 255 karakter.',
+            'phone' => [
+                'nullable',
+                'string',
+                'max:30',
+            ],
 
-                'email.email' =>
-                    'Format email tidak valid.',
+            'source' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-                'email.max' =>
-                    'Email maksimal 255 karakter.',
+            'status' => [
+                'required',
+                Rule::in([
+                    'new',
+                    'contacted',
+                    'qualified',
+                    'converted',
+                    'lost',
+                ]),
+            ],
 
-                'phone.regex' =>
-                    'Nomor telepon harus berupa angka.',
+            'notes' => [
+                'nullable',
+                'string',
+            ],
 
-                'phone.max' =>
-                    'Nomor telepon maksimal 30 angka.',
-
-                'source.max' =>
-                    'Sumber Lead maksimal 255 karakter.',
-
-                'status.required' =>
-                    'Status Lead wajib dipilih.',
-
-                'status.in' =>
-                    'Status Lead tidak valid.',
-
-            ]
-        );
+        ]);
 
 
         Lead::create(
@@ -284,13 +227,13 @@ class LeadController extends Controller
             ->route('leads.index')
             ->with(
                 'success',
-                'Lead berhasil ditambahkan.'
+                'Lead created successfully.'
             );
     }
 
 
     /**
-     * Menampilkan detail lead.
+     * Display a lead.
      */
     public function show(Lead $lead)
     {
@@ -307,7 +250,7 @@ class LeadController extends Controller
 
 
     /**
-     * Menampilkan form edit lead.
+     * Show the edit lead form.
      */
     public function edit(Lead $lead)
     {
@@ -319,90 +262,71 @@ class LeadController extends Controller
 
 
     /**
-     * Memperbarui lead.
+     * Update a lead.
      */
     public function update(
         Request $request,
         Lead $lead
     ) {
-        $validated = $request->validate(
-            [
 
-                'name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
+        $allowedStatuses =
+            $lead->status === 'converted'
+                ? [
+                    'converted',
+                ]
+                : [
+                    'new',
+                    'contacted',
+                    'qualified',
+                    'lost',
+                ];
 
-                'contact_name' => [
-                    'nullable',
-                    'string',
-                    'max:255',
-                ],
 
-                'email' => [
-                    'nullable',
-                    'email',
-                    'max:255',
-                ],
+        $validated = $request->validate([
 
-                'phone' => [
-                    'nullable',
-                    'regex:/^[0-9]+$/',
-                    'max:30',
-                ],
-
-                'source' => [
-                    'nullable',
-                    'string',
-                    'max:255',
-                ],
-
-                'status' => [
-                    'required',
-                    'in:new,contacted,qualified,converted,lost',
-                ],
-
-                'notes' => [
-                    'nullable',
-                    'string',
-                ],
-
+            'name' => [
+                'required',
+                'string',
+                'max:255',
             ],
-            [
 
-                'name.required' =>
-                    'Nama Lead wajib diisi.',
+            'contact_name' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-                'name.max' =>
-                    'Nama Lead maksimal 255 karakter.',
+            'email' => [
+                'nullable',
+                'email',
+                'max:255',
+            ],
 
-                'contact_name.max' =>
-                    'Nama kontak maksimal 255 karakter.',
+            'phone' => [
+                'nullable',
+                'string',
+                'max:30',
+            ],
 
-                'email.email' =>
-                    'Format email tidak valid.',
+            'source' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-                'email.max' =>
-                    'Email maksimal 255 karakter.',
+            'status' => [
+                'required',
+                Rule::in(
+                    $allowedStatuses
+                ),
+            ],
 
-                'phone.regex' =>
-                    'Nomor telepon harus berupa angka.',
+            'notes' => [
+                'nullable',
+                'string',
+            ],
 
-                'phone.max' =>
-                    'Nomor telepon maksimal 30 angka.',
-
-                'source.max' =>
-                    'Sumber Lead maksimal 255 karakter.',
-
-                'status.required' =>
-                    'Status Lead wajib dipilih.',
-
-                'status.in' =>
-                    'Status Lead tidak valid.',
-
-            ]
-        );
+        ]);
 
 
         $lead->update(
@@ -414,16 +338,18 @@ class LeadController extends Controller
             ->route('leads.index')
             ->with(
                 'success',
-                'Lead berhasil diperbarui.'
+                'Lead updated successfully.'
             );
     }
 
 
     /**
-     * Menghapus lead.
+     * Delete a lead.
      */
-    public function destroy(Lead $lead)
-    {
+    public function destroy(
+        Lead $lead
+    ) {
+
         $lead->delete();
 
 
@@ -431,43 +357,19 @@ class LeadController extends Controller
             ->route('leads.index')
             ->with(
                 'success',
-                'Lead berhasil dihapus.'
+                'Lead deleted successfully.'
             );
     }
 
 
     /**
-     * Menampilkan form konversi lead.
+     * Show the lead conversion form.
      */
     public function convertForm(
-        \App\Models\Lead $lead
-    ) {
-        return view(
-            'leads.convert',
-            compact('lead')
-        );
-    }
-
-
-    /**
-     * Mengubah lead menjadi Customer dan Opportunity.
-     */
-    public function convert(
-        \Illuminate\Http\Request $request,
-        \App\Models\Lead $lead
+        Lead $lead
     ) {
 
-        /*
-        |--------------------------------------------------------------------------
-        | CEK LEAD SUDAH DIKONVERSI
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            $lead->status === 'converted'
-            &&
-            $lead->customer_id
-        ) {
+        if ($lead->status === 'converted') {
 
             return redirect()
                 ->route(
@@ -476,156 +378,246 @@ class LeadController extends Controller
                 )
                 ->with(
                     'error',
-                    'Lead ini sudah pernah dikonversi.'
+                    'This lead has already been converted.'
+                );
+        }
+
+
+        if ($lead->status !== 'qualified') {
+
+            return redirect()
+                ->route(
+                    'leads.show',
+                    $lead
+                )
+                ->with(
+                    'error',
+                    'Only qualified leads can be converted.'
+                );
+        }
+
+
+        $customers = Customer::query()
+            ->orderBy('name')
+            ->get();
+
+
+        $salespeople = collect();
+
+
+        if (
+            Auth::check() &&
+            Auth::user()->role === 'admin'
+        ) {
+
+            $salespeople = User::query()
+                ->where(
+                    'role',
+                    'sales'
+                )
+                ->orderBy('name')
+                ->get();
+        }
+
+
+        return view(
+            'leads.convert',
+            compact(
+                'lead',
+                'customers',
+                'salespeople'
+            )
+        );
+    }
+
+
+    /**
+     * Convert a qualified lead into a Customer and Opportunity.
+     */
+    public function convert(
+        Request $request,
+        Lead $lead
+    ) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | BASIC LEAD CHECK
+        |--------------------------------------------------------------------------
+        */
+
+        if ($lead->status === 'converted') {
+
+            return redirect()
+                ->route(
+                    'leads.show',
+                    $lead
+                )
+                ->with(
+                    'error',
+                    'This lead has already been converted.'
+                );
+        }
+
+
+        if ($lead->status !== 'qualified') {
+
+            return redirect()
+                ->route(
+                    'leads.show',
+                    $lead
+                )
+                ->with(
+                    'error',
+                    'Only qualified leads can be converted.'
                 );
         }
 
 
         /*
         |--------------------------------------------------------------------------
-        | VALIDASI CONVERT
+        | SALESPERSON VALIDATION
         |--------------------------------------------------------------------------
         */
 
-        $validated = $request->validate(
-            [
+        $salespersonRules = [
+            'nullable',
+        ];
 
-                'customer_name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
 
-                'company' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
+        if (
+            Auth::check() &&
+            Auth::user()->role === 'admin'
+        ) {
 
-                'email' => [
-                    'nullable',
-                    'email',
-                    'max:255',
-                ],
-
-                'phone' => [
-                    'nullable',
-                    'regex:/^[0-9]+$/',
-                    'max:50',
-                ],
-
-                'opportunity_name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-
-                'expected_revenue' => [
-                    'required',
-                    'numeric',
-                    'min:0',
-                ],
-
-                'rating' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:5',
-                ],
-
-                'notes' => [
-                    'nullable',
-                    'string',
-                ],
-
-            ],
-            [
-
-                'customer_name.required' =>
-                    'Nama Customer wajib diisi.',
-
-                'customer_name.max' =>
-                    'Nama Customer maksimal 255 karakter.',
-
-                'company.required' =>
-                    'Perusahaan wajib diisi.',
-
-                'company.max' =>
-                    'Nama perusahaan maksimal 255 karakter.',
-
-                'email.email' =>
-                    'Format email tidak valid.',
-
-                'email.max' =>
-                    'Email maksimal 255 karakter.',
-
-                'phone.regex' =>
-                    'Nomor telepon harus berupa angka.',
-
-                'phone.max' =>
-                    'Nomor telepon maksimal 50 angka.',
-
-                'opportunity_name.required' =>
-                    'Nama Opportunity wajib diisi.',
-
-                'opportunity_name.max' =>
-                    'Nama Opportunity maksimal 255 karakter.',
-
-                'expected_revenue.required' =>
-                    'Expected Revenue wajib diisi.',
-
-                'expected_revenue.numeric' =>
-                    'Expected Revenue harus berupa angka.',
-
-                'expected_revenue.min' =>
-                    'Expected Revenue tidak boleh kurang dari 0.',
-
-                'rating.required' =>
-                    'Rating wajib diisi.',
-
-                'rating.integer' =>
-                    'Rating harus berupa angka bulat.',
-
-                'rating.min' =>
-                    'Rating minimal 1.',
-
-                'rating.max' =>
-                    'Rating maksimal 5.',
-
-            ]
-        );
+            $salespersonRules = [
+                'required',
+                Rule::exists(
+                    'users',
+                    'id'
+                )->where(
+                    function ($query) {
+                        $query->where(
+                            'role',
+                            'sales'
+                        );
+                    }
+                ),
+            ];
+        }
 
 
         /*
         |--------------------------------------------------------------------------
-        | CUSTOMER
+        | VALIDATION
         |--------------------------------------------------------------------------
         */
 
-        $customer =
-            \App\Models\Customer::create([
+        $validated = $request->validate([
 
-                'name' =>
-                    $validated[
-                        'customer_name'
-                    ],
+            'customer_mode' => [
+                'required',
+                Rule::in([
+                    'new',
+                    'existing',
+                ]),
+            ],
 
-                'company' =>
-                    $validated[
-                        'company'
-                    ],
+            'customer_id' => [
+                'required_if:customer_mode,existing',
+                'nullable',
+                'integer',
+                Rule::exists(
+                    'customers',
+                    'id'
+                ),
+            ],
 
-                'email' =>
-                    $validated['email']
-                    ??
-                    $lead->email,
+            'customer_name' => [
+                'required_if:customer_mode,new',
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-                'phone' =>
-                    $validated['phone']
-                    ??
-                    $lead->phone,
+            'company' => [
+                'required_if:customer_mode,new',
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-            ]);
+            'email' => [
+                'nullable',
+                'email',
+                'max:255',
+            ],
+
+            'phone' => [
+                'nullable',
+                'string',
+                'max:50',
+            ],
+
+            'opportunity_name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'expected_revenue' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'rating' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:5',
+            ],
+
+            'salesperson_id' =>
+                $salespersonRules,
+
+            'notes' => [
+                'nullable',
+                'string',
+            ],
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SALESPERSON
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            Auth::check() &&
+            Auth::user()->role === 'sales'
+        ) {
+
+            $salespersonId =
+                Auth::user()->id;
+
+        } else {
+
+            $salespersonId =
+                $validated['salesperson_id'] ?? null;
+        }
+
+
+        if (! $salespersonId) {
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'salesperson_id' =>
+                        'Please select a salesperson.',
+                ]);
+        }
 
 
         /*
@@ -635,10 +627,12 @@ class LeadController extends Controller
         */
 
         $prospectStage =
-            \App\Models\Stage::where(
-                'name',
-                'Prospect'
-            )->first();
+            Stage::query()
+                ->where(
+                    'name',
+                    'Prospect'
+                )
+                ->first();
 
 
         if (! $prospectStage) {
@@ -647,72 +641,305 @@ class LeadController extends Controller
                 ->withInput()
                 ->with(
                     'error',
-                    'Stage Prospect tidak ditemukan.'
+                    'The Prospect stage could not be found.'
                 );
         }
 
 
         /*
         |--------------------------------------------------------------------------
-        | OPPORTUNITY
+        | NEW CUSTOMER DUPLICATE VALIDATION
         |--------------------------------------------------------------------------
+        */
+
+        if (
+            $validated['customer_mode'] === 'new'
+        ) {
+
+            $customerName =
+                trim(
+                    $validated['customer_name']
+                );
+
+            $company =
+                trim(
+                    $validated['company']
+                );
+
+            $email =
+                trim(
+                    $validated['email'] ?? ''
+                );
+
+
+            /*
+            | Duplicate email
+            |
+            | IMPORTANT:
+            | The error is attached to "email", not "customer_mode".
+            | This makes the message appear only once under Email.
+            */
+
+            if ($email !== '') {
+
+                $duplicateByEmail =
+                    Customer::query()
+                        ->whereNotNull(
+                            'email'
+                        )
+                        ->whereRaw(
+                            'LOWER(TRIM(email)) = ?',
+                            [
+                                strtolower(
+                                    $email
+                                ),
+                            ]
+                        )
+                        ->exists();
+
+
+                if ($duplicateByEmail) {
+
+                    return back()
+                        ->withInput()
+                        ->withErrors([
+                            'email' =>
+                                'A customer with this email already exists. Please use Existing Customer.',
+                        ]);
+                }
+            }
+
+
+            /*
+            | Duplicate customer identity
+            */
+
+            $duplicateByIdentity =
+                Customer::query()
+                    ->whereRaw(
+                        'LOWER(TRIM(name)) = ?',
+                        [
+                            strtolower(
+                                $customerName
+                            ),
+                        ]
+                    )
+                    ->whereRaw(
+                        'LOWER(TRIM(company)) = ?',
+                        [
+                            strtolower(
+                                $company
+                            ),
+                        ]
+                    )
+                    ->exists();
+
+
+            if ($duplicateByIdentity) {
+
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'customer_name' =>
+                            'A customer with the same name and company already exists. Please use Existing Customer.',
+                    ]);
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | TRANSACTION
+        |--------------------------------------------------------------------------
+        |
+        | The Lead is locked first.
+        | This prevents the same Lead from being converted twice
+        | when the Convert button is clicked more than once.
+        |
         */
 
         $opportunity =
-            \App\Models\Opportunity::create([
+            DB::transaction(
+                function () use (
+                    $validated,
+                    $lead,
+                    $prospectStage,
+                    $salespersonId
+                ) {
 
-                'name' =>
-                    $validated[
-                        'opportunity_name'
-                    ],
+                    /*
+                    | Lock the Lead row
+                    */
 
-                'customer_id' =>
-                    $customer->id,
+                    $lockedLead =
+                        Lead::query()
+                            ->lockForUpdate()
+                            ->findOrFail(
+                                $lead->id
+                            );
 
-                'stage_id' =>
-                    $prospectStage->id,
 
-                'expected_revenue' =>
-                    $validated[
-                        'expected_revenue'
-                    ],
+                    /*
+                    | Double-conversion protection
+                    */
 
-                'rating' =>
-                    $validated[
-                        'rating'
-                    ],
+                    if (
+                        $lockedLead->status ===
+                        'converted'
+                    ) {
 
-                'opportunity_date' =>
-                    now(),
+                        return null;
+                    }
 
-                'notes' =>
-                    $validated[
-                        'notes'
-                    ] ?? null,
 
-            ]);
+                    /*
+                    | Create or reuse Customer
+                    */
+
+                    if (
+                        $validated['customer_mode'] ===
+                        'existing'
+                    ) {
+
+                        $customer =
+                            Customer::findOrFail(
+                                $validated['customer_id']
+                            );
+
+                    } else {
+
+                        $customer =
+                            Customer::create([
+
+                                'name' =>
+                                    trim(
+                                        $validated[
+                                            'customer_name'
+                                        ]
+                                    ),
+
+                                'company' =>
+                                    trim(
+                                        $validated[
+                                            'company'
+                                        ]
+                                    ),
+
+                                'email' =>
+                                    trim(
+                                        $validated[
+                                            'email'
+                                        ] ?? ''
+                                    ) !== ''
+                                        ? trim(
+                                            $validated[
+                                                'email'
+                                            ]
+                                        )
+                                        : $lockedLead->email,
+
+                                'phone' =>
+                                    trim(
+                                        $validated[
+                                            'phone'
+                                        ] ?? ''
+                                    ) !== ''
+                                        ? trim(
+                                            $validated[
+                                                'phone'
+                                            ]
+                                        )
+                                        : $lockedLead->phone,
+
+                            ]);
+                    }
+
+
+                    /*
+                    | Create Opportunity
+                    */
+
+                    $opportunity =
+                        Opportunity::create([
+
+                            'customer_id' =>
+                                $customer->id,
+
+                            'salesperson_id' =>
+                                $salespersonId,
+
+                            'stage_id' =>
+                                $prospectStage->id,
+
+                            'name' =>
+                                $validated[
+                                    'opportunity_name'
+                                ],
+
+                            'expected_revenue' =>
+                                $validated[
+                                    'expected_revenue'
+                                ],
+
+                            'rating' =>
+                                $validated[
+                                    'rating'
+                                ],
+
+                            'opportunity_date' =>
+                                now(),
+
+                            'notes' =>
+                                $validated[
+                                    'notes'
+                                ] ?? null,
+
+                        ]);
+
+
+                    /*
+                    | Mark Lead as Converted
+                    */
+
+                    $lockedLead->update([
+
+                        'status' =>
+                            'converted',
+
+                        'customer_id' =>
+                            $customer->id,
+
+                    ]);
+
+
+                    return $opportunity;
+                }
+            );
 
 
         /*
         |--------------------------------------------------------------------------
-        | UPDATE LEAD
+        | DOUBLE CONVERSION RESULT
         |--------------------------------------------------------------------------
         */
 
-        $lead->update([
+        if (! $opportunity) {
 
-            'status' =>
-                'converted',
-
-            'customer_id' =>
-                $customer->id,
-
-        ]);
+            return redirect()
+                ->route(
+                    'leads.show',
+                    $lead
+                )
+                ->with(
+                    'error',
+                    'This lead has already been converted.'
+                );
+        }
 
 
         /*
         |--------------------------------------------------------------------------
-        | REDIRECT
+        | SUCCESS
         |--------------------------------------------------------------------------
         */
 
@@ -723,7 +950,7 @@ class LeadController extends Controller
             )
             ->with(
                 'success',
-                'Lead berhasil dikonversi menjadi Customer dan Opportunity.'
+                'Lead converted successfully into a Customer and Opportunity.'
             );
     }
 }

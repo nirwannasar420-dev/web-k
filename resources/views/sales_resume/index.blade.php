@@ -600,6 +600,7 @@
 
             <input
                 type="hidden"
+                id="resumeModeInput"
                 name="mode"
                 value="{{ $mode }}"
             >
@@ -634,7 +635,11 @@
 
                 <label>Customer</label>
 
-                <select name="customer_id">
+                <select
+                    name="customer_id"
+                    id="resumeCustomerFilter"
+                    onchange="handleResumeCustomerChange(this)"
+                >
 
                     <option value="">
                         All Customers
@@ -660,7 +665,11 @@
 
                 <label>Product</label>
 
-                <select name="product_id">
+                <select
+                    name="product_id"
+                    id="resumeProductFilter"
+                    onchange="handleResumeProductChange(this)"
+                >
 
                     <option value="">
                         All Products
@@ -792,13 +801,48 @@
             "
         >
 
-            <input type="hidden" name="mode" value="{{ $mode }}">
-            <input type="hidden" name="stage_id" value="{{ $stageFilter }}">
-            <input type="hidden" name="customer_id" value="{{ $customerFilter }}">
-            <input type="hidden" name="product_id" value="{{ $productFilter }}">
-            <input type="hidden" name="salesperson_id" value="{{ $salespersonFilter ?? '' }}">
-            <input type="hidden" name="month" value="{{ $monthFilter ?? '' }}">
-            <input type="hidden" name="year" value="{{ $yearFilter ?? '' }}">
+            <input
+                type="hidden"
+                id="resumeDateModeInput"
+                name="mode"
+                value="{{ $mode }}"
+            >
+
+            <input
+                type="hidden"
+                name="stage_id"
+                value="{{ $stageFilter }}"
+            >
+
+            <input
+                type="hidden"
+                name="customer_id"
+                value="{{ $customerFilter }}"
+            >
+
+            <input
+                type="hidden"
+                name="product_id"
+                value="{{ $productFilter }}"
+            >
+
+            <input
+                type="hidden"
+                name="salesperson_id"
+                value="{{ $salespersonFilter ?? '' }}"
+            >
+
+            <input
+                type="hidden"
+                name="month"
+                value="{{ $monthFilter ?? '' }}"
+            >
+
+            <input
+                type="hidden"
+                name="year"
+                value="{{ $yearFilter ?? '' }}"
+            >
 
             <div class="resume-field">
 
@@ -876,14 +920,15 @@
                 Resume View
             </div>
 
-            <div class="resume-mode-description">
-
+            <div
+                id="resume-mode-description"
+                class="resume-mode-description"
+            >
                 {{
                     $mode === 'customer'
                         ? 'Grouped by Customer, then Product. Sorted by highest transaction value.'
                         : 'Grouped by Product, then Customer. Sorted by highest transaction value.'
                 }}
-
             </div>
 
         </div>
@@ -1018,38 +1063,61 @@
 
                             <tr>
 
-                                <td>
+                                @if($mode === 'customer')
 
-                                    <div class="resume-primary">
-                                        {{ $row['group_name'] }}
-                                    </div>
+                                    <td>
 
-                                    <div class="resume-secondary">
-                                        {{
-                                            $mode === 'customer'
-                                                ? 'Customer'
-                                                : 'Product'
-                                        }}
-                                    </div>
+                                        <div class="resume-primary">
+                                            {{ $row['group_name'] }}
+                                        </div>
 
-                                </td>
+                                        <div class="resume-secondary">
+                                            Customer
+                                        </div>
+
+                                    </td>
 
 
-                                <td>
+                                    <td>
 
-                                    <div class="resume-primary">
-                                        {{ $row['detail_name'] }}
-                                    </div>
+                                        <div class="resume-primary">
+                                            {{ $row['detail_name'] }}
+                                        </div>
 
-                                    <div class="resume-secondary">
-                                        {{
-                                            $mode === 'customer'
-                                                ? 'Product'
-                                                : 'Customer'
-                                        }}
-                                    </div>
+                                        <div class="resume-secondary">
+                                            Product
+                                        </div>
 
-                                </td>
+                                    </td>
+
+                                @else
+
+                                    <td>
+
+                                        <div class="resume-primary">
+                                            {{ $row['group_name'] }}
+                                        </div>
+
+                                        <div class="resume-secondary">
+                                            Product
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="resume-primary">
+                                            {{ $row['detail_name'] }}
+                                        </div>
+
+                                        <div class="resume-secondary">
+                                            Customer
+                                        </div>
+
+                                    </td>
+
+                                @endif
 
 
                                 @foreach([
@@ -1383,15 +1451,12 @@
                                         $item
                                             ->opportunity
                                             ?->opportunity_date
-
                                             ?
-
                                             \Illuminate\Support\Carbon::parse(
                                                 $item
                                                     ->opportunity
                                                     ->opportunity_date
                                             )->format('d/m/Y')
-
                                             : '-'
                                     }}
 
@@ -1644,5 +1709,144 @@
     </div>
 
 </div>
+
+@endsection
+
+
+@section('scripts')
+
+<script>
+
+    function syncResumeMode(mode)
+    {
+        const modeInput =
+            document.getElementById(
+                'resumeModeInput'
+            );
+
+        const dateModeInput =
+            document.getElementById(
+                'resumeDateModeInput'
+            );
+
+        const description =
+            document.getElementById(
+                'resume-mode-description'
+            );
+
+        if (modeInput) {
+            modeInput.value = mode;
+        }
+
+        if (dateModeInput) {
+            dateModeInput.value = mode;
+        }
+
+
+        /*
+         * Update active mode tab
+         */
+
+        document
+            .querySelectorAll(
+                '.resume-mode-tab'
+            )
+            .forEach(
+                function(tab)
+                {
+                    const href =
+                        tab.getAttribute(
+                            'href'
+                        ) || '';
+
+                    tab.classList.toggle(
+                        'active',
+                        href.includes(
+                            'mode=' + mode
+                        )
+                    );
+                }
+            );
+
+
+        /*
+         * Update description
+         */
+
+        if (description) {
+
+            if (mode === 'customer') {
+
+                description.textContent =
+                    'Grouped by Customer, then Product. Sorted by highest transaction value.';
+
+            } else {
+
+                description.textContent =
+                    'Grouped by Product, then Customer. Sorted by highest transaction value.';
+
+            }
+        }
+    }
+
+
+    function handleResumeCustomerChange(select)
+    {
+        if (!select) {
+            return;
+        }
+
+        if (
+            select.value !== ''
+        ) {
+
+            syncResumeMode(
+                'customer'
+            );
+
+        }
+    }
+
+
+    function handleResumeProductChange(select)
+    {
+        if (!select) {
+            return;
+        }
+
+        if (
+            select.value !== ''
+        ) {
+
+            syncResumeMode(
+                'product'
+            );
+
+        }
+    }
+
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function()
+        {
+            const modeInput =
+                document.getElementById(
+                    'resumeModeInput'
+                );
+
+            if (!modeInput) {
+                return;
+            }
+
+            syncResumeMode(
+                modeInput.value === 'product'
+                    ? 'product'
+                    : 'customer'
+            );
+        }
+    );
+
+</script>
 
 @endsection

@@ -17,6 +17,7 @@ class OpportunityController extends Controller
     // =========================================================
     // LIST OPPORTUNITIES
     // =========================================================
+
     public function index(Request $request)
     {
         $query = Opportunity::with([
@@ -25,9 +26,7 @@ class OpportunityController extends Controller
             'salesperson',
         ]);
 
-        // =====================================================
         // SEARCH
-        // =====================================================
         if ($request->filled('search')) {
 
             $search = trim(
@@ -47,9 +46,7 @@ class OpportunityController extends Controller
                 $normalizedSearch
             ) {
 
-                // =================================================
-                // OPPORTUNITY NAME
-                // =================================================
+                // Opportunity name
                 $q->where(
                     'name',
                     'like',
@@ -81,10 +78,7 @@ class OpportunityController extends Controller
                     ]
                 );
 
-
-                // =================================================
-                // CUSTOMER
-                // =================================================
+                // Customer
                 $q->orWhereHas(
                     'customer',
                     function ($customerQuery) use (
@@ -92,6 +86,7 @@ class OpportunityController extends Controller
                         $normalizedSearch
                     ) {
 
+                        // Customer name
                         $customerQuery->where(
                             'name',
                             'like',
@@ -123,6 +118,7 @@ class OpportunityController extends Controller
                             ]
                         );
 
+                        // Company
                         $customerQuery->orWhere(
                             'company',
                             'like',
@@ -154,6 +150,7 @@ class OpportunityController extends Controller
                             ]
                         );
 
+                        // Email
                         $customerQuery->orWhere(
                             'email',
                             'like',
@@ -162,10 +159,7 @@ class OpportunityController extends Controller
                     }
                 );
 
-
-                // =================================================
-                // SALESPERSON
-                // =================================================
+                // Salesperson
                 $q->orWhereHas(
                     'salesperson',
                     function ($salespersonQuery) use (
@@ -185,14 +179,10 @@ class OpportunityController extends Controller
                         );
                     }
                 );
-
             });
         }
 
-
-        // =====================================================
         // FILTER STAGE
-        // =====================================================
         if ($request->filled('stage_id')) {
 
             $query->where(
@@ -201,10 +191,7 @@ class OpportunityController extends Controller
             );
         }
 
-
-        // =====================================================
         // FILTER SALESPERSON
-        // =====================================================
         if ($request->filled('salesperson_id')) {
 
             $query->where(
@@ -213,28 +200,15 @@ class OpportunityController extends Controller
             );
         }
 
-
-        // =====================================================
-        // PAGINATION
-        // =====================================================
         $opportunities = $query
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-
-        // =====================================================
-        // STAGES
-        // =====================================================
         $stages = Stage::orderBy(
             'sequence'
         )->get();
 
-
-        // =====================================================
-        // SALESPEOPLE
-        // Only users with role = sales
-        // =====================================================
         $salespeople = User::where(
             'role',
             'sales'
@@ -243,7 +217,6 @@ class OpportunityController extends Controller
             'name'
         )
         ->get();
-
 
         return view(
             'opportunities.index',
@@ -259,22 +232,20 @@ class OpportunityController extends Controller
     // =========================================================
     // CREATE FORM
     // =========================================================
+
     public function create()
     {
         $customers = Customer::orderBy(
             'name'
         )->get();
 
-
         $stages = Stage::orderBy(
             'sequence'
         )->get();
 
-
         $products = Product::orderBy(
             'product_name'
         )->get();
-
 
         $salespeople = User::where(
             'role',
@@ -284,7 +255,6 @@ class OpportunityController extends Controller
             'name'
         )
         ->get();
-
 
         return view(
             'opportunities.create',
@@ -301,6 +271,7 @@ class OpportunityController extends Controller
     // =========================================================
     // STORE
     // =========================================================
+
     public function store(Request $request)
     {
         $validated = $request->validate(
@@ -359,9 +330,6 @@ class OpportunityController extends Controller
                     'string',
                 ],
 
-                // =================================================
-                // PRODUCTS
-                // =================================================
                 'products' => [
                     'nullable',
                     'array',
@@ -463,90 +431,161 @@ class OpportunityController extends Controller
         );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | CALCULATE PRODUCT TOTAL ON SERVER
+        |--------------------------------------------------------------------------
+        */
+
+        $products =
+            $validated['products']
+            ?? [];
+
+        $productTotal = 0.0;
+
+
+        foreach (
+            $products
+            as $product
+        ) {
+
+            $quantity =
+                (float)
+                $product['quantity'];
+
+            $unitPrice =
+                (float)
+                $product['unit_price'];
+
+            $productTotal +=
+                $quantity *
+                $unitPrice;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | EXPECTED REVENUE RULE
+        |--------------------------------------------------------------------------
+        |
+        | If products exist:
+        | Expected Revenue = Product Total
+        |
+        | If no products exist:
+        | Expected Revenue stays manually entered.
+        |
+        */
+
+        $expectedRevenue =
+            !empty($products)
+                ? $productTotal
+                : (float)
+                    $validated[
+                        'expected_revenue'
+                    ];
+
+
         DB::transaction(
             function () use (
-                $validated
+                $validated,
+                $products,
+                $expectedRevenue
             ) {
 
-                // =================================================
-                // CREATE OPPORTUNITY
-                // =================================================
-                $opportunity = Opportunity::create([
-                    'name' =>
-                        $validated['name'],
+                $opportunity =
+                    Opportunity::create([
 
-                    'customer_id' =>
-                        $validated['customer_id'],
+                        'name' =>
+                            $validated[
+                                'name'
+                            ],
 
-                    'salesperson_id' =>
-                        $validated['salesperson_id'],
+                        'customer_id' =>
+                            $validated[
+                                'customer_id'
+                            ],
 
-                    'stage_id' =>
-                        $validated['stage_id'],
+                        'salesperson_id' =>
+                            $validated[
+                                'salesperson_id'
+                            ],
 
-                    'expected_revenue' =>
-                        $validated['expected_revenue'],
+                        'stage_id' =>
+                            $validated[
+                                'stage_id'
+                            ],
 
-                    'rating' =>
-                        $validated['rating'],
+                        'expected_revenue' =>
+                            $expectedRevenue,
 
-                    'opportunity_date' =>
-                        $validated['opportunity_date']
-                        ?? null,
+                        'rating' =>
+                            $validated[
+                                'rating'
+                            ],
 
-                    'notes' =>
-                        $validated['notes']
-                        ?? null,
-                ]);
+                        'opportunity_date' =>
+                            $validated[
+                                'opportunity_date'
+                            ] ?? null,
+
+                        'notes' =>
+                            $validated[
+                                'notes'
+                            ] ?? null,
+                    ]);
 
 
-                // =================================================
-                // CREATE OPPORTUNITY ITEMS
-                // =================================================
-                if (
-                    !empty(
-                        $validated['products']
-                        ?? []
-                    )
+                /*
+                |--------------------------------------------------------------------------
+                | CREATE OPPORTUNITY ITEMS
+                |--------------------------------------------------------------------------
+                */
+
+                foreach (
+                    $products
+                    as $product
                 ) {
 
-                    foreach (
-                        $validated['products']
-                        as $product
-                    ) {
+                    $quantity =
+                        (float)
+                        $product[
+                            'quantity'
+                        ];
 
-                        $quantity =
-                            (float)
-                            $product['quantity'];
+                    $unitPrice =
+                        (float)
+                        $product[
+                            'unit_price'
+                        ];
+
+                    /*
+                    | Server-side subtotal.
+                    */
+
+                    $subtotal =
+                        $quantity *
+                        $unitPrice;
 
 
-                        $unitPrice =
-                            (float)
-                            $product['unit_price'];
+                    OpportunityItem::create([
 
+                        'opportunity_id' =>
+                            $opportunity->id,
 
-                        $subtotal =
-                            $quantity *
-                            $unitPrice;
+                        'product_id' =>
+                            $product[
+                                'product_id'
+                            ],
 
+                        'quantity' =>
+                            $quantity,
 
-                        OpportunityItem::create([
-                            'opportunity_id' =>
-                                $opportunity->id,
+                        'unit_price' =>
+                            $unitPrice,
 
-                            'product_id' =>
-                                $product['product_id'],
-
-                            'quantity' =>
-                                $quantity,
-
-                            'unit_price' =>
-                                $unitPrice,
-
-                            'subtotal' =>
-                                $subtotal,
-                        ]);
-                    }
+                        'subtotal' =>
+                            $subtotal,
+                    ]);
                 }
             }
         );
@@ -566,6 +605,7 @@ class OpportunityController extends Controller
     // =========================================================
     // SHOW
     // =========================================================
+
     public function show(
         Opportunity $opportunity
     ) {
@@ -591,6 +631,7 @@ class OpportunityController extends Controller
     // =========================================================
     // EDIT FORM
     // =========================================================
+
     public function edit(
         Opportunity $opportunity
     ) {
@@ -599,16 +640,13 @@ class OpportunityController extends Controller
             'name'
         )->get();
 
-
         $stages = Stage::orderBy(
             'sequence'
         )->get();
 
-
         $products = Product::orderBy(
             'product_name'
         )->get();
-
 
         $salespeople = User::where(
             'role',
@@ -618,7 +656,6 @@ class OpportunityController extends Controller
             'name'
         )
         ->get();
-
 
         $opportunity->load([
             'salesperson',
@@ -642,6 +679,7 @@ class OpportunityController extends Controller
     // =========================================================
     // UPDATE
     // =========================================================
+
     public function update(
         Request $request,
         Opportunity $opportunity
@@ -703,9 +741,6 @@ class OpportunityController extends Controller
                     'string',
                 ],
 
-                // =================================================
-                // PRODUCTS
-                // =================================================
                 'products' => [
                     'nullable',
                     'array',
@@ -807,96 +842,165 @@ class OpportunityController extends Controller
         );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | CALCULATE PRODUCT TOTAL ON SERVER
+        |--------------------------------------------------------------------------
+        */
+
+        $products =
+            $validated['products']
+            ?? [];
+
+        $productTotal = 0.0;
+
+
+        foreach (
+            $products
+            as $product
+        ) {
+
+            $quantity =
+                (float)
+                $product['quantity'];
+
+            $unitPrice =
+                (float)
+                $product['unit_price'];
+
+            $productTotal +=
+                $quantity *
+                $unitPrice;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | EXPECTED REVENUE RULE
+        |--------------------------------------------------------------------------
+        */
+
+        $expectedRevenue =
+            !empty($products)
+                ? $productTotal
+                : (float)
+                    $validated[
+                        'expected_revenue'
+                    ];
+
+
         DB::transaction(
             function () use (
                 $validated,
-                $opportunity
+                $opportunity,
+                $products,
+                $expectedRevenue
             ) {
 
-                // =================================================
-                // UPDATE OPPORTUNITY
-                // =================================================
+                /*
+                |--------------------------------------------------------------------------
+                | UPDATE OPPORTUNITY
+                |--------------------------------------------------------------------------
+                */
+
                 $opportunity->update([
+
                     'name' =>
-                        $validated['name'],
+                        $validated[
+                            'name'
+                        ],
 
                     'customer_id' =>
-                        $validated['customer_id'],
+                        $validated[
+                            'customer_id'
+                        ],
 
                     'salesperson_id' =>
-                        $validated['salesperson_id'],
+                        $validated[
+                            'salesperson_id'
+                        ],
 
                     'stage_id' =>
-                        $validated['stage_id'],
+                        $validated[
+                            'stage_id'
+                        ],
 
                     'expected_revenue' =>
-                        $validated['expected_revenue'],
+                        $expectedRevenue,
 
                     'rating' =>
-                        $validated['rating'],
+                        $validated[
+                            'rating'
+                        ],
 
                     'opportunity_date' =>
-                        $validated['opportunity_date']
-                        ?? null,
+                        $validated[
+                            'opportunity_date'
+                        ] ?? null,
 
                     'notes' =>
-                        $validated['notes']
-                        ?? null,
+                        $validated[
+                            'notes'
+                        ] ?? null,
                 ]);
 
 
-                // =================================================
-                // REPLACE OPPORTUNITY ITEMS
-                // =================================================
+                /*
+                |--------------------------------------------------------------------------
+                | REPLACE OPPORTUNITY ITEMS
+                |--------------------------------------------------------------------------
+                */
+
                 $opportunity
                     ->items()
                     ->delete();
 
 
-                if (
-                    !empty(
-                        $validated['products']
-                        ?? []
-                    )
+                foreach (
+                    $products
+                    as $product
                 ) {
 
-                    foreach (
-                        $validated['products']
-                        as $product
-                    ) {
+                    $quantity =
+                        (float)
+                        $product[
+                            'quantity'
+                        ];
 
-                        $quantity =
-                            (float)
-                            $product['quantity'];
+                    $unitPrice =
+                        (float)
+                        $product[
+                            'unit_price'
+                        ];
+
+                    /*
+                    | Server-side subtotal.
+                    */
+
+                    $subtotal =
+                        $quantity *
+                        $unitPrice;
 
 
-                        $unitPrice =
-                            (float)
-                            $product['unit_price'];
+                    OpportunityItem::create([
 
+                        'opportunity_id' =>
+                            $opportunity->id,
 
-                        $subtotal =
-                            $quantity *
-                            $unitPrice;
+                        'product_id' =>
+                            $product[
+                                'product_id'
+                            ],
 
+                        'quantity' =>
+                            $quantity,
 
-                        OpportunityItem::create([
-                            'opportunity_id' =>
-                                $opportunity->id,
+                        'unit_price' =>
+                            $unitPrice,
 
-                            'product_id' =>
-                                $product['product_id'],
-
-                            'quantity' =>
-                                $quantity,
-
-                            'unit_price' =>
-                                $unitPrice,
-
-                            'subtotal' =>
-                                $subtotal,
-                        ]);
-                    }
+                        'subtotal' =>
+                            $subtotal,
+                    ]);
                 }
             }
         );
@@ -916,6 +1020,7 @@ class OpportunityController extends Controller
     // =========================================================
     // DELETE
     // =========================================================
+
     public function destroy(
         Opportunity $opportunity
     ) {

@@ -93,7 +93,6 @@ class SalesResumeController extends Controller
             &&
             $stageFilter !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($stageFilter) {
@@ -119,7 +118,6 @@ class SalesResumeController extends Controller
             &&
             $customerFilter !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($customerFilter) {
@@ -145,7 +143,6 @@ class SalesResumeController extends Controller
             &&
             $productFilter !== ''
         ) {
-
             $query->where(
                 'product_id',
                 $productFilter
@@ -164,7 +161,6 @@ class SalesResumeController extends Controller
             &&
             $salespersonFilter !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($salespersonFilter) {
@@ -190,7 +186,6 @@ class SalesResumeController extends Controller
             &&
             $monthFilter !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($monthFilter) {
@@ -216,7 +211,6 @@ class SalesResumeController extends Controller
             &&
             $yearFilter !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($yearFilter) {
@@ -242,7 +236,6 @@ class SalesResumeController extends Controller
             &&
             $dateFrom !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($dateFrom) {
@@ -269,7 +262,6 @@ class SalesResumeController extends Controller
             &&
             $dateTo !== ''
         ) {
-
             $query->whereHas(
                 'opportunity',
                 function ($q) use ($dateTo) {
@@ -290,7 +282,6 @@ class SalesResumeController extends Controller
         | GET ALL ITEMS
         |--------------------------------------------------------------------------
         |
-        | Tidak memakai limit dan tidak hanya mengambil Top Opportunity.
         | Semua transaksi yang sesuai filter dipakai untuk PIPO.
         |
         */
@@ -329,6 +320,23 @@ class SalesResumeController extends Controller
         |--------------------------------------------------------------------------
         | PIPO SUMMARY
         |--------------------------------------------------------------------------
+        |
+        | MODE CUSTOMER
+        | ----------------
+        | Customer | Product
+        |
+        | Contoh:
+        | PT Mardira | Kain
+        | PT Mardira | Benang
+        |
+        | MODE PRODUCT
+        | ----------------
+        | Product | Customer
+        |
+        | Contoh:
+        | Kain | PT Mardira
+        | Kain | PT ABC
+        |
         */
 
         $summary = [];
@@ -344,6 +352,13 @@ class SalesResumeController extends Controller
 
             $product =
                 $item->product;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | STAGE
+            |--------------------------------------------------------------------------
+            */
 
             $stageName =
                 strtolower(
@@ -365,67 +380,88 @@ class SalesResumeController extends Controller
                     $stageMap[$stageName]
                 )
             ) {
-
                 continue;
             }
 
 
             /*
             |--------------------------------------------------------------------------
-            | GROUPING
+            | CUSTOMER
+            |--------------------------------------------------------------------------
+            */
+
+            $customerId =
+                $customer?->id
+                ?? 0;
+
+            $customerName =
+                $customer?->company
+                ?:
+                (
+                    $customer?->name
+                    ??
+                    'Unknown Customer'
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | PRODUCT
+            |--------------------------------------------------------------------------
+            */
+
+            $productId =
+                $product?->id
+                ?? 0;
+
+            $productName =
+                $product?->product_name
+                ??
+                'Unknown Product';
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DETERMINE GROUP + DETAIL
             |--------------------------------------------------------------------------
             |
-            | Mode Customer:
-            | Customer -> Product
+            | Customer mode:
+            |   group  = Customer
+            |   detail = Product
             |
-            | Mode Product:
-            | Product -> Customer
+            | Product mode:
+            |   group  = Product
+            |   detail = Customer
             |
             */
 
             if ($mode === 'customer') {
 
                 $groupId =
-                    $customer?->id ?? 0;
-
-                $detailId =
-                    $product?->id ?? 0;
+                    $customerId;
 
                 $groupName =
-                    $customer?->company
-                    ?:
-                    (
-                        $customer?->name
-                        ??
-                        'Unknown Customer'
-                    );
+                    $customerName;
+
+                $detailId =
+                    $productId;
 
                 $detailName =
-                    $product?->product_name
-                    ??
-                    'Unknown Product';
+                    $productName;
 
             } else {
 
                 $groupId =
-                    $product?->id ?? 0;
-
-                $detailId =
-                    $customer?->id ?? 0;
+                    $productId;
 
                 $groupName =
-                    $product?->product_name
-                    ??
-                    'Unknown Product';
+                    $productName;
+
+                $detailId =
+                    $customerId;
 
                 $detailName =
-                    $customer?->company
-                    ?:
-                    (
-                        $customer?->name
-                        ??
-                        'Unknown Customer'
-                    );
+                    $customerName;
             }
 
 
@@ -433,10 +469,21 @@ class SalesResumeController extends Controller
             |--------------------------------------------------------------------------
             | SUMMARY KEY
             |--------------------------------------------------------------------------
+            |
+            | Setiap kombinasi Group + Detail menjadi satu baris.
+            |
+            | Customer mode:
+            |   Customer + Product
+            |
+            | Product mode:
+            |   Product + Customer
+            |
             */
 
             $key =
-                $groupId . '_' . $detailId;
+                $groupId
+                . '_'
+                . $detailId;
 
 
             /*
@@ -498,7 +545,7 @@ class SalesResumeController extends Controller
             | TRANSACTION VALUE
             |--------------------------------------------------------------------------
             |
-            | PIPO value menggunakan subtotal dari OpportunityItem.
+            | Nilai PIPO menggunakan subtotal OpportunityItem.
             |
             */
 
@@ -509,6 +556,12 @@ class SalesResumeController extends Controller
                 );
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | QUANTITY
+            |--------------------------------------------------------------------------
+            */
+
             $quantity =
                 (float) (
                     $item->quantity
@@ -518,7 +571,7 @@ class SalesResumeController extends Controller
 
             /*
             |--------------------------------------------------------------------------
-            | ADD TO STAGE
+            | ADD VALUE TO STAGE
             |--------------------------------------------------------------------------
             */
 
@@ -530,7 +583,7 @@ class SalesResumeController extends Controller
 
             /*
             |--------------------------------------------------------------------------
-            | GRAND TOTAL PER CUSTOMER-PRODUCT
+            | GRAND TOTAL PER GROUP + DETAIL
             |--------------------------------------------------------------------------
             */
 
@@ -561,11 +614,10 @@ class SalesResumeController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | SORT DETAIL SUMMARY
+        | SORT SUMMARY
         |--------------------------------------------------------------------------
         |
-        | Requirement perusahaan:
-        | nilai terbesar -> nilai terkecil.
+        | Nilai terbesar -> nilai terkecil.
         |
         */
 
@@ -584,67 +636,46 @@ class SalesResumeController extends Controller
         | GROUP SUMMARY
         |--------------------------------------------------------------------------
         |
-        | Total seluruh Product dalam satu Customer
-        | atau seluruh Customer dalam satu Product.
+        | Group Summary tetap menggunakan group utama.
         |
         */
 
         $groupSummary =
             $summary
             ->groupBy(
-                'group_id'
+                'group_name'
             )
             ->map(
-                function ($rows) {
-
-                    $first =
-                        $rows->first();
-
+                function ($rows, $groupName) {
 
                     return [
 
                         'group_name' =>
-                            $first['group_name'],
+                            $groupName,
 
                         'prospect' =>
-                            $rows->sum(
-                                'prospect'
-                            ),
+                            $rows->sum('prospect'),
 
                         'qualified' =>
-                            $rows->sum(
-                                'qualified'
-                            ),
+                            $rows->sum('qualified'),
 
                         'proposition' =>
-                            $rows->sum(
-                                'proposition'
-                            ),
+                            $rows->sum('proposition'),
 
                         'won' =>
-                            $rows->sum(
-                                'won'
-                            ),
+                            $rows->sum('won'),
 
                         'lost' =>
-                            $rows->sum(
-                                'lost'
-                            ),
+                            $rows->sum('lost'),
 
                         'total' =>
-                            $rows->sum(
-                                'total'
-                            ),
+                            $rows->sum('total'),
 
                         'quantity' =>
-                            $rows->sum(
-                                'quantity'
-                            ),
+                            $rows->sum('quantity'),
 
                         'transactions' =>
-                            $rows->sum(
-                                'transactions'
-                            ),
+                            $rows->sum('transactions'),
 
                     ];
                 }
@@ -666,7 +697,7 @@ class SalesResumeController extends Controller
             'prospect' =>
                 $items
                 ->filter(
-                    function ($item) use ($stageMap) {
+                    function ($item) {
 
                         $stage =
                             strtolower(
@@ -816,7 +847,8 @@ class SalesResumeController extends Controller
         $customers =
             Customer::orderBy(
                 'name'
-            )->get();
+            )
+            ->get();
 
 
         /*
@@ -828,7 +860,8 @@ class SalesResumeController extends Controller
         $products =
             Product::orderBy(
                 'product_name'
-            )->get();
+            )
+            ->get();
 
 
         /*
@@ -840,7 +873,8 @@ class SalesResumeController extends Controller
         $stages =
             Stage::orderBy(
                 'sequence'
-            )->get();
+            )
+            ->get();
 
 
         /*
@@ -864,9 +898,6 @@ class SalesResumeController extends Controller
         |--------------------------------------------------------------------------
         | AVAILABLE YEARS
         |--------------------------------------------------------------------------
-        |
-        | Digunakan untuk filter Tahun.
-        |
         */
 
         $years =
@@ -891,8 +922,8 @@ class SalesResumeController extends Controller
         | TRANSACTION DETAIL
         |--------------------------------------------------------------------------
         |
-        | Semua transaksi ditampilkan.
-        | Diurutkan berdasarkan nilai subtotal terbesar.
+        | Semua transaksi tetap ditampilkan.
+        | Diurutkan berdasarkan subtotal terbesar.
         |
         */
 
@@ -920,6 +951,7 @@ class SalesResumeController extends Controller
         return view(
             'sales_resume.index',
             compact(
+
                 'mode',
 
                 'stageFilter',
@@ -955,6 +987,7 @@ class SalesResumeController extends Controller
                 'years',
 
                 'transactions'
+
             )
         );
     }

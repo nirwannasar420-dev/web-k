@@ -610,10 +610,6 @@
             @method('PUT')
 
 
-            {{-- =========================================================
-                 OPPORTUNITY INFORMATION
-            ========================================================== --}}
-
             <div class="form-section">
 
                 <div class="section-heading">
@@ -814,10 +810,6 @@
             </div>
 
 
-            {{-- =========================================================
-                 PRODUCTS
-            ========================================================== --}}
-
             <div class="form-section">
 
                 <div class="section-heading">
@@ -946,7 +938,7 @@
                                             type="text"
                                             name="products[{{ $index }}][quantity]"
                                             class="product-quantity"
-                                            value="{{ $oldProduct['quantity'] ?? '' }}"value="{{ isset($oldProduct['quantity']) ? rtrim(rtrim(number_format((float) $oldProduct['quantity'], 2, '.', ''), '0'), '.') : '' }}"
+                                            value="{{ isset($oldProduct['quantity']) ? rtrim(rtrim(number_format((float) $oldProduct['quantity'], 2, '.', ''), '0'), '.') : '' }}"
                                             inputmode="decimal"
                                             autocomplete="off"
                                             placeholder="0"
@@ -1317,10 +1309,6 @@
             </div>
 
 
-            {{-- =========================================================
-                 SALES VALUE
-            ========================================================== --}}
-
             <div class="form-section">
 
                 <div class="section-heading">
@@ -1365,7 +1353,10 @@
 
                         </div>
 
-                        <div class="field-help">
+                        <div
+                            class="field-help"
+                            data-revenue-help
+                        >
                             Enter numbers only.
                         </div>
 
@@ -1518,10 +1509,6 @@
             </div>
 
 
-            {{-- =========================================================
-                 NOTES
-            ========================================================== --}}
-
             <div class="form-section">
 
                 <div class="section-heading">
@@ -1633,13 +1620,56 @@
     }
 
 
-    function cleanNumericValue(value)
+    function cleanNumericValue(value, allowDecimal = true)
     {
-        return String(value)
-            .replace(
-                /[^0-9.]/g,
-                ''
-            );
+        let cleaned = String(value ?? '').replace(
+            /[^0-9.]/g,
+            ''
+        );
+
+        if (!allowDecimal) {
+            cleaned = cleaned.replace(/\./g, '');
+        }
+
+        const firstDotIndex =
+            cleaned.indexOf('.');
+
+        if (
+            allowDecimal
+            &&
+            firstDotIndex !== -1
+        ) {
+            cleaned =
+                cleaned.slice(
+                    0,
+                    firstDotIndex + 1
+                )
+                +
+                cleaned
+                    .slice(firstDotIndex + 1)
+                    .replace(/\./g, '');
+        }
+
+        return cleaned;
+    }
+
+
+    function getProductPrice(select)
+    {
+        if (!select) {
+            return '';
+        }
+
+        const selectedOption =
+            select.options[
+                select.selectedIndex
+            ];
+
+        if (!selectedOption) {
+            return '';
+        }
+
+        return selectedOption.dataset.price || '';
     }
 
 
@@ -1654,44 +1684,36 @@
             return;
         }
 
-        const selectedOption =
-            select.options[
-                select.selectedIndex
-            ];
-
-        if (!selectedOption) {
-            return;
-        }
-
-        const price =
-            selectedOption.dataset.price
-            || '';
-
         const unitPriceInput =
             row.querySelector(
                 '.product-unit-price'
             );
 
-        if (
-            price !== ''
-            &&
-            (
-                unitPriceInput.value === ''
-                ||
-                unitPriceInput.value === '0'
-            )
-        ) {
+        if (!unitPriceInput) {
+            return;
+        }
+
+        const price =
+            getProductPrice(select);
+
+        if (price !== '') {
 
             unitPriceInput.value =
                 Math.round(
                     Number(price)
                 );
 
+        } else {
+
+            unitPriceInput.value = '';
+
         }
 
         updateProductSubtotal(
             unitPriceInput
         );
+
+        updateProductsTotal();
     }
 
 
@@ -1700,11 +1722,6 @@
         if (!input) {
             return;
         }
-
-        input.value =
-            cleanNumericValue(
-                input.value
-            );
 
         const row =
             input.closest(
@@ -1728,6 +1745,28 @@
         const subtotalInput =
             row.querySelector(
                 '.product-subtotal'
+            );
+
+        if (
+            !quantityInput
+            ||
+            !unitPriceInput
+            ||
+            !subtotalInput
+        ) {
+            return;
+        }
+
+        quantityInput.value =
+            cleanNumericValue(
+                quantityInput.value,
+                true
+            );
+
+        unitPriceInput.value =
+            cleanNumericValue(
+                unitPriceInput.value,
+                false
             );
 
         const quantity =
@@ -1757,6 +1796,7 @@
     function updateProductsTotal()
     {
         let total = 0;
+        let hasSelectedProduct = false;
 
         document
             .querySelectorAll(
@@ -1765,33 +1805,152 @@
             .forEach(
                 function(row)
                 {
+                    const productSelect =
+                        row.querySelector(
+                            '.product-select'
+                        );
+
+                    const quantityInput =
+                        row.querySelector(
+                            '.product-quantity'
+                        );
+
+                    const unitPriceInput =
+                        row.querySelector(
+                            '.product-unit-price'
+                        );
+
+                    const subtotalInput =
+                        row.querySelector(
+                            '.product-subtotal'
+                        );
+
+                    if (
+                        !productSelect
+                        ||
+                        !quantityInput
+                        ||
+                        !unitPriceInput
+                        ||
+                        !subtotalInput
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        productSelect.value !== ''
+                    ) {
+                        hasSelectedProduct = true;
+                    }
+
+                    quantityInput.value =
+                        cleanNumericValue(
+                            quantityInput.value,
+                            true
+                        );
+
+                    unitPriceInput.value =
+                        cleanNumericValue(
+                            unitPriceInput.value,
+                            false
+                        );
 
                     const quantity =
                         parseFloat(
-                            row.querySelector(
-                                '.product-quantity'
-                            ).value
+                            quantityInput.value
                         ) || 0;
 
                     const unitPrice =
                         parseFloat(
-                            row.querySelector(
-                                '.product-unit-price'
-                            ).value
+                            unitPriceInput.value
                         ) || 0;
 
-                    total +=
+                    const subtotal =
                         quantity *
                         unitPrice;
 
+                    subtotalInput.value =
+                        'Rp ' +
+                        formatRupiah(
+                            subtotal
+                        );
+
+                    total += subtotal;
                 }
             );
 
-        document.getElementById(
-            'productsTotalValue'
-        ).textContent =
-            'Rp ' +
-            formatRupiah(total);
+        const totalElement =
+            document.getElementById(
+                'productsTotalValue'
+            );
+
+        if (totalElement) {
+            totalElement.textContent =
+                'Rp ' +
+                formatRupiah(
+                    total
+                );
+        }
+
+        const expectedRevenueInput =
+            document.getElementById(
+                'expected_revenue'
+            );
+
+        const revenueHelp =
+            document.querySelector(
+                '[data-revenue-help]'
+            );
+
+        if (
+            expectedRevenueInput
+        ) {
+
+            if (
+                hasSelectedProduct
+            ) {
+
+                expectedRevenueInput.value =
+                    formatRupiahInputValue(
+                        total
+                    );
+
+                expectedRevenueInput.readOnly =
+                    true;
+
+                expectedRevenueInput.style.backgroundColor =
+                    '#F8FAFC';
+
+                if (revenueHelp) {
+                    revenueHelp.textContent =
+                        'Expected Revenue is automatically calculated from Product Total.';
+                }
+
+            } else {
+
+                expectedRevenueInput.readOnly =
+                    false;
+
+                expectedRevenueInput.style.backgroundColor =
+                    '#FFFFFF';
+
+                if (revenueHelp) {
+                    revenueHelp.textContent =
+                        'Enter numbers only.';
+                }
+            }
+        }
+    }
+
+
+    function formatRupiahInputValue(value)
+    {
+        const number =
+            Number(value) || 0;
+
+        return String(
+            Math.round(number)
+        );
     }
 
 
@@ -1801,6 +1960,10 @@
             document.getElementById(
                 'productItemsContainer'
             );
+
+        if (!container) {
+            return;
+        }
 
         const row =
             document.createElement(
@@ -1949,12 +2112,18 @@
                 '[data-product-row]'
             );
 
-        if (rows.length <= 1) {
+        if (
+            rows.length <= 1
+        ) {
 
             const row =
                 button.closest(
                     '[data-product-row]'
                 );
+
+            if (!row) {
+                return;
+            }
 
             row.querySelector(
                 '.product-select'
@@ -1977,9 +2146,14 @@
             return;
         }
 
-        button.closest(
-            '[data-product-row]'
-        ).remove();
+        const row =
+            button.closest(
+                '[data-product-row]'
+            );
+
+        if (row) {
+            row.remove();
+        }
 
         updateProductsTotal();
     }
@@ -1987,11 +2161,18 @@
 
     function updateRatingPreview()
     {
+        const select =
+            document.getElementById(
+                'rating'
+            );
+
+        if (!select) {
+            return;
+        }
+
         const rating =
             parseInt(
-                document.getElementById(
-                    'rating'
-                ).value
+                select.value
             ) || 0;
 
         let stars = '';
@@ -2009,15 +2190,25 @@
 
         }
 
-        document.getElementById(
-            'ratingStars'
-        ).textContent =
-            stars;
+        const ratingStars =
+            document.getElementById(
+                'ratingStars'
+            );
 
-        document.getElementById(
-            'ratingText'
-        ).textContent =
-            rating + '/5';
+        const ratingText =
+            document.getElementById(
+                'ratingText'
+            );
+
+        if (ratingStars) {
+            ratingStars.textContent =
+                stars;
+        }
+
+        if (ratingText) {
+            ratingText.textContent =
+                rating + '/5';
+        }
     }
 
 
@@ -2028,17 +2219,26 @@
                 'stage_id'
             );
 
+        if (!select) {
+            return;
+        }
+
         const option =
             select.options[
                 select.selectedIndex
             ];
 
-        document.getElementById(
-            'stageNamePreview'
-        ).textContent =
-            option
-                ? option.text
-                : '-';
+        const preview =
+            document.getElementById(
+                'stageNamePreview'
+            );
+
+        if (preview) {
+            preview.textContent =
+                option
+                    ? option.text
+                    : '-';
+        }
     }
 
 
@@ -2054,10 +2254,20 @@
                 'revenueError'
             );
 
+        if (
+            !input
+            ||
+            !error
+        ) {
+            return true;
+        }
+
         const value =
             input.value.trim();
 
-        if (value === '') {
+        if (
+            value === ''
+        ) {
 
             input.classList.remove(
                 'input-invalid'
@@ -2104,7 +2314,6 @@
         'input',
         function(event)
         {
-
             if (
                 event.target.classList.contains(
                     'product-quantity'
@@ -2115,148 +2324,161 @@
                 )
             ) {
 
-                event.target.value =
-                    event.target.value.replace(
-                        /[^0-9.]/g,
-                        ''
-                    );
-
                 updateProductSubtotal(
                     event.target
                 );
 
             }
-
         }
     );
-
-
-    document
-        .getElementById(
-            'expected_revenue'
-        )
-        .addEventListener(
-            'input',
-            function()
-            {
-
-                this.value =
-                    this.value.replace(
-                        /[^0-9]/g,
-                        ''
-                    );
-
-                validateRevenue();
-
-            }
-        );
-
-
-    document
-        .getElementById(
-            'opportunityEditForm'
-        )
-        .addEventListener(
-            'submit',
-            function(event)
-            {
-
-                if (
-                    !validateRevenue()
-                ) {
-
-                    event.preventDefault();
-
-                    document
-                        .getElementById(
-                            'expected_revenue'
-                        )
-                        .focus();
-
-                    return;
-                }
-
-
-                document
-                    .querySelectorAll(
-                        '[data-product-row]'
-                    )
-                    .forEach(
-                        function(row)
-                        {
-
-                            const product =
-                                row.querySelector(
-                                    '.product-select'
-                                ).value;
-
-                            const quantity =
-                                row.querySelector(
-                                    '.product-quantity'
-                                ).value;
-
-                            const unitPrice =
-                                row.querySelector(
-                                    '.product-unit-price'
-                                ).value;
-
-                            if (
-                                product === ''
-                                &&
-                                quantity === ''
-                                &&
-                                unitPrice === ''
-                            ) {
-
-                                row.querySelector(
-                                    '.product-select'
-                                ).disabled = true;
-
-                                row.querySelector(
-                                    '.product-quantity'
-                                ).disabled = true;
-
-                                row.querySelector(
-                                    '.product-unit-price'
-                                ).disabled = true;
-
-                            }
-
-                        }
-                    );
-
-
-                const rating =
-                    parseInt(
-                        document.getElementById(
-                            'rating'
-                        ).value
-                    );
-
-                if (
-                    Number.isNaN(rating)
-                    ||
-                    rating < 0
-                    ||
-                    rating > 5
-                ) {
-
-                    event.preventDefault();
-
-                    alert(
-                        'Rating must be between 0 and 5.'
-                    );
-
-                }
-
-            }
-        );
 
 
     document.addEventListener(
         'DOMContentLoaded',
         function()
         {
+            const expectedRevenueInput =
+                document.getElementById(
+                    'expected_revenue'
+                );
+
+            if (
+                expectedRevenueInput
+            ) {
+
+                expectedRevenueInput.addEventListener(
+                    'input',
+                    function()
+                    {
+                        if (
+                            this.readOnly
+                        ) {
+                            return;
+                        }
+
+                        this.value =
+                            this.value.replace(
+                                /[^0-9]/g,
+                                ''
+                            );
+
+                        validateRevenue();
+                    }
+                );
+
+            }
+
+
+            const form =
+                document.getElementById(
+                    'opportunityEditForm'
+                );
+
+            if (
+                form
+            ) {
+
+                form.addEventListener(
+                    'submit',
+                    function(event)
+                    {
+                        updateProductsTotal();
+
+                        if (
+                            !validateRevenue()
+                        ) {
+
+                            event.preventDefault();
+
+                            if (
+                                expectedRevenueInput
+                            ) {
+
+                                expectedRevenueInput.focus();
+
+                            }
+
+                            return;
+                        }
+
+
+                        document
+                            .querySelectorAll(
+                                '[data-product-row]'
+                            )
+                            .forEach(
+                                function(row)
+                                {
+                                    const product =
+                                        row.querySelector(
+                                            '.product-select'
+                                        ).value;
+
+                                    const quantity =
+                                        row.querySelector(
+                                            '.product-quantity'
+                                        ).value;
+
+                                    const unitPrice =
+                                        row.querySelector(
+                                            '.product-unit-price'
+                                        ).value;
+
+                                    if (
+                                        product === ''
+                                        &&
+                                        quantity === ''
+                                        &&
+                                        unitPrice === ''
+                                    ) {
+
+                                        row.querySelector(
+                                            '.product-select'
+                                        ).disabled =
+                                            true;
+
+                                        row.querySelector(
+                                            '.product-quantity'
+                                        ).disabled =
+                                            true;
+
+                                        row.querySelector(
+                                            '.product-unit-price'
+                                        ).disabled =
+                                            true;
+                                    }
+                                }
+                            );
+
+
+                        const rating =
+                            parseInt(
+                                document.getElementById(
+                                    'rating'
+                                ).value
+                            );
+
+                        if (
+                            Number.isNaN(
+                                rating
+                            )
+                            ||
+                            rating < 0
+                            ||
+                            rating > 5
+                        ) {
+
+                            event.preventDefault();
+
+                            alert(
+                                'Rating must be between 0 and 5.'
+                            );
+                        }
+                    }
+                );
+
+            }
+
 
             updateRatingPreview();
 
@@ -2270,7 +2492,6 @@
                 .forEach(
                     function(row)
                     {
-
                         const quantityInput =
                             row.querySelector(
                                 '.product-quantity'
@@ -2283,7 +2504,6 @@
                         updateProductSubtotal(
                             quantityInput
                         );
-
                     }
                 );
 
@@ -2291,18 +2511,24 @@
             updateProductsTotal();
 
 
-            document
-                .getElementById(
+            const stageSelect =
+                document.getElementById(
                     'stage_id'
-                )
-                .addEventListener(
+                );
+
+            if (
+                stageSelect
+            ) {
+
+                stageSelect.addEventListener(
                     'change',
                     updateStagePreview
                 );
 
+            }
         }
     );
 
 </script>
 
-@endsection
+@endsections
